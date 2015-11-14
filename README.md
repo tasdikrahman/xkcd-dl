@@ -2,13 +2,13 @@
 
 Now we geeks look some [xkcd](https://xkcd.com/) and go on from checking the site from time to time to amuze outselfs. 
 
-How about you get to download all of the xkcd which has been uploaded till date? This does just that!
+How about you get to download all of the xkcd which have been uploaded till date? This does just that!
 
 ##Feautures
 
 - Can download all the xkcd's uploaded till date(1603 as I am writing this!).
-- Download individual xkcd and store it
-- Download the latest xkcd 
+- Download individual xkcd's and store them
+- Download the latest issue xkcd 
 - No duplicacy in your XKCD database. 
 - Stores each xckd in a seperate file named as the `title` of the xkcd
 - Writes a `description.txt` for each xkcd. Storing meta-data like 
@@ -19,7 +19,7 @@ How about you get to download all of the xkcd which has been uploaded till date?
 
 ##Usage
 
-
+Will be added soon!
 
 ##To-do
 

@@ -49,6 +49,15 @@ If you are behind a proxy
 
 ![Usage](https://raw.githubusercontent.com/prodicus/xkcd-dl/master/img/usage.gif)
 
+Each Comic is stored in it's own individual folder with a `description.txt` placed in it. It contains meta-data like
+- `img-link`
+- `title` 
+- `date-pulblised`
+
+Here's a little example for the same
+
+![xkcd_archive Structure](https://raw.githubusercontent.com/prodicus/xkcd-dl/master/img/directory_struc.jpg)
+
 ##Usage
 
 When running for the first time, do a `xkcd-dl --update-db`

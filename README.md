@@ -29,7 +29,7 @@ How about you get to download all of the xkcd which have been uploaded till date
 
 ```bash
 $ git clone https://github.com/prodicus/xkcd-dl.git
-$ cd xkcd-dl/xkcd-dl
+$ cd xkcd-dl/
 $ python setup.py install
 ```
 

@@ -43,7 +43,7 @@ Option 1: installing from source
 .. code:: bash
 
     $ git clone https://github.com/prodicus/xkcd-dl.git
-    $ cd xkcd-dl/xkcd-dl
+    $ cd xkcd-dl/
     $ python setup.py install
 
 Option 2: installing through `pip <https://pypi.python.org/pypi/xkcd-dl>`__

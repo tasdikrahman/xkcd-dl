@@ -1,8 +1,10 @@
 ##XKCD-Archiver-cli
 
+`xkcd-cli` is inspired by an awesome package called `youtube-dl` [https://github.com/rg3/youtube-dl/](https://github.com/rg3/youtube-dl/) written by [Daniel Bolton](https://github.com/rg3)(Much respect!)
 
+Now I don't know about you, but I just love reading `xkcd`'s! And So [xkcd-dl](https://github.com/prodicus/xkcd-dl) 
 
-Now we geeks look some [xkcd](https://xkcd.com/) and go on from checking the site from time to time to amuze outselfs. 
+I thought why not create something like that but for downloading `xkcd`'s! 
 
 How about you get to download all of the xkcd which have been uploaded till date? This does just that!
 
@@ -12,7 +14,7 @@ How about you get to download all of the xkcd which have been uploaded till date
 - Download individual xkcd's and store them
 - Download the latest issue xkcd 
 - No duplicacy in your XKCD database. 
-- Stores each xckd in a seperate file named as the `title` of the xkcd
+- Stores each xckd in a seperate file named as the `title` of the xkcd at your home directory
 - Writes a `description.txt` for each xkcd. Storing meta-data like 
     - `date-publised`
     - url value
@@ -21,7 +23,7 @@ How about you get to download all of the xkcd which have been uploaded till date
 
 ##Usage
 
-Will be added soon!
+
 
 ##To-do
 
@@ -29,7 +31,7 @@ Will be added soon!
 - [x] add `xkcd-cli --download=XKCDNUMBER`
 - [x] add `xkcd-cli --download-all`
 - [ ] add `xkcd-cli --start=XKCDNUMBER --end=XKCDNUMBER [--path=/path/to/directory]`
-- [ ]Remove redundant code in `download_xkcd_number()`, `download_latest()` and `download_all()`
+- [ ] Remove redundant code in `download_xkcd_number()`, `download_latest()` and `download_all()`
 
 ##Contributing
 

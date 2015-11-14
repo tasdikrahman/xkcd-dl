@@ -21,11 +21,12 @@ import magic
 import requests
 import json
 import os
+from os.path import expanduser
 
 
 __version__ = '0.0.1'
 
-
+HOME =expanduser("~")       ## is cross platform. 'HOME' stores the path to the home directory for the current user
 BASE_URL = 'http://xkcd.com'
 ARCHIVE_URL='http://xkcd.com/archive/'
 XKCD_DICT = {}      
@@ -86,7 +87,7 @@ def download_latest():
 
         xkcd_url = "{base}/{xkcd_num}".format(base=BASE_URL, xkcd_num=xkcd_number)
 
-        new_folder = 'data/{name}'.format(name=xkcd_number)
+        new_folder = '{home_folder}/xkcd_archive/{name}'.format(home_folder=HOME, name=xkcd_number)
 
         if os.path.exists(new_folder):
             print("xkcd number : '{xkcd}'' has already been downloaded !".format(xkcd=xkcd_number))
@@ -221,7 +222,7 @@ def download_xkcd_number():
 
                 new_description = description.replace(" ","_").replace(":", "_")
 
-                new_folder = 'data/{name}'.format(name=xkcd_number)
+                new_folder = '{home_folder}/xkcd_archive/{name}'.format(home_folder=HOME, name=xkcd_number)
 
                 to_download_single = "{base}/{xkcd_num}/".format(base=BASE_URL, xkcd_num=xkcd_number)
                 print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(
@@ -259,49 +260,49 @@ url = {url}
                         """.format(description=description, date=date, url=to_download_single)
                         f.write(content)
 
-                ######################################
-                ##getting the image link from the page
-                image_page = requests.get(to_download_single, stream=True)
-                if image_page.status_code == 200:
-                    image_page_content = image_page.content
-                    image_page_content_soup = bs4(image_page_content, 'html.parser')
+                    ######################################
+                    ##getting the image link from the page
+                    image_page = requests.get(to_download_single, stream=True)
+                    if image_page.status_code == 200:
+                        image_page_content = image_page.content
+                        image_page_content_soup = bs4(image_page_content, 'html.parser')
 
-                    for data in image_page_content_soup.find_all("div", {"id": "comic"}):
-                        for img_tag in data.find_all('img'):
-                            img_link = img_tag.get('src')
-                    
-                    ## a sample 'img_link' is like '//imgs.xkcd.com/comics/familiar.jpg', so we need to add 
-                    ### 'http:' to it
-                    ## making a request for the image in question
-                    complete_img_url = "http:{url}".format(url=img_link)
+                        for data in image_page_content_soup.find_all("div", {"id": "comic"}):
+                            for img_tag in data.find_all('img'):
+                                img_link = img_tag.get('src')
+                        
+                        ## a sample 'img_link' is like '//imgs.xkcd.com/comics/familiar.jpg', so we need to add 
+                        ### 'http:' to it
+                        ## making a request for the image in question
+                        complete_img_url = "http:{url}".format(url=img_link)
 
-                    ## Approach1 : Was not being saved properly. Showed image size as 0 bytes
-                    ## Ref : http://stackoverflow.com/a/13137873/3834059
-                    # img_link_request = requests.get(complete_img_url)
-                    # if img_link_request.status_code == 200:
-                        # with open('{desc}.jpg'.format(desc= new_description),'wb') as f:
-                        #     img_link_request.raw.decode_content=True       ## for images which are zipped 
-                        #     shutil.copyfileobj(img_link_request.raw, f)
+                        ## Approach1 : Was not being saved properly. Showed image size as 0 bytes
+                        ## Ref : http://stackoverflow.com/a/13137873/3834059
+                        # img_link_request = requests.get(complete_img_url)
+                        # if img_link_request.status_code == 200:
+                            # with open('{desc}.jpg'.format(desc= new_description),'wb') as f:
+                            #     img_link_request.raw.decode_content=True       ## for images which are zipped 
+                            #     shutil.copyfileobj(img_link_request.raw, f)
 
 
-                    ## Approach2 : Using urllib
-                    ##################################
-                    ## now before saving this image, I have to check the image type. Whether it is a 
-                    ## png, jpg, jpeg. Or else it will give me an encoding error when opening the file with
-                    ## the wrong extension type.
+                        ## Approach2 : Using urllib
+                        ##################################
+                        ## now before saving this image, I have to check the image type. Whether it is a 
+                        ## png, jpg, jpeg. Or else it will give me an encoding error when opening the file with
+                        ## the wrong extension type.
 
-                    file_name = "{description}.jpg".format(description=new_description)
-                    urllib.request.urlretrieve(complete_img_url, file_name)
-                    ## now don't be fooled here by the .jpg extension here!
-                    ## You would be surprised to find out that it may have a different file type. PNG for example per se.
+                        file_name = "{description}.jpg".format(description=new_description)
+                        urllib.request.urlretrieve(complete_img_url, file_name)
+                        ## now don't be fooled here by the .jpg extension here!
+                        ## You would be surprised to find out that it may have a different file type. PNG for example per se.
 
-                    ## using module 'python-magic' to detect the mime type of the file downloaded 
-                    magic_response = str(magic.from_file(file_name, mime=True))
-                    if 'png' in magic_response:
-                        os.rename(file_name, "{description}.png".format(description=new_description))
-                    elif 'jpeg' in magic_response:
-                        os.rename(file_name, "{description}.jpeg".format(description=new_description))
-                    ## file storage successful
+                        ## using module 'python-magic' to detect the mime type of the file downloaded 
+                        magic_response = str(magic.from_file(file_name, mime=True))
+                        if 'png' in magic_response:
+                            os.rename(file_name, "{description}.png".format(description=new_description))
+                        elif 'jpeg' in magic_response:
+                            os.rename(file_name, "{description}.jpeg".format(description=new_description))
+                        ## file storage successful
 
             else: 
                 print("{} does not exist! Please try with a different option".format(xkcd_number))

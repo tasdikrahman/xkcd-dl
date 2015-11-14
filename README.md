@@ -23,6 +23,8 @@ How about you get to download all of the xkcd which has been uploaded till date?
 
 ##To-do
 
+- [x] add `xkcd-cli --download-latest`
+- [x] add `xkcd-cli --download=XKCDNUMBER`
 - [ ] add `xkcd-cli --start=XKCDNUMBER --end=XKCDNUMBER [--path=/path/to/directory]`
 - [ ] add `xkcd-cli --download-all`
 

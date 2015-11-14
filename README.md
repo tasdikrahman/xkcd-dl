@@ -6,8 +6,15 @@ How about you get to download all of the xkcd which has been uploaded till date?
 
 ##Feautures
 
-- Can download all the xkcd's uploaded(1603 as I am writing this!).
+- Can download all the xkcd's uploaded till date(1603 as I am writing this!).
+- Download individual xkcd and store it
+- Download the latest xkcd 
+- No duplicacy in your XKCD database. 
 - Stores each xckd in a seperate file named as the `title` of the xkcd
+- Writes a `description.txt` for each xkcd. Storing meta-data like 
+    - `date-publised`
+    - url value
+    - a small description of that xkcd
 - written in `python`. 
 
 ##Usage
@@ -16,7 +23,8 @@ How about you get to download all of the xkcd which has been uploaded till date?
 
 ##To-do
 
-- [ ] 
+- [ ] add `xkcd-cli --start=XKCDNUMBER --end=XKCDNUMBER [--path=/path/to/directory]`
+- [ ] add `xkcd-cli --download-all`
 
 ##Contributing
 

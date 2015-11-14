@@ -38,8 +38,8 @@ DIRECTORY = os.path.dirname(os.path.abspath(__file__))      ## returns the direc
 
 arguments = docopt(__doc__, version=__version__)
 
-#####  --download-all STARTS
 
+#####  --download-all STARTS
 def download_all():
     '''
     Downloads all the XKCD's and stores them in apporopriate folders.

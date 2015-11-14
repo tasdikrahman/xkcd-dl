@@ -13,7 +13,7 @@ finally:
 
 setup(
   name = 'xkcd-dl',
-  version = '0.0.3',
+  version = '0.0.4',
   author = 'Tasdik Rahman',
   author_email = 'tasdik95@gmail.com', 
   description = "cli interface to download a particular or all the xkcd's till date",
@@ -30,11 +30,10 @@ setup(
   ### adding package data to it 
   packages=find_packages(exclude=['contrib', 'docs', 'tests']),
   ###
-  download_url = 'https://github.com/prodicus/xkcd-dl/tarball/0.0.3', 
+  download_url = 'https://github.com/prodicus/xkcd-dl/tarball/0.0.4', 
   classifiers = [
       'Intended Audience :: Developers',
       'Topic :: Software Development :: Build Tools',
-      'Development Status :: 1 - Production/Stable',
       'Environment :: Console',
       'Intended Audience :: Developers',
       'License :: OSI Approved :: MIT License',

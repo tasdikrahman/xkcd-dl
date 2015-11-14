@@ -2,3 +2,8 @@ bin/data/*		## stores the scraped images, you don't want the old crap right ? :D
 bin/data/
 bin/xkcd_dict.json
 
+### pypi specific
+dist/*
+xkcd_dl.egg-info/*
+
+

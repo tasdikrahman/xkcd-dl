@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 
 r'''
-Run `xkcd-cli --update-db` if running for the first time.
+Run `xkcd-dl --update-db` if running for the first time.
 
 Usage:
-  xkcd-cli --update-db
-  xkcd-cli --download-latest
-  xkcd-cli --download=XKCDNUMBER
-  xkcd-cli --download-all
-  xkcd-cli --version
-  xkcd-cli (-h | --help)
+  xkcd-dl --update-db
+  xkcd-dl --download-latest
+  xkcd-dl --download=XKCDNUMBER
+  xkcd-dl --download-all
+  xkcd-dl --version
+  xkcd-dl (-h | --help)
 Options:
   --update-db   Updates dictionary which stores all xkcd's till date
   -h --help     Show this screen
@@ -26,7 +26,7 @@ import os
 from os.path import expanduser
 
 __author__ = "Tasdik Rahman (https://github.com/prodicus)"
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 HOME =expanduser("~")       ## is cross platform. 'HOME' stores the path to the home directory for the current user
 BASE_URL = 'http://xkcd.com'
@@ -47,7 +47,7 @@ def download_all():
     '''
 
     if not os.path.isfile(xkcd_dict_filename):
-        print("XKCD list not created!Run \nxkcd-cli --update-db")
+        print("XKCD list not created!Run \nxkcd-dl --update-db")
     else: 
         ## load the json file
         print("Downloading all xkcd's Till date!!")
@@ -213,7 +213,7 @@ def update_dict():
                 
         with open(xkcd_dict_filename, 'w') as f:
             json.dump(XKCD_DICT, f)
-            print("XKCD link database updated\nStored it in '{file}'. You can start downloading your XKCD's!\nRun 'xkcd-cli --help' for more options".format(file=xkcd_dict_filename))
+            print("XKCD link database updated\nStored it in '{file}'. You can start downloading your XKCD's!\nRun 'xkcd-dl --help' for more options".format(file=xkcd_dict_filename))
 
     else:
         print('Something bad happened!')
@@ -230,7 +230,7 @@ def download_xkcd_number():
     xkcd_number = arguments['--download']
 
     if not os.path.isfile(xkcd_dict_filename):
-        print("XKCD list not created!Run \nxkcd-cli --update-db")
+        print("XKCD list not created!Run \nxkcd-dl --update-db")
     else: 
         ## load the json file
         with open(xkcd_dict_filename, 'r') as f:
@@ -302,7 +302,7 @@ url = {url}
 
 def main():
     '''
-    xkcd-cli is a simple command line utility to download all the xkcd comics till date and store them
+    xkcd-dl is a simple command line utility to download all the xkcd comics till date and store them
     in an orderly fashion
     '''
     if arguments['--update-db']:

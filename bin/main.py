@@ -23,7 +23,7 @@ import json
 import os
 from os.path import expanduser
 
-
+__author__ = "Tasdik Rahman (https://github.com/prodicus)"
 __version__ = '0.0.1'
 
 HOME =expanduser("~")       ## is cross platform. 'HOME' stores the path to the home directory for the current user
@@ -325,6 +325,9 @@ def main():
         download_all()
     elif arguments['-h'] or arguments['--help']:
         print(__doc__)
+    elif arguments['--version'] or arguments['-v']:
+        print(__version__)
+        print(__author__)
     else:
         print(__doc__)
 

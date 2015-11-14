@@ -29,7 +29,7 @@ Will be added soon!
 - [x] add `xkcd-cli --download=XKCDNUMBER`
 - [x] add `xkcd-cli --download-all`
 - [ ] add `xkcd-cli --start=XKCDNUMBER --end=XKCDNUMBER [--path=/path/to/directory]`
-- Remove redundant code in `download_xkcd_number()`, `download_latest()` and `download_all()`
+- [ ]Remove redundant code in `download_xkcd_number()`, `download_latest()` and `download_all()`
 
 ##Contributing
 

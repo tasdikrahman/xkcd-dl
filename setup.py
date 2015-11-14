@@ -21,11 +21,11 @@ setup(
   url = 'https://github.com/prodicus/xkcd-dl', 
   license = 'MIT',
   install_requires = [
-    beautifulsoup4==4.4.1,
-    docopt==0.6.2,
-    python-magic==0.4.10,
-    requests==2.8.1,
-    wheel==0.24.0
+    "beautifulsoup4==4.4.1",
+    "docopt==0.6.2",
+    "python-magic==0.4.10",
+    "requests==2.8.1",
+    "wheel==0.24.0"
   ],
   ### adding package data to it 
   packages=find_packages(exclude=['contrib', 'docs', 'tests']),

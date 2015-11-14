@@ -25,7 +25,7 @@ How about you get to download all of the xkcd which have been uploaded till date
 
 ##Installation
 
-##Option 1: installing from source
+####Option 1: installing from source
 
 ```bash
 $ git clone https://github.com/prodicus/xkcd-dl.git
@@ -33,7 +33,7 @@ $ cd xkcd-dl/xkcd-dl
 $ python setup.py install
 ```
 
-##Option 2: installing through [pip](https://pypi.python.org/pypi/xkcd-dl)
+####Option 2: installing through [pip](https://pypi.python.org/pypi/xkcd-dl)
 
 [pypi package link](https://pypi.python.org/pypi/xkcd-dl)
 
@@ -46,7 +46,7 @@ If you are behind a proxy
 
 ##Demo
 
-![Usage](https://raw.githubusercontent.com/prodicus/pyzipcode-cli/master/usage.gif)
+![Usage](https://raw.githubusercontent.com/prodicus/xkcd-dl/master/img/usage.gif)
 
 ##Usage
 

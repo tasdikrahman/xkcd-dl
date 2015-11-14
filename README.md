@@ -52,7 +52,7 @@ If you are behind a proxy
 Each Comic is stored in it's own individual folder with a `description.txt` placed in it. It contains meta-data like
 - `img-link`
 - `title` 
-- `date-pulblised`
+- `date-pulblished`
 
 Here's a little example for the same
 
@@ -139,6 +139,7 @@ $
 - [x] add `xkcd-dl --download-all`
 - [ ] add `xkcd-dl --start=XKCDNUMBER --end=XKCDNUMBER [--path=/path/to/directory]`
 - [ ] Remove redundant code in `download_xkcd_number()`, `download_latest()` and `download_all()`
+- [ ] Adding support to open a particular xkcd at the CLI itself. (Thinking of using [img2txt](https://github.com/hit9/img2txt) for that)
 
 ##Contributing
 

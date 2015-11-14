@@ -4,11 +4,12 @@
 
 `xkcd-cli` is inspired by an awesome package called `youtube-dl` [https://github.com/rg3/youtube-dl/](https://github.com/rg3/youtube-dl/) written by [Daniel Bolton](https://github.com/rg3)(Much respect!)
 
-Now I don't know about you, but I just love reading `xkcd`'s! And So [xkcd-dl](https://github.com/prodicus/xkcd-dl) 
-
-I thought why not create something like that but for downloading `xkcd`'s! 
-
 How about you get to download all of the xkcd which have been uploaded till date? This does just that!
+
+Now I don't know about you, but I just love reading `xkcd`'s! I thought why not create something like `youtube-dl` but for downloading `xkcd`'s!
+
+And hence [xkcd-dl](https://github.com/prodicus/xkcd-dl)  
+
 
 ##Feautures
 

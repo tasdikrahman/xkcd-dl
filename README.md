@@ -26,15 +26,7 @@ And hence [xkcd-dl](https://github.com/prodicus/xkcd-dl)
 
 ##Installation
 
-####Option 1: installing from source
-
-```bash
-$ git clone https://github.com/prodicus/xkcd-dl.git
-$ cd xkcd-dl/
-$ python setup.py install
-```
-
-####Option 2: installing through [pip](https://pypi.python.org/pypi/xkcd-dl)
+####Option 1: installing through [pip](https://pypi.python.org/pypi/xkcd-dl)
 
 [pypi package link](https://pypi.python.org/pypi/xkcd-dl)
 
@@ -43,6 +35,15 @@ $ python setup.py install
 If you are behind a proxy
 
 `$ pip --proxy [username:password@]domain_name:port install xkcd-dl`
+
+####Option 2: installing from source
+
+```bash
+$ git clone https://github.com/prodicus/xkcd-dl.git
+$ cd xkcd-dl/
+$ python setup.py install
+```
+
 
 
 ##Demo

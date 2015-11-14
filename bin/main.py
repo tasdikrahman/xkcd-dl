@@ -60,8 +60,9 @@ def download_all():
             ## getting all the keys 
             all_keys = json_content.keys()
             for xkcd_number in all_keys:
-                if xkcd_number == '1462':      ## some issue downloading for #1462, will have to look into it
-                    continue        
+                ## Nothing wrong with #1462. Ran it again and was successfully saved!
+                # if xkcd_number == '1462':      ## some issue downloading for #1462, will have to look into it
+                #     continue        
                 description = json_content[xkcd_number]['description']
                 date_published=json_content[xkcd_number]['date-published']
 

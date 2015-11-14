@@ -2,7 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/xkcd-dl.svg)](https://badge.fury.io/py/xkcd-dl) [![License](https://img.shields.io/pypi/l/xkcd-dl.svg)](https://img.shields.io/pypi/l/xkcd-dl.svg)
 
-`xkcd-cli` is inspired by an awesome package called `youtube-dl` [https://github.com/rg3/youtube-dl/](https://github.com/rg3/youtube-dl/) written by [Daniel Bolton](https://github.com/rg3)(Much respect!)
+`xkcd-dl` is inspired by an awesome package called `youtube-dl` [https://github.com/rg3/youtube-dl/](https://github.com/rg3/youtube-dl/) written by [Daniel Bolton](https://github.com/rg3)(Much respect!)
 
 How about you get to download all of the xkcd which have been uploaded till date? This does just that!
 
@@ -117,7 +117,7 @@ Usage:
   xkcd-dl --version
   xkcd-dl (-h | --help)
 Options:
-  --update-db   Updates dictionary which stores all xkcd's till date
+  --update-db   Updates dictionary which stores all xkcd"s till date
   -h --help     Show this screen
   -v --version  Show version 
 $
@@ -125,10 +125,10 @@ $
 
 ##To-do
 
-- [x] add `xkcd-cli --download-latest`
-- [x] add `xkcd-cli --download=XKCDNUMBER`
-- [x] add `xkcd-cli --download-all`
-- [ ] add `xkcd-cli --start=XKCDNUMBER --end=XKCDNUMBER [--path=/path/to/directory]`
+- [x] add `xkcd-dl --download-latest`
+- [x] add `xkcd-dl --download=XKCDNUMBER`
+- [x] add `xkcd-dl --download-all`
+- [ ] add `xkcd-dl --start=XKCDNUMBER --end=XKCDNUMBER [--path=/path/to/directory]`
 - [ ] Remove redundant code in `download_xkcd_number()`, `download_latest()` and `download_all()`
 
 ##Contributing

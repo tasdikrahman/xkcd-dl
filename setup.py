@@ -13,7 +13,7 @@ finally:
 
 setup(
   name = 'xkcd-dl',
-  version = '0.0.1',
+  version = '0.0.2',
   author = 'Tasdik Rahman',
   author_email = 'tasdik95@gmail.com', 
   description = "cli interface to download a particular or all the xkcd's till date",

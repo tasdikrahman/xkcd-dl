@@ -43,7 +43,7 @@ def download_all():
     Downloads all the XKCD's and stores them in apporopriate folders.
     If an XKCD has been already downloaded. It skips it!
     '''
-    pass
+    
 
 #####  --download-all ENDS
 

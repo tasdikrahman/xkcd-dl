@@ -60,19 +60,6 @@ def download_all():
             ## getting all the keys 
             all_keys = json_content.keys()
             for xkcd_number in all_keys:
-                """
-                >>>print("{xkcd} : {desc} : {date_published}".format(
-                    xkcd=xkcd_number,
-                    desc=json_content[xkcd_number]['description'],
-                    date_published=json_content[xkcd_number]['date-published'],
-                    )
-                )
-                ....
-                1381 : Margin : 2014-6-13
-                1020 : Orion Nebula : 2012-2-22
-                ....
-                >>>
-                """
                 if xkcd_number == '1462':      ## some issue downloading for #1462, will have to look into it
                     continue        
                 description = json_content[xkcd_number]['description']
@@ -112,9 +99,6 @@ url = {url}
                             for img_tag in data.find_all('img'):
                                 img_link = img_tag.get('src')
                         
-                        ## a sample 'img_link' is like '//imgs.xkcd.com/comics/familiar.jpg', so we need to add 
-                        ### 'http:' to it
-                        ## making a request for the image in question
                         complete_img_url = "http:{url}".format(url=img_link)
 
                         file_name = "{description}.jpg".format(description=new_description)
@@ -137,27 +121,9 @@ def download_latest():
     url = 'https://www.xkcd.com/info.0.json'
     response = requests.get(url)
     if response.status_code == 200:
-        ## Approach 1 : 
-        # response_content = str(response.json()) 
-        # json_data = json.dumps(response_content)
-        """
-        >>>print(type(json_data))
-        <class 'str'>
-        >>>print(json_data['num'])
-        TypeError: string indices must be integers
-        """
-        ## Approach 2:
-        ## Note : response.json() returns a dict object
         response_content = response.json()
-        """
-        >>>print(type(response_content))
-        <class 'dict'>
-        """
+
         xkcd_number = response_content['num']
-        """
-        >>>print(xkcd_number)
-        1603
-        """
         mon = response_content['month']
         year = response_content['year']
         date = response_content['day']
@@ -243,30 +209,9 @@ def update_dict():
                 href = alinks.get('href').strip("/")   ## the href stored is in form of eg: "/3/". So make it of form "3"
                 date = alinks.get('title')
                 description = alinks.contents[0]       
-
-                ## cleaning description
-                # description_1 = description.translate(None, "!@#$&*()+=~<>")
                 make_keyvalue_list(href, date, description) 
                 
-                """>>>pprint(XKCD_DICT)
-                {1: ['2006-1-1', 'Barrel - Part 1'],
-                 2: ['2006-1-1', 'Petit Trees (sketch)'],
-                 ......
-                 ......
-                 1603: ['2015-11-13', 'Flashlights']}
-                """
-
-        ## making a file in the current directory to store the dictionary in for later reference
-        ## Will always update the dictionary file, even if the file exists. Will over-write for the 
-        ## newest content
         with open(xkcd_dict_filename, 'w') as f:
-            # f.write(str(XKCD_DICT))       ## will give error, as JSON wants double quotes instead of the single quotes which this
-            ## method provides
-
-            ## Making the JSON object and wrtintg it to "xkcd_dict.json"
-            ## Reference : http://stackoverflow.com/a/23110401/3834059
-
-            # json_data = json.dumps(XKCD_DICT)
             json.dump(XKCD_DICT, f)
             print("XKCD link database updated\nStored it in '{file}'. You can start downloading your XKCD's!\nRun 'xkcd-cli --help' for more options".format(file=xkcd_dict_filename))
 
@@ -291,12 +236,7 @@ def download_xkcd_number():
         with open(xkcd_dict_filename, 'r') as f:
             file_content = f.readline()
             json_content = json.loads(file_content)
-            ## converting this to a dictionary  
-            
-            # print(json.dumps(json_content))       #FOR TESTING PURPOSE
-            ## above print displays the whole of the JSON file
 
-            ## checking if the requested xkcd exists in the keys 
             if xkcd_number in json_content:
                 date=json_content[xkcd_number]['date-published']
                 description=json_content[xkcd_number]['description']
@@ -311,22 +251,6 @@ def download_xkcd_number():
                     path=new_folder
                     )
                 )
-                # print("XKCD number : {key} \ndate published : {date} \ndescription : {description} ".format(
-                #         key=xkcd_number,
-                #         date=json_content[xkcd_number]['date-published'],
-                #         description=json_content[xkcd_number]['description']
-                #      )
-                # )
-
-                '''
-                TO-DO : Make an api for this print
-                >>>xkcd-cli --download=3
-                XKCD number : 3 
-                date published : 2006-1-1 
-                description : Island (sketch) 
-                >>>
-
-                '''
                 ## check if file already exists! i.e xkcd has been downloaded
                 if os.path.exists(new_folder):
                     print("xkcd  number '{num}' has already been downloaded!".format(num=xkcd_number))
@@ -356,21 +280,6 @@ url = {url}
                         ### 'http:' to it
                         ## making a request for the image in question
                         complete_img_url = "http:{url}".format(url=img_link)
-
-                        ## Approach1 : Was not being saved properly. Showed image size as 0 bytes
-                        ## Ref : http://stackoverflow.com/a/13137873/3834059
-                        # img_link_request = requests.get(complete_img_url)
-                        # if img_link_request.status_code == 200:
-                            # with open('{desc}.jpg'.format(desc= new_description),'wb') as f:
-                            #     img_link_request.raw.decode_content=True       ## for images which are zipped 
-                            #     shutil.copyfileobj(img_link_request.raw, f)
-
-
-                        ## Approach2 : Using urllib
-                        ##################################
-                        ## now before saving this image, I have to check the image type. Whether it is a 
-                        ## png, jpg, jpeg. Or else it will give me an encoding error when opening the file with
-                        ## the wrong extension type.
 
                         file_name = "{description}.jpg".format(description=new_description)
                         urllib.request.urlretrieve(complete_img_url, file_name)

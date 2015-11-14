@@ -1,5 +1,7 @@
 ##XKCD-Archiver-cli
 
+
+
 Now we geeks look some [xkcd](https://xkcd.com/) and go on from checking the site from time to time to amuze outselfs. 
 
 How about you get to download all of the xkcd which have been uploaded till date? This does just that!
@@ -25,8 +27,9 @@ Will be added soon!
 
 - [x] add `xkcd-cli --download-latest`
 - [x] add `xkcd-cli --download=XKCDNUMBER`
+- [x] add `xkcd-cli --download-all`
 - [ ] add `xkcd-cli --start=XKCDNUMBER --end=XKCDNUMBER [--path=/path/to/directory]`
-- [ ] add `xkcd-cli --download-all`
+- Remove redundant code in `download_xkcd_number()`, `download_latest()` and `download_all()`
 
 ##Contributing
 

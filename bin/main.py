@@ -26,7 +26,7 @@ import os
 from os.path import expanduser
 
 __author__ = "Tasdik Rahman (https://github.com/prodicus)"
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 
 HOME =expanduser("~")       ## is cross platform. 'HOME' stores the path to the home directory for the current user
 BASE_URL = 'http://xkcd.com'

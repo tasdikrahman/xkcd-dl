@@ -32,6 +32,8 @@ And hence [xkcd-dl](https://github.com/prodicus/xkcd-dl)
 
 `$ pip install xkcd-dl`
 
+For `python2.*`. Use this instead `python3 -m pip install xkcd-dl`
+
 If you are behind a proxy
 
 `$ pip --proxy [username:password@]domain_name:port install xkcd-dl`

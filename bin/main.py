@@ -71,7 +71,7 @@ def download_all():
 
                 xkcd_url = "{base}/{xkcd_num}".format(base=BASE_URL, xkcd_num=xkcd_number)
                 new_folder = '{home_folder}/xkcd_archive/{name}'.format(home_folder=HOME, name=xkcd_number)
-                new_description = sanitize_filename(description)
+                new_description = sanitize_description(description)
 
                 print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(
                     img_url=xkcd_url, 

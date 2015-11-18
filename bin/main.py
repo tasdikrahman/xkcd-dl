@@ -40,6 +40,9 @@ arguments = docopt(__doc__, version=__version__)
 
 #####  --download-all STARTS
 
+def sanitize_description(desc):
+    return ''.join([i for i in desc if i.isdigit() or i.isalpha()])
+
 def download_all():
     '''
     Downloads all the XKCD's and stores them in apporopriate folders.
@@ -68,7 +71,7 @@ def download_all():
 
                 xkcd_url = "{base}/{xkcd_num}".format(base=BASE_URL, xkcd_num=xkcd_number)
                 new_folder = '{home_folder}/xkcd_archive/{name}'.format(home_folder=HOME, name=xkcd_number)
-                new_description = description.replace(" ","_").replace(":", "_")
+                new_description = sanitize_description(description)
 
                 print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(
                     img_url=xkcd_url, 
@@ -242,7 +245,7 @@ def download_xkcd_number():
                 date=json_content[xkcd_number]['date-published']
                 description=json_content[xkcd_number]['description']
 
-                new_description = description.replace(" ","_").replace(":", "_")
+                new_description = sanitize_description(description)
 
                 new_folder = '{home_folder}/xkcd_archive/{name}'.format(home_folder=HOME, name=xkcd_number)
 

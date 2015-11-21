@@ -1,6 +1,7 @@
 bin/data/*		## stores the scraped images, you don't want the old crap right ? :D
 bin/data/
 bin/xkcd_dict.json
+README.md       ## as I added the .rst file for pypi. Let there be one README
 
 ### pypi specific
 dist/*

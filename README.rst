@@ -3,7 +3,7 @@ XKCD-Archiver-cli
 
 |PyPI version| |License|
 
-``xkcd-cli`` is inspired by an awesome package called ``youtube-dl``
+``xkcd-dl`` is inspired by an awesome package called ``youtube-dl``
 https://github.com/rg3/youtube-dl/ written by `Daniel
 Bolton <https://github.com/rg3>`__\ (Much respect!)
 
@@ -37,25 +37,35 @@ Feautures
 Installation
 ============
 
-Option 1: installing from source
---------------------------------
-
-.. code:: bash
-
-    $ git clone https://github.com/prodicus/xkcd-dl.git
-    $ cd xkcd-dl/
-    $ python setup.py install
-
-Option 2: installing through `pip <https://pypi.python.org/pypi/xkcd-dl>`__
+Option 1: installing through `pip <https://pypi.python.org/pypi/xkcd-dl>`__
 ---------------------------------------------------------------------------
 
 `pypi package link <https://pypi.python.org/pypi/xkcd-dl>`__
 
 ``$ pip install xkcd-dl``
 
+For ``python2.*``. Use this instead ``python3 -m pip install xkcd-dl``
+
 If you are behind a proxy
 
 ``$ pip --proxy [username:password@]domain_name:port install xkcd-dl``
+
+Option 2: installing from source
+--------------------------------
+
+.. code:: bash
+
+    $ git clone https://github.com/prodicus/xkcd-dl.git
+    $ cd xkcd-dl/
+    $ pip install -r requirements.txt
+    $ python setup.py install
+
+For ``Arch`` distributions
+--------------------------
+
+Here is the ``AUR`` link for you
+
+-  ``https://aur4.archlinux.org/packages/xkcd-dl-git/``
 
 Demo
 ====
@@ -64,6 +74,17 @@ Demo
    :alt: Usage
 
    Usage
+
+Each Comic is stored in it's own individual folder with a
+``description.txt`` placed in it. It contains meta-data like -
+``img-link`` - ``title`` - ``date-pulblished``
+
+Here's a little example for the same
+
+.. figure:: https://raw.githubusercontent.com/prodicus/xkcd-dl/master/img/directory_struc.jpg
+   :alt: xkcd\_archive Structure
+
+   xkcd\_archive Structure
 
 Usage
 =====
@@ -142,7 +163,7 @@ Help menu:
       xkcd-dl --version
       xkcd-dl (-h | --help)
     Options:
-      --update-db   Updates dictionary which stores all xkcd's till date
+      --update-db   Updates dictionary which stores all xkcd"s till date
       -h --help     Show this screen
       -v --version  Show version 
     $
@@ -150,13 +171,16 @@ Help menu:
 To-do
 =====
 
--  [x] add ``xkcd-cli --download-latest``
--  [x] add ``xkcd-cli --download=XKCDNUMBER``
--  [x] add ``xkcd-cli --download-all``
+-  [x] add ``xkcd-dl --download-latest``
+-  [x] add ``xkcd-dl --download=XKCDNUMBER``
+-  [x] add ``xkcd-dl --download-all``
 -  [ ] add
-   ``xkcd-cli --start=XKCDNUMBER --end=XKCDNUMBER [--path=/path/to/directory]``
+   ``xkcd-dl --start=XKCDNUMBER --end=XKCDNUMBER [--path=/path/to/directory]``
 -  [ ] Remove redundant code in ``download_xkcd_number()``,
    ``download_latest()`` and ``download_all()``
+-  [ ] Adding support to open a particular xkcd at the CLI itself.
+   (Thinking of using `img2txt <https://github.com/hit9/img2txt>`__ for
+   that)
 
 Contributing
 ============

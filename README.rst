@@ -16,6 +16,20 @@ thought why not create something like ``youtube-dl`` but for downloading
 
 And hence `xkcd-dl <https://github.com/prodicus/xkcd-dl>`__
 
+-  `Feautures <https://github.com/prodicus/xkcd-dl#feautures>`__
+-  `Installation <https://github.com/prodicus/xkcd-dl#installation>`__
+-  `pip <https://github.com/prodicus/xkcd-dl#option-1-installing-through-pip>`__
+-  `setup.py <https://github.com/prodicus/xkcd-dl#option-2-installing-from-source>`__
+-  `For Arch
+   distributions <https://github.com/prodicus/xkcd-dl#for-arch-distributions>`__
+-  `Demo <https://github.com/prodicus/xkcd-dl#demo>`__
+-  `Usage <https://github.com/prodicus/xkcd-dl#usage>`__
+-  `Help menu <https://github.com/prodicus/xkcd-dl#help-menu>`__
+-  `To do <https://github.com/prodicus/xkcd-dl#to-do>`__
+-  `Contributing <https://github.com/prodicus/xkcd-dl#contributing>`__
+-  `Report Bugs <https://github.com/prodicus/xkcd-dl#bugs>`__
+-  `License <https://github.com/prodicus/xkcd-dl#license>`__
+
 Feautures
 =========
 

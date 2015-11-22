@@ -18,13 +18,17 @@ And hence `xkcd-dl <https://github.com/prodicus/xkcd-dl>`__
 
 -  `Feautures <https://github.com/prodicus/xkcd-dl#feautures>`__
 -  `Installation <https://github.com/prodicus/xkcd-dl#installation>`__
--  `pip <https://github.com/prodicus/xkcd-dl#option-1-installing-through-pip>`__
--  `setup.py <https://github.com/prodicus/xkcd-dl#option-2-installing-from-source>`__
--  `For Arch
-   distributions <https://github.com/prodicus/xkcd-dl#for-arch-distributions>`__
+
+   -  `pip <https://github.com/prodicus/xkcd-dl#option-1-installing-through-pip>`__
+   -  `setup.py <https://github.com/prodicus/xkcd-dl#option-2-installing-from-source>`__
+   -  `For Arch
+      distributions <https://github.com/prodicus/xkcd-dl#for-arch-distributions>`__
+
 -  `Demo <https://github.com/prodicus/xkcd-dl#demo>`__
--  `Usage <https://github.com/prodicus/xkcd-dl#usage>`__
--  `Help menu <https://github.com/prodicus/xkcd-dl#help-menu>`__
+
+   -  `Usage <https://github.com/prodicus/xkcd-dl#usage>`__
+   -  `Help menu <https://github.com/prodicus/xkcd-dl#help-menu>`__
+
 -  `To do <https://github.com/prodicus/xkcd-dl#to-do>`__
 -  `Contributing <https://github.com/prodicus/xkcd-dl#contributing>`__
 -  `Report Bugs <https://github.com/prodicus/xkcd-dl#bugs>`__
@@ -51,14 +55,14 @@ Feautures
 Installation
 ============
 
-Option 1: installing through `pip <https://pypi.python.org/pypi/xkcd-dl>`__
----------------------------------------------------------------------------
+Option 1: installing through `pip <https://pypi.python.org/pypi/xkcd-dl>`__ (Suggested way)
+-------------------------------------------------------------------------------------------
 
 `pypi package link <https://pypi.python.org/pypi/xkcd-dl>`__
 
 ``$ pip install xkcd-dl``
 
-For ``python2.*``. Use this instead ``python3 -m pip install xkcd-dl``
+For ``python2.*`` users. Use this instead ``$ python3 -m pip install xkcd-dl``
 
 If you are behind a proxy
 
@@ -80,6 +84,11 @@ For ``Arch`` distributions
 Here is the ``AUR`` link for you
 
 -  ``https://aur4.archlinux.org/packages/xkcd-dl-git/``
+
+Uninstalling
+============
+
+``$ pip uninstall xkcd-dl``
 
 Demo
 ====

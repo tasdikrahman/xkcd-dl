@@ -60,13 +60,14 @@ Option 1: installing through `pip <https://pypi.python.org/pypi/xkcd-dl>`__ (Sug
 
 `pypi package link <https://pypi.python.org/pypi/xkcd-dl>`__
 
-``$ pip install xkcd-dl``
+``$ pip3 install xkcd-dl``
 
-For ``python2.*``. Use this instead ``$ python3 -m pip install xkcd-dl``
+For ``python2.*`` users. Use this instead
+``$ python3 -m pip install xkcd-dl``
 
 If you are behind a proxy
 
-``$ pip --proxy [username:password@]domain_name:port install xkcd-dl``
+``$ pip3 --proxy [username:password@]domain_name:port install xkcd-dl``
 
 Option 2: installing from source
 --------------------------------
@@ -76,7 +77,12 @@ Option 2: installing from source
     $ git clone https://github.com/prodicus/xkcd-dl.git
     $ cd xkcd-dl/
     $ pip install -r requirements.txt
-    $ python setup.py install
+    $ python3 setup.py install
+
+Uninstalling
+------------
+
+``$ pip uninstall xkcd-dl``
 
 For ``Arch`` distributions
 --------------------------
@@ -190,6 +196,29 @@ Help menu:
       -h --help     Show this screen
       -v --version  Show version 
     $
+
+Issues
+======
+
+-  There have been issues when installed from source if you are using
+   ``python 2.*`` as discussed in
+   `#5 <https://github.com/prodicus/xkcd-dl/issues/5#issuecomment-159868497>`__.
+   So using ``python3.*`` is suggested.
+
+Contributors
+============
+
+-  Author - `Tasdik Rahman <https://github.com/prodicus>`__
+-  Big shout out to
+
+   -  `Ian C <https://github.com/GrappigPanda>`__ for fixing
+      `#2 <https://github.com/prodicus/xkcd-dl/issues/2>`__
+   -  `BlitzKraft <https://github.com/BlitzKraft>`__ for pointing out a
+      bug which stopped the download if a title of a comic had a special
+      character in it.
+   -  `Braden Best <https://github.com/bradenbest>`__ for pointing out
+      the issues when installing from source and apart from his valuable
+      input.
 
 To-do
 =====

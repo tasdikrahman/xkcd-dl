@@ -20,7 +20,7 @@ And hence `xkcd-dl <https://github.com/prodicus/xkcd-dl>`__
 -  `Installation <https://github.com/prodicus/xkcd-dl#installation>`__
 
    -  `pip <https://github.com/prodicus/xkcd-dl#option-1-installing-through-pip-suggested-way>`__
-   -  `installin from
+   -  `installing from
       source <https://github.com/prodicus/xkcd-dl#option-2-installing-from-source>`__
    -  `For Arch
       distributions <https://github.com/prodicus/xkcd-dl#for-arch-distributions>`__

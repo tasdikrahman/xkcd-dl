@@ -211,11 +211,11 @@ Contributors
 -  Author - `Tasdik Rahman <https://github.com/prodicus>`__
 -  Big shout out to
 
-   -  `Ian C <https://github.com/GrappigPanda>`__ for fixing
-      `#2 <https://github.com/prodicus/xkcd-dl/issues/2>`__
-   -  `BlitzKraft <https://github.com/BlitzKraft>`__ for pointing out a
-      bug which stopped the download if a title of a comic had a special
-      character in it.
+   -  `Ian C <https://github.com/GrappigPanda>`__ for fixing issue
+      `#2 <https://github.com/prodicus/xkcd-dl/issues/2>`__ which
+      stopped the download if a title of a comic had a special character
+      in it and `BlitzKraft <https://github.com/BlitzKraft>`__ for
+      pointing it out.
    -  `Braden Best <https://github.com/bradenbest>`__ for pointing out
       the issues when installing from source and apart from his valuable
       input.

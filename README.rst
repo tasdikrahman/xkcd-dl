@@ -76,25 +76,20 @@ Option 2: installing from source
 
     $ git clone https://github.com/prodicus/xkcd-dl.git
     $ cd xkcd-dl/
-    $ pip install -r requirements.txt
+    $ pip3 install -r requirements.txt
     $ python3 setup.py install
 
 Uninstalling
 ------------
 
-``$ pip uninstall xkcd-dl``
+``$ pip3 uninstall xkcd-dl``
 
 For ``Arch`` distributions
 --------------------------
 
 Here is the ``AUR`` link for you
 
--  ``https://aur4.archlinux.org/packages/xkcd-dl-git/``
-
-Uninstalling
-============
-
-``$ pip uninstall xkcd-dl``
+-  `Arch package <https://aur4.archlinux.org/packages/xkcd-dl-git/>`__
 
 Demo
 ====

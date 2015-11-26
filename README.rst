@@ -62,7 +62,7 @@ Option 1: installing through `pip <https://pypi.python.org/pypi/xkcd-dl>`__ (Sug
 
 ``$ pip install xkcd-dl``
 
-For ``python2.*`` users. Use this instead ``$ python3 -m pip install xkcd-dl``
+For ``python2.*``. Use this instead ``$ python3 -m pip install xkcd-dl``
 
 If you are behind a proxy
 

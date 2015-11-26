@@ -19,8 +19,9 @@ And hence `xkcd-dl <https://github.com/prodicus/xkcd-dl>`__
 -  `Feautures <https://github.com/prodicus/xkcd-dl#feautures>`__
 -  `Installation <https://github.com/prodicus/xkcd-dl#installation>`__
 
-   -  `pip <https://github.com/prodicus/xkcd-dl#option-1-installing-through-pip>`__
-   -  `setup.py <https://github.com/prodicus/xkcd-dl#option-2-installing-from-source>`__
+   -  `pip <https://github.com/prodicus/xkcd-dl#option-1-installing-through-pip-suggested-way>`__
+   -  `installin from
+      source <https://github.com/prodicus/xkcd-dl#option-2-installing-from-source>`__
    -  `For Arch
       distributions <https://github.com/prodicus/xkcd-dl#for-arch-distributions>`__
 
@@ -205,7 +206,12 @@ Issues
    you don't have ``pip3`` installed.
    ``$ sudo apt-get install python3-pip`` should fix that. To check your
    version of pip
-   ``bash $ pip3 --version pip 1.5.6 from /usr/lib/python3/dist-packages (python 3.4) $``
+
+.. code:: bash
+
+    $ pip3 --version
+    pip 1.5.6 from /usr/lib/python3/dist-packages (python 3.4)
+    $ 
 
 Contributors
 ============

@@ -29,6 +29,8 @@ And hence `xkcd-dl <https://github.com/prodicus/xkcd-dl>`__
    -  `Usage <https://github.com/prodicus/xkcd-dl#usage>`__
    -  `Help menu <https://github.com/prodicus/xkcd-dl#help-menu>`__
 
+-  `Issues <https://github.com/prodicus/xkcd-dl#issues>`__
+-  `Contributers <https://github.com/prodicus/xkcd-dl#contributers>`__
 -  `To do <https://github.com/prodicus/xkcd-dl#to-do>`__
 -  `Contributing <https://github.com/prodicus/xkcd-dl#contributing>`__
 -  `Report Bugs <https://github.com/prodicus/xkcd-dl#bugs>`__
@@ -62,12 +64,12 @@ Option 1: installing through `pip <https://pypi.python.org/pypi/xkcd-dl>`__ (Sug
 
 ``$ pip3 install xkcd-dl``
 
-For ``python2.*`` users. Use this instead
-``$ python3 -m pip install xkcd-dl``
-
 If you are behind a proxy
 
 ``$ pip3 --proxy [username:password@]domain_name:port install xkcd-dl``
+
+**Note:** If you get ``command not found`` then
+``$ sudo apt-get install python3-pip`` should fix that
 
 Option 2: installing from source
 --------------------------------
@@ -199,6 +201,11 @@ Issues
    ``python 2.*`` as discussed in
    `#5 <https://github.com/prodicus/xkcd-dl/issues/5#issuecomment-159868497>`__.
    So using ``python3.*`` is suggested.
+-  If you get ``command not found`` when installing, it may mean that
+   you don't have ``pip3`` installed.
+   ``$ sudo apt-get install python3-pip`` should fix that. To check your
+   version of pip
+   ``bash $ pip3 --version pip 1.5.6 from /usr/lib/python3/dist-packages (python 3.4) $``
 
 Contributors
 ============
@@ -212,7 +219,7 @@ Contributors
       in it and `BlitzKraft <https://github.com/BlitzKraft>`__ for
       pointing it out.
    -  `Braden Best <https://github.com/bradenbest>`__ for pointing out
-      the issues when installing from source and apart from his valuable
+      the issues when installing from source apart from his valuable
       input.
 
 To-do

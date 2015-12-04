@@ -16,7 +16,7 @@ thought why not create something like ``youtube-dl`` but for downloading
 
 And hence `xkcd-dl <https://github.com/prodicus/xkcd-dl>`__
 
--  `Feautures <https://github.com/prodicus/xkcd-dl#feautures>`__
+-  `Features <https://github.com/prodicus/xkcd-dl#feautures>`__
 -  `Installation <https://github.com/prodicus/xkcd-dl#installation>`__
 
    -  `pip <https://github.com/prodicus/xkcd-dl#option-1-installing-through-pip-suggested-way>`__
@@ -37,7 +37,7 @@ And hence `xkcd-dl <https://github.com/prodicus/xkcd-dl>`__
 -  `Report Bugs <https://github.com/prodicus/xkcd-dl#bugs>`__
 -  `License <https://github.com/prodicus/xkcd-dl#license>`__
 
-Feautures
+Features
 =========
 
 -  Can download all the xkcd's uploaded till date(1603 as I am writing
@@ -45,7 +45,7 @@ Feautures
 -  Download individual xkcd's and store them
 -  Download the latest issue xkcd
 -  No duplicacy in your XKCD database.
--  Stores each xckd in a seperate file named as the ``title`` of the
+-  Stores each xkcd in a separate file named as the ``title`` of the
    xkcd at your home directory
 -  Writes a ``description.txt`` for each xkcd. Storing meta-data like
 
@@ -104,7 +104,7 @@ Demo
 
 Each Comic is stored in it's own individual folder with a
 ``description.txt`` placed in it. It contains meta-data like -
-``img-link`` - ``title`` - ``date-pulblished``
+``img-link`` - ``title`` - ``date-published``
 
 Here's a little example for the same
 

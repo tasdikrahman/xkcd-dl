@@ -24,6 +24,7 @@ import requests
 import json
 import os
 from os.path import expanduser
+from os import getcwd
 
 __author__ = "Tasdik Rahman (https://github.com/prodicus)"
 __version__ = '0.0.5'
@@ -32,16 +33,17 @@ HOME =expanduser("~")       ## is cross platform. 'HOME' stores the path to the 
 BASE_URL = 'http://xkcd.com'
 ARCHIVE_URL='http://xkcd.com/archive/'
 XKCD_DICT = {}      
-xkcd_dict_filename = 'xkcd_dict.json'
-DIRECTORY = os.path.dirname(os.path.abspath(__file__))      ## returns the directory of this script
-
+xkcd_dict_filename = '.xkcd_dict.json'
+xkcd_dict_location = HOME + '/' + xkcd_dict_filename
+SCRIPT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))       ## returns the directory of this script
+WORKING_DIRECTORY = os.getcwd()         ##returns the directory the terminal is currently in
 
 arguments = docopt(__doc__, version=__version__)
 
-#####  --download-all STARTS
-
 def sanitize_description(desc):
-    return ''.join([i for i in desc if i.isdigit() or i.isalpha()])
+-    return ''.join([i for i in desc if i.isdigit() or i.isalpha()])
+
+#####  --download-all STARTS
 
 def download_all():
     '''
@@ -49,12 +51,12 @@ def download_all():
     If an XKCD has been already downloaded. It skips it!
     '''
 
-    if not os.path.isfile(xkcd_dict_filename):
+    if not os.path.isfile(xkcd_dict_location):
         print("XKCD list not created!Run \nxkcd-dl --update-db")
     else: 
         ## load the json file
         print("Downloading all xkcd's Till date!!")
-        with open(xkcd_dict_filename, 'r') as f:
+        with open(xkcd_dict_location, 'r') as f:
             file_content = f.readline()
             json_content = json.loads(file_content)
             """>>>print(type(json_content))
@@ -63,14 +65,14 @@ def download_all():
             ## getting all the keys 
             all_keys = json_content.keys()
             for xkcd_number in all_keys:
-                ## Nothing wrong with #1462. Ran it again and was successfully saved!
-                # if xkcd_number == '1462':      ## some issue downloading for #1462, will have to look into it
-                #     continue        
+              ## Nothing wrong with #1462. Ran it again and was successfully saved!
+              #  if xkcd_number == '1462':      ## some issue downloading for #1462, will have to look into it
+              #     continue        
                 description = json_content[xkcd_number]['description']
                 date_published=json_content[xkcd_number]['date-published']
 
                 xkcd_url = "{base}/{xkcd_num}".format(base=BASE_URL, xkcd_num=xkcd_number)
-                new_folder = '{home_folder}/xkcd_archive/{name}'.format(home_folder=HOME, name=xkcd_number)
+                new_folder = '{current_directory}/xkcd_archive/{name}'.format(current_directory=WORKING_DIRECTORY, name=xkcd_number)
                 new_description = sanitize_description(description)
 
                 print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(
@@ -138,7 +140,7 @@ def download_latest():
 
         xkcd_url = "{base}/{xkcd_num}".format(base=BASE_URL, xkcd_num=xkcd_number)
 
-        new_folder = '{home_folder}/xkcd_archive/{name}'.format(home_folder=HOME, name=xkcd_number)
+        new_folder = '{current_directory}/xkcd_archive/{name}'.format(current_directory=WORKING_DIRECTORY, name=xkcd_number)
 
         if os.path.exists(new_folder):
             print("xkcd number : '{xkcd}'' has already been downloaded !".format(xkcd=xkcd_number))
@@ -215,9 +217,9 @@ def update_dict():
                 description = alinks.contents[0]       
                 make_keyvalue_list(href, date, description) 
                 
-        with open(xkcd_dict_filename, 'w') as f:
+        with open(xkcd_dict_location, 'w') as f:
             json.dump(XKCD_DICT, f)
-            print("XKCD link database updated\nStored it in '{file}'. You can start downloading your XKCD's!\nRun 'xkcd-dl --help' for more options".format(file=xkcd_dict_filename))
+            print("XKCD link database updated\nStored it in '{file}'. You can start downloading your XKCD's!\nRun 'xkcd-dl --help' for more options".format(file=xkcd_dict_location))
 
     else:
         print('Something bad happened!')
@@ -233,11 +235,11 @@ def download_xkcd_number():
 
     xkcd_number = arguments['--download']
 
-    if not os.path.isfile(xkcd_dict_filename):
+    if not os.path.isfile(xkcd_dict_location):
         print("XKCD list not created!Run \nxkcd-dl --update-db")
     else: 
         ## load the json file
-        with open(xkcd_dict_filename, 'r') as f:
+        with open(xkcd_dict_location, 'r') as f:
             file_content = f.readline()
             json_content = json.loads(file_content)
 
@@ -247,7 +249,7 @@ def download_xkcd_number():
 
                 new_description = sanitize_description(description)
 
-                new_folder = '{home_folder}/xkcd_archive/{name}'.format(home_folder=HOME, name=xkcd_number)
+                new_folder = '{current_directory}/xkcd_archive/{name}'.format(current_directory=WORKING_DIRECTORY, name=xkcd_number)
 
                 to_download_single = "{base}/{xkcd_num}/".format(base=BASE_URL, xkcd_num=xkcd_number)
                 print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(

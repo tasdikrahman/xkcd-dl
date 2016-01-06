@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 r'''
 Run `xkcd-dl --update-db` if running for the first time.

@@ -23,7 +23,7 @@ import magic
 import requests
 import json
 import os
-from os.path import expanduser
+from os.path import expanduser, path
 from os import getcwd
 
 __author__ = "Tasdik Rahman (https://github.com/prodicus)"
@@ -34,7 +34,7 @@ BASE_URL = 'http://xkcd.com'
 ARCHIVE_URL='http://xkcd.com/archive/'
 XKCD_DICT = {}      
 xkcd_dict_filename = '.xkcd_dict.json'
-xkcd_dict_location = HOME + '/' + xkcd_dict_filename
+xkcd_dict_location = os.path.join(HOME, xkcd_dict_filename)
 SCRIPT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))       ## returns the directory of this script
 WORKING_DIRECTORY = os.getcwd()         ##returns the directory the terminal is currently in
 

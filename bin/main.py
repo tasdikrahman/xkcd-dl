@@ -2,7 +2,6 @@
 
 r'''
 Run `xkcd-dl --update-db` if running for the first time.
-
 Usage:
   xkcd-dl --update-db
   xkcd-dl --download-latest
@@ -23,7 +22,7 @@ import magic
 import requests
 import json
 import os
-from os.path import expanduser, path
+from os.path import expanduser, join
 from os import getcwd
 
 __author__ = "Tasdik Rahman (https://github.com/prodicus)"
@@ -41,7 +40,7 @@ WORKING_DIRECTORY = os.getcwd()         ##returns the directory the terminal is 
 arguments = docopt(__doc__, version=__version__)
 
 def sanitize_description(desc):
--    return ''.join([i for i in desc if i.isdigit() or i.isalpha()])
+    return ''.join([i for i in desc if i.isdigit() or i.isalpha()])
 
 #####  --download-all STARTS
 
@@ -182,7 +181,6 @@ def make_keyvalue_list(xkcd_num, date, description):
     """
     Creates a list consisting of the date at which the xkcd was published (and) it's description with it
     eg : ['2007-1-24', 'The Problem with Wikipedia']
-
     After that it indexes this list with the corressponding xkcd number in the dictionary 'XKCD_DICT'
     reference : http://stackoverflow.com/a/28897347/3834059
     """

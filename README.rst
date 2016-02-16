@@ -1,7 +1,14 @@
 XKCD-Archiver-cli
-=================
+~~~~~~~~~~~~~~~~~
 
 |PyPI version| |License|
+
+:Author: Tasdik Rahman
+
+.. contents::
+    :backlinks: none
+
+.. sectnum::
 
 ``xkcd-dl`` is inspired by an awesome package called ``youtube-dl``
 https://github.com/rg3/youtube-dl/ written by `Daniel
@@ -10,32 +17,9 @@ Bolton <https://github.com/rg3>`__\ (Much respect!)
 How about you get to download all of the xkcd which have been uploaded
 till date? This does just that!
 
-Now I don't know about you, but I just love reading ``xkcd``'s! I
-thought why not create something like ``youtube-dl`` but for downloading
-``xkcd``'s!
+Now I don't know about you, but I just love reading ``xkcd``'s! Had a boring Sunday night looming over, thought why not create something like ``youtube-dl`` but for downloading ``xkcd``'s!
 
 And hence `xkcd-dl <https://github.com/prodicus/xkcd-dl>`__
-
--  `Features <https://github.com/prodicus/xkcd-dl#feautures>`__
--  `Installation <https://github.com/prodicus/xkcd-dl#installation>`__
-
-   -  `pip <https://github.com/prodicus/xkcd-dl#option-1-installing-through-pip-suggested-way>`__
-   -  `installing from
-      source <https://github.com/prodicus/xkcd-dl#option-2-installing-from-source>`__
-   -  `For Arch
-      distributions <https://github.com/prodicus/xkcd-dl#for-arch-distributions>`__
-
--  `Demo <https://github.com/prodicus/xkcd-dl#demo>`__
-
-   -  `Usage <https://github.com/prodicus/xkcd-dl#usage>`__
-   -  `Help menu <https://github.com/prodicus/xkcd-dl#help-menu>`__
-
--  `Issues <https://github.com/prodicus/xkcd-dl#issues>`__
--  `Contributers <https://github.com/prodicus/xkcd-dl#contributers>`__
--  `To do <https://github.com/prodicus/xkcd-dl#to-do>`__
--  `Contributing <https://github.com/prodicus/xkcd-dl#contributing>`__
--  `Report Bugs <https://github.com/prodicus/xkcd-dl#bugs>`__
--  `License <https://github.com/prodicus/xkcd-dl#license>`__
 
 Features
 =========
@@ -53,65 +37,7 @@ Features
    -  url value
    -  a small description of that xkcd
 
--  written in ``python``.
-
-Installation
-============
-
-Option 1: installing through `pip <https://pypi.python.org/pypi/xkcd-dl>`__ (Suggested way)
--------------------------------------------------------------------------------------------
-
-`pypi package link <https://pypi.python.org/pypi/xkcd-dl>`__
-
-``$ pip3 install xkcd-dl``
-
-If you are behind a proxy
-
-``$ pip3 --proxy [username:password@]domain_name:port install xkcd-dl``
-
-**Note:** If you get ``command not found`` then
-``$ sudo apt-get install python3-pip`` should fix that
-
-Option 2: installing from source
---------------------------------
-
-.. code:: bash
-
-    $ git clone https://github.com/prodicus/xkcd-dl.git
-    $ cd xkcd-dl/
-    $ pip3 install -r requirements.txt
-    $ python3 setup.py install
-
-Uninstalling
-------------
-
-``$ pip3 uninstall xkcd-dl``
-
-For ``Arch`` distributions
---------------------------
-
-Here is the ``AUR`` link for you
-
--  `Arch package <https://aur4.archlinux.org/packages/xkcd-dl-git/>`__
-
-Demo
-====
-
-.. figure:: https://raw.githubusercontent.com/prodicus/xkcd-dl/master/img/usage.gif
-   :alt: Usage
-
-   Usage
-
-Each Comic is stored in it's own individual folder with a
-``description.txt`` placed in it. It contains meta-data like -
-``img-link`` - ``title`` - ``date-published``
-
-Here's a little example for the same
-
-.. figure:: https://raw.githubusercontent.com/prodicus/xkcd-dl/master/img/directory_struc.jpg
-   :alt: xkcd\_archive Structure
-
-   xkcd\_archive Structure
+-  written in uncomplicated ``python``.
 
 Usage
 =====
@@ -174,8 +100,69 @@ and store them under the home directory of the user.
     ....
     ....
 
+Demo
+====
+
+.. figure:: https://raw.githubusercontent.com/prodicus/xkcd-dl/master/assets/usage.gif
+   :alt: Usage
+
+   Usage
+
+Each Comic is stored in it's own individual folder with a
+``description.txt`` placed in it. It contains meta-data like -
+``img-link`` - ``title`` - ``date-published``
+
+Here's a little example for the same
+
+.. figure:: https://raw.githubusercontent.com/prodicus/xkcd-dl/master/assets/directory_struc.jpg
+   :alt: xkcd\_archive Structure
+
+   xkcd\_archive Structure
+
+
+
+Installation
+============
+
+Option 1: installing through `pip <https://pypi.python.org/pypi/xkcd-dl>`__ (Suggested way)
+-------------------------------------------------------------------------------------------
+
+`pypi package link <https://pypi.python.org/pypi/xkcd-dl>`__
+
+``$ pip3 install xkcd-dl``
+
+If you are behind a proxy
+
+``$ pip3 --proxy [username:password@]domain_name:port install xkcd-dl``
+
+**Note:** If you get ``command not found`` then
+``$ sudo apt-get install python3-pip`` should fix that
+
+Option 2: installing from source
+--------------------------------
+
+.. code:: bash
+
+    $ git clone https://github.com/prodicus/xkcd-dl.git
+    $ cd xkcd-dl/
+    $ pip3 install -r requirements.txt
+    $ python3 setup.py install
+
+Uninstalling
+------------
+
+``$ pip3 uninstall xkcd-dl``
+
+For ``Arch`` distributions
+--------------------------
+
+Here is the ``AUR`` link for you
+
+-  `Arch package <https://aur4.archlinux.org/packages/xkcd-dl-git/>`__
+
+
 Help menu:
-----------
+==========
 
 .. code:: bash
 
@@ -195,8 +182,49 @@ Help menu:
       -v --version  Show version 
     $
 
-Issues
-======
+Contributing
+============
+
+** I hacked this up in one night, so its a little messy up there.** Feel free to contribute.
+
+1. Fork it.
+2. Create your feature branch
+   (``git checkout -b my-new-awesome-feature``)
+3. Commit your changes (``git commit -am 'Added <xyz> feature'``)
+4. Push to the branch (``git push origin my-new-awesome-feature``)
+5. Create new Pull Request
+
+Contributors
+------------
+
+Big shout out to
+
+-  `Ian C <https://github.com/GrappigPanda>`__ for fixing issue
+  `#2 <https://github.com/prodicus/xkcd-dl/issues/2>`__ which
+  stopped the download if a title of a comic had a special character
+  in it and `BlitzKraft <https://github.com/BlitzKraft>`__ for
+  pointing it out.
+-  `Braden Best <https://github.com/bradenbest>`__ for pointing out
+  the issues when installing from source apart from his valuable
+  input.
+
+To-do
+-----
+
+-  [x] add ``xkcd-dl --download-latest``
+-  [x] add ``xkcd-dl --download=XKCDNUMBER``
+-  [x] add ``xkcd-dl --download-all``
+-  [ ] add
+   ``xkcd-dl --start=XKCDNUMBER --end=XKCDNUMBER [--path=/path/to/directory]``
+-  [ ] Remove redundant code in ``download_xkcd_number()``,
+   ``download_latest()`` and ``download_all()`` (**Refactoring!!**)
+-  [ ] Adding support to open a particular xkcd at the CLI itself.
+   (Thinking of using `img2txt <https://github.com/hit9/img2txt>`__ for
+   that)
+
+
+Known Issues
+============
 
 -  There have been issues when installed from source if you are using
    ``python 2.*`` as discussed in
@@ -213,46 +241,6 @@ Issues
     pip 1.5.6 from /usr/lib/python3/dist-packages (python 3.4)
     $ 
 
-Contributors
-============
-
--  Author - `Tasdik Rahman <https://github.com/prodicus>`__
--  Big shout out to
-
-   -  `Ian C <https://github.com/GrappigPanda>`__ for fixing issue
-      `#2 <https://github.com/prodicus/xkcd-dl/issues/2>`__ which
-      stopped the download if a title of a comic had a special character
-      in it and `BlitzKraft <https://github.com/BlitzKraft>`__ for
-      pointing it out.
-   -  `Braden Best <https://github.com/bradenbest>`__ for pointing out
-      the issues when installing from source apart from his valuable
-      input.
-
-To-do
-=====
-
--  [x] add ``xkcd-dl --download-latest``
--  [x] add ``xkcd-dl --download=XKCDNUMBER``
--  [x] add ``xkcd-dl --download-all``
--  [ ] add
-   ``xkcd-dl --start=XKCDNUMBER --end=XKCDNUMBER [--path=/path/to/directory]``
--  [ ] Remove redundant code in ``download_xkcd_number()``,
-   ``download_latest()`` and ``download_all()``
--  [ ] Adding support to open a particular xkcd at the CLI itself.
-   (Thinking of using `img2txt <https://github.com/hit9/img2txt>`__ for
-   that)
-
-Contributing
-============
-
-Feel free to contribute
-
-1. Fork it.
-2. Create your feature branch
-   (``git checkout -b my-new-awesome-feature``)
-3. Commit your changes (``git commit -am 'Added <xyz> feature'``)
-4. Push to the branch (``git push origin my-new-awesome-feature``)
-5. Create new Pull Request
 
 Bugs
 ====
@@ -260,10 +248,18 @@ Bugs
 Please report the bugs at the `issue
 tracker <https://github.com/prodicus/xkcd-archiver/issues>`__
 
+**OR**
+
+You can tweet me at `@tasdikrahman <https://twitter.com/tasdikrahman>`__ if you can't get it to work. In fact, you should tweet me anyway.
+
+
 License :
 =========
 
-MIT License http://prodicus.mit-license.org/ © Tasdik Rahman
+Built with ♥ by `Tasdik Rahman <http://tasdikrahman.me>`__ `(@tasdikrahman) <https://twitter.com/tasdikrahman>`__ and `others <https://github.com/prodicus/xkcd-dl/graphs/contributors>`__ released under `MIT License <http://prodicus.mit-license.org>`__
+
+You can find a copy of the License at http://prodicus.mit-license.org/
+
 
 .. |PyPI version| image:: https://badge.fury.io/py/xkcd-dl.svg
    :target: https://badge.fury.io/py/xkcd-dl

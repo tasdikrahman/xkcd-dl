@@ -185,7 +185,7 @@ Help menu:
 Contributing
 ============
 
-** I hacked this up in one night, so its a little messy up there.** Feel free to contribute.
+**I hacked this up in one night, so its a little messy up there.** Feel free to contribute.
 
 1. Fork it.
 2. Create your feature branch
@@ -199,14 +199,8 @@ Contributors
 
 Big shout out to
 
--  `Ian C <https://github.com/GrappigPanda>`__ for fixing issue
-  `#2 <https://github.com/prodicus/xkcd-dl/issues/2>`__ which
-  stopped the download if a title of a comic had a special character
-  in it and `BlitzKraft <https://github.com/BlitzKraft>`__ for
-  pointing it out.
--  `Braden Best <https://github.com/bradenbest>`__ for pointing out
-  the issues when installing from source apart from his valuable
-  input.
+-  `Ian C <https://github.com/GrappigPanda>`__ for fixing issue `#2 <https://github.com/prodicus/xkcd-dl/issues/2>`__ which stopped the download if a title of a comic had a special character in it and `BlitzKraft <https://github.com/BlitzKraft>`__ for pointing it out.
+-  `Braden Best <https://github.com/bradenbest>`__ for pointing out the issues when installing from source apart from his valuable input.
 
 To-do
 -----

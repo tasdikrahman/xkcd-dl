@@ -66,6 +66,8 @@ directory of the user with a brief description
 
 If it has been downloaded, will not do anything
 
+This command will work even if you have not run --update-db yet.
+
 ``--download=XKCDNUMBER``
 -------------------------
 

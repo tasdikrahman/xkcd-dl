@@ -27,6 +27,7 @@ Features
 -  Can download all the xkcd's uploaded till date(1603 as I am writing
    this!).
 -  Download individual xkcd's and store them
+-  Download ranges of xkcd's and store them
 -  Download the latest issue xkcd
 -  No duplicacy in your XKCD database.
 -  Stores each xkcd in a separate file named as the ``title`` of the
@@ -82,6 +83,21 @@ not been downloaded already) and stores it in the home directory
     Downloading xkcd from 'http://xkcd.com/1603/' and storing it under '/home/tasdik/xkcd_archive/1603'
     xkcd  number '1603' has already been downloaded!
     $
+
+``--download-range <START> <END>``
+--------------------
+
+Will take two number parameters and download all the xkcd's between
+the two, inclusive.
+
+.. code:: bash
+
+    $ xkcd-dl --download-range 32 36
+    Downloading xkcd from 'http://xkcd.com/32/' and storing it under '/home/tasdik/xkcd_archive/32'
+    Downloading xkcd from 'http://xkcd.com/33/' and storing it under '/home/tasdik/xkcd_archive/33'
+    Downloading xkcd from 'http://xkcd.com/34/' and storing it under '/home/tasdik/xkcd_archive/34'
+    Downloading xkcd from 'http://xkcd.com/35/' and storing it under '/home/tasdik/xkcd_archive/35'
+    Downloading xkcd from 'http://xkcd.com/36/' and storing it under '/home/tasdik/xkcd_archive/36'
 
 ``--download-all``
 ------------------
@@ -175,6 +191,7 @@ Help menu:
       xkcd-dl --update-db
       xkcd-dl --download-latest
       xkcd-dl --download=XKCDNUMBER
+      xkcd-dl --downoad-range <START> <END>
       xkcd-dl --download-all
       xkcd-dl --version
       xkcd-dl (-h | --help)
@@ -210,8 +227,9 @@ To-do
 -  [x] add ``xkcd-dl --download-latest``
 -  [x] add ``xkcd-dl --download=XKCDNUMBER``
 -  [x] add ``xkcd-dl --download-all``
--  [ ] add
-   ``xkcd-dl --start=XKCDNUMBER --end=XKCDNUMBER [--path=/path/to/directory]``
+-  [x] add
+   ``xkcd-dl download-range <START> <END>``
+   [ ] add path setting with ``[--path=/path/to/directory]`` option
 -  [ ] Remove redundant code in ``download_xkcd_number()``,
    ``download_latest()`` and ``download_all()`` (**Refactoring!!**)
 -  [ ] Adding support to open a particular xkcd at the CLI itself.

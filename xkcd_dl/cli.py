@@ -7,6 +7,7 @@ Usage:
   xkcd-dl --download-latest
   xkcd-dl --download=XKCDNUMBER
   xkcd-dl --download-all
+  xkcd-dl --download-range <START> <END>
   xkcd-dl --version
   xkcd-dl (-h | --help)
 Options:
@@ -31,7 +32,6 @@ __version__ = '0.0.6'
 HOME =expanduser("~")       ## is cross platform. 'HOME' stores the path to the home directory for the current user
 BASE_URL = 'http://xkcd.com'
 ARCHIVE_URL='http://xkcd.com/archive/'
-XKCD_DICT = {}      
 xkcd_dict_filename = '.xkcd_dict.json'
 xkcd_dict_location = os.path.join(HOME, xkcd_dict_filename)
 SCRIPT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))       ## returns the directory of this script
@@ -50,9 +50,7 @@ def download_all():
     If an XKCD has been already downloaded. It skips it!
     '''
 
-    if not os.path.isfile(xkcd_dict_location):
-        print("XKCD list not created!Run \nxkcd-dl --update-db")
-    else: 
+    if dict_exists(): 
         ## load the json file
         print("Downloading all xkcd's Till date!!")
         with open(xkcd_dict_location, 'r') as f:
@@ -177,11 +175,12 @@ url = {url}
 #####  --download-latest ENDS
 
 ##### --update-db START
-def make_keyvalue_list(xkcd_num, date, description):
+def make_keyvalue_list(xkcd_dict, xkcd_num, date, description):
     """
     Creates a list consisting of the date at which the xkcd was published (and) it's description with it
     eg : ['2007-1-24', 'The Problem with Wikipedia']
-    After that it indexes this list with the corressponding xkcd number in the dictionary 'XKCD_DICT'
+    After that it indexes this list with the corressponding xkcd number in the
+    dictionary 'xkcd_dict'
     reference : http://stackoverflow.com/a/28897347/3834059
     """
     xkcd_number = xkcd_num              ## JSON cannot store integer values. Convert it to string if you want to store it 
@@ -190,7 +189,7 @@ def make_keyvalue_list(xkcd_num, date, description):
         keyvalue_list['date-published'] = date
         keyvalue_list['description'] = description
         ### indexing it
-        XKCD_DICT[xkcd_number] = keyvalue_list
+        xkcd_dict[xkcd_number] = keyvalue_list
 
     '''
     [1] the description for XKCD number is "<span style="color: #0000ED">House</span>". Leaving it for this release
@@ -204,6 +203,9 @@ def update_dict():
     if archive_page.status_code == 200:
         page_content = archive_page.content
         archive_soup = bs4(page_content, 'html.parser')
+        
+        ## dict where all the infomation will be stored
+        xkcd_dict = dict()
 
         ## now get all the <a> tags under the div '<div class="box" id="middleContainer">' from the soup object 
         for data in archive_soup.find_all("div", {"id": "middleContainer"}):
@@ -213,10 +215,10 @@ def update_dict():
                 href = alinks.get('href').strip("/")   ## the href stored is in form of eg: "/3/". So make it of form "3"
                 date = alinks.get('title')
                 description = alinks.contents[0]       
-                make_keyvalue_list(href, date, description) 
+                make_keyvalue_list(xkcd_dict, href, date, description) 
                 
         with open(xkcd_dict_location, 'w') as f:
-            json.dump(XKCD_DICT, f)
+            json.dump(xkcd_dict, f)
             print("XKCD link database updated\nStored it in '{file}'. You can start downloading your XKCD's!\nRun 'xkcd-dl --help' for more options".format(file=xkcd_dict_location))
 
     else:
@@ -227,20 +229,69 @@ def update_dict():
 
 #####  --download=XKCDNUMBER
 def download_xkcd_number():
-    '''Downloads the particular XKCD number and stores it in the current directory'''
-    ## check if the main dict is empty. If yes, then prompt got updating 
+    '''Wrapper for the command for downloading one comic'''
+    download_one(arguments['--download'])
+
+#####  --download=XKCDNUMBER ends
+
+
+#####  --download-range <START> <END>
+def download_xkcd_range():
+    '''Wrapper for the command for downloading a comic range'''
+    start = int(arguments["<START>"])
+    end = int(arguments["<END>"])
+    if is_valid_comic(start) and is_valid_comic(end):
+        range_numbers = [x for x in range(start, end+1)]
+        # 404 does not exist, so remove it from the range
+        if 404 in range_numbers:
+            range_numbers.remove(404) 
+            # What if the range is only 404, though?
+        for number in range_numbers:
+           download_one(number) 
+
+#####  --download-range <START> <END>
+
+
+##### Utility functions
+def is_valid_comic(num):
+    '''True if the comic number is valid, i.e. 0 < num <= latest comic'''
+    # This uses the internet, but it may be desireable 
+    # to store the release numbers in the JSON as integers.
+    # If that were so, it could just be max(json_content.keys())
+    # and there would be no internet connection failure chance.
+    url = 'https://www.xkcd.com/info.0.json'
+    response = requests.get(url)
+    if response.status_code == 200:
+        response_content = response.json()
+        latest_number = response_content["num"]
+
+        if not 0 < num <= latest_number:
+            print("XKCD is numbered from 0 to {}".format(latest_number))
+            return False
+        return True
+    else:
+        print("There was an internet connection error.")
+        return False
+
+def dict_exists():
+    '''True if the main dict has already been created.'''
     ## reference : http://stackoverflow.com/a/23177452/3834059
-
-    xkcd_number = arguments['--download']
-
     if not os.path.isfile(xkcd_dict_location):
         print("XKCD list not created!Run \nxkcd-dl --update-db")
-    else: 
+        return False
+    return True
+
+
+def download_one(xkcd_num):
+    '''Downloads the particular XKCD number and stores it in the current directory'''
+    if dict_exists(): 
         ## load the json file
         with open(xkcd_dict_location, 'r') as f:
             file_content = f.readline()
             json_content = json.loads(file_content)
-
+            
+            # ensure a string key
+            xkcd_number = str(xkcd_num)
             if xkcd_number in json_content:
                 date=json_content[xkcd_number]['date-published']
                 description=json_content[xkcd_number]['description']
@@ -300,9 +351,8 @@ url = {url}
 
             else: 
                 print("{} does not exist! Please try with a different option".format(xkcd_number))
+##### Utility functions end
         
-#####  --download=XKCDNUMBER ends
-
 
 def main():
     '''
@@ -315,6 +365,8 @@ def main():
         download_latest()
     elif arguments['--download']:
         download_xkcd_number()
+    elif arguments['--download-range']:
+        download_xkcd_range()
     elif arguments['--download-all']:
         download_all()
     elif arguments['-h'] or arguments['--help']:

@@ -39,81 +39,58 @@ WORKING_DIRECTORY = os.getcwd()         ##returns the directory the terminal is 
 
 arguments = docopt(__doc__, version=__version__)
 
-def sanitize_description(desc):
-    return ''.join([i for i in desc if i.isdigit() or i.isalpha()])
-
 #####  --download-all STARTS
-
 def download_all():
     '''
-    Downloads all the XKCD's and stores them in apporopriate folders.
-    If an XKCD has been already downloaded. It skips it!
+    The command to download all the XKCD's and stores them in apporopriate folders.
     '''
 
-    if dict_exists(): 
-        ## load the json file
+    json_content = read_dict()
+    if json_content:
         print("Downloading all xkcd's Till date!!")
-        with open(xkcd_dict_location, 'r') as f:
-            file_content = f.readline()
-            json_content = json.loads(file_content)
-            """>>>print(type(json_content))
-            <class 'dict'>
-            """
-            ## getting all the keys 
-            all_keys = json_content.keys()
-            for xkcd_number in all_keys:
-              ## Nothing wrong with #1462. Ran it again and was successfully saved!
-              #  if xkcd_number == '1462':      ## some issue downloading for #1462, will have to look into it
-              #     continue        
-                description = json_content[xkcd_number]['description']
-                date_published=json_content[xkcd_number]['date-published']
-
-                xkcd_url = "{base}/{xkcd_num}".format(base=BASE_URL, xkcd_num=xkcd_number)
-                new_folder = '{current_directory}/xkcd_archive/{name}'.format(current_directory=WORKING_DIRECTORY, name=xkcd_number)
-                new_description = sanitize_description(description)
-
-                print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(
-                    img_url=xkcd_url, 
-                    path=new_folder
-                    )
-                )
-                ## check if the file exists
-                if os.path.exists(new_folder):
-                    print("xkcd  number '{num}' has already been downloaded!".format(num=xkcd_number))
-                else:
-                    os.makedirs(new_folder)
-                    os.chdir(new_folder)
-                    ## creating the description file inside this directory :
-                    with open('description.txt', 'w') as f:
-                        content = """title : {description}
-date-publised: {date}
-url = {url}
-                        """.format(description=description, date=date_published, url=xkcd_url)
-                        f.write(content)
-
-                    ######################################
-                    ##getting the image link from the page
-                    image_page = requests.get(xkcd_url, stream=True)
-                    if image_page.status_code == 200:
-                        image_page_content = image_page.content
-                        image_page_content_soup = bs4(image_page_content, 'html.parser')
-
-                        for data in image_page_content_soup.find_all("div", {"id": "comic"}):
-                            for img_tag in data.find_all('img'):
-                                img_link = img_tag.get('src')
-                        
-                        complete_img_url = "http:{url}".format(url=img_link)
-
-                        file_name = "{description}.jpg".format(description=new_description)
-                        urllib.request.urlretrieve(complete_img_url, file_name)
-                        magic_response = str(magic.from_file(file_name, mime=True))
-                        if 'png' in magic_response:
-                            os.rename(file_name, "{description}.png".format(description=new_description))
-                        elif 'jpeg' in magic_response:
-                            os.rename(file_name, "{description}.jpeg".format(description=new_description))
-                        ## file storage successful
+        all_keys = json_content.keys()
+        for xkcd_number in all_keys:
+            download_one(json_content, xkcd_number) 
 
 #####  --download-all ENDS
+
+
+#####  --download=XKCDNUMBER
+def download_xkcd_number():
+    '''
+    The command for downloading one comic
+    '''
+    json_content = read_dict()
+    if json_content:
+        download_one(json_content, arguments['--download'])
+
+#####  --download=XKCDNUMBER ends
+
+
+#####  --download-range <START> <END>
+def download_xkcd_range():
+    '''
+    The command for downloading a comic range
+    '''
+    start = int(arguments["<START>"])
+    end = int(arguments["<END>"])
+
+    json_content = read_dict()
+    if json_content:
+        if start > end:
+            print("Start must be smaller than End.")
+            return
+
+        if is_valid_comic(start) and is_valid_comic(end):
+            range_numbers = [x for x in range(start, end+1)]
+            # 404 does not exist, so remove it from the range
+            if start <= 404 <= end:
+                range_numbers.remove(404) 
+            for number in range_numbers:
+               download_one(json_content, number) 
+ 
+#####  --download-range <START> <END> ends
+
 
 #####  --download-latest STARTS
 def download_latest():
@@ -174,6 +151,7 @@ url = {url}
 
 #####  --download-latest ENDS
 
+
 ##### --update-db START
 def make_keyvalue_list(xkcd_dict, xkcd_num, date, description):
     """
@@ -227,34 +205,14 @@ def update_dict():
 #####  --update-db ends
 
 
-#####  --download=XKCDNUMBER
-def download_xkcd_number():
-    '''Wrapper for the command for downloading one comic'''
-    download_one(arguments['--download'])
-
-#####  --download=XKCDNUMBER ends
-
-
-#####  --download-range <START> <END>
-def download_xkcd_range():
-    '''Wrapper for the command for downloading a comic range'''
-    start = int(arguments["<START>"])
-    end = int(arguments["<END>"])
-    if is_valid_comic(start) and is_valid_comic(end):
-        range_numbers = [x for x in range(start, end+1)]
-        # 404 does not exist, so remove it from the range
-        if 404 in range_numbers:
-            range_numbers.remove(404) 
-            # What if the range is only 404, though?
-        for number in range_numbers:
-           download_one(number) 
-
-#####  --download-range <START> <END>
-
-
 ##### Utility functions
+def sanitize_description(desc):
+    return ''.join([i for i in desc if i.isdigit() or i.isalpha()])
+
 def is_valid_comic(num):
-    '''True if the comic number is valid, i.e. 0 < num <= latest comic'''
+    '''
+    True if the comic number is valid, i.e. 0 < num <= latest comic
+    '''
     # This uses the internet, but it may be desireable 
     # to store the release numbers in the JSON as integers.
     # If that were so, it could just be max(json_content.keys())
@@ -273,8 +231,11 @@ def is_valid_comic(num):
         print("There was an internet connection error.")
         return False
 
+
 def dict_exists():
-    '''True if the main dict has already been created.'''
+    '''
+    True if the main dict has already been created.
+    '''
     ## reference : http://stackoverflow.com/a/23177452/3834059
     if not os.path.isfile(xkcd_dict_location):
         print("XKCD list not created!Run \nxkcd-dl --update-db")
@@ -282,75 +243,87 @@ def dict_exists():
     return True
 
 
-def download_one(xkcd_num):
-    '''Downloads the particular XKCD number and stores it in the current directory'''
-    if dict_exists(): 
-        ## load the json file
+def read_dict():
+    '''
+    Return the dict() object representing the xkcd json information, or None
+    if the xkcd json has not been retrieved yet.
+    '''
+    if dict_exists():
         with open(xkcd_dict_location, 'r') as f:
             file_content = f.readline()
-            json_content = json.loads(file_content)
-            
-            # ensure a string key
-            xkcd_number = str(xkcd_num)
-            if xkcd_number in json_content:
-                date=json_content[xkcd_number]['date-published']
-                description=json_content[xkcd_number]['description']
+            return json.loads(file_content)
+    else:
+        return None
 
-                new_description = sanitize_description(description)
 
-                new_folder = '{current_directory}/xkcd_archive/{name}'.format(current_directory=WORKING_DIRECTORY, name=xkcd_number)
+def download_one(xkcd_dict, xkcd_num):
+    '''
+    Downloads the particular XKCD number and stores it in the current directory.
+    If the comic has already been downloaded, it is not redownloaded.
+    '''
+    # ensure a string key
+    xkcd_number = str(xkcd_num)
+    if xkcd_number in xkcd_dict:
+        date=xkcd_dict[xkcd_number]['date-published']
+        description=xkcd_dict[xkcd_number]['description']
 
-                to_download_single = "{base}/{xkcd_num}/".format(base=BASE_URL, xkcd_num=xkcd_number)
-                print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(
-                    img_url=to_download_single, 
-                    path=new_folder
-                    )
-                )
-                ## check if file already exists! i.e xkcd has been downloaded
-                if os.path.exists(new_folder):
-                    print("xkcd  number '{num}' has already been downloaded!".format(num=xkcd_number))
-                else:
-                    os.makedirs(new_folder)
-                    os.chdir(new_folder)
-                    ## creating the description file inside this directory :
-                    with open('description.txt', 'w') as f:
-                        content = """title : {description}
+        new_description = sanitize_description(description)
+
+        new_folder = '{current_directory}/xkcd_archive/{name}'.format(current_directory=WORKING_DIRECTORY, name=xkcd_number)
+
+        to_download_single = "{base}/{xkcd_num}/".format(base=BASE_URL, xkcd_num=xkcd_number)
+        print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(
+            img_url=to_download_single, 
+            path=new_folder
+            )
+        )
+        ## check if file already exists! i.e xkcd has been downloaded
+        if os.path.exists(new_folder):
+            print("xkcd  number '{num}' has already been downloaded!".format(num=xkcd_number))
+        else:
+            os.makedirs(new_folder)
+            os.chdir(new_folder)
+            ## creating the description file inside this directory :
+            with open('description.txt', 'w') as f:
+                content = """title : {description}
 date-publised: {date}
 url = {url}
-                        """.format(description=description, date=date, url=to_download_single)
-                        f.write(content)
+                """.format(description=description, date=date, url=to_download_single)
+                f.write(content)
 
-                    ######################################
-                    ##getting the image link from the page
-                    image_page = requests.get(to_download_single, stream=True)
-                    if image_page.status_code == 200:
-                        image_page_content = image_page.content
-                        image_page_content_soup = bs4(image_page_content, 'html.parser')
+            ######################################
+            ##getting the image link from the page
+            image_page = requests.get(to_download_single, stream=True)
+            if image_page.status_code == 200:
+                image_page_content = image_page.content
+                image_page_content_soup = bs4(image_page_content, 'html.parser')
 
-                        for data in image_page_content_soup.find_all("div", {"id": "comic"}):
-                            for img_tag in data.find_all('img'):
-                                img_link = img_tag.get('src')
-                        
-                        ## a sample 'img_link' is like '//imgs.xkcd.com/comics/familiar.jpg', so we need to add 
-                        ### 'http:' to it
-                        ## making a request for the image in question
-                        complete_img_url = "http:{url}".format(url=img_link)
+                for data in image_page_content_soup.find_all("div", {"id": "comic"}):
+                    for img_tag in data.find_all('img'):
+                        img_link = img_tag.get('src')
+                    
+                ## a sample 'img_link' is like '//imgs.xkcd.com/comics/familiar.jpg', so we need to add 
+                ### 'http:' to it
+                ## making a request for the image in question
+                complete_img_url = "http:{url}".format(url=img_link)
 
-                        file_name = "{description}.jpg".format(description=new_description)
-                        urllib.request.urlretrieve(complete_img_url, file_name)
-                        ## now don't be fooled here by the .jpg extension here!
-                        ## You would be surprised to find out that it may have a different file type. PNG for example per se.
+                file_name = "{description}.jpg".format(description=new_description)
+                urllib.request.urlretrieve(complete_img_url, file_name)
+                ## now don't be fooled here by the .jpg extension here!
+                ## You would be surprised to find out that it may have a different file type. PNG for example per se.
 
-                        ## using module 'python-magic' to detect the mime type of the file downloaded 
-                        magic_response = str(magic.from_file(file_name, mime=True))
-                        if 'png' in magic_response:
-                            os.rename(file_name, "{description}.png".format(description=new_description))
-                        elif 'jpeg' in magic_response:
-                            os.rename(file_name, "{description}.jpeg".format(description=new_description))
-                        ## file storage successful
+                ## using module 'python-magic' to detect the mime type of the file downloaded 
+                magic_response = str(magic.from_file(file_name, mime=True))
+                if 'png' in magic_response:
+                    os.rename(file_name, "{description}.png".format(description=new_description))
+                elif 'jpeg' in magic_response:
+                    os.rename(file_name, "{description}.jpeg".format(description=new_description))
+                ## file storage successful
 
-            else: 
-                print("{} does not exist! Please try with a different option".format(xkcd_number))
+    else: 
+        print("{} does not exist! Please try with a different option".format(xkcd_number))
+
+
 ##### Utility functions end
         
 

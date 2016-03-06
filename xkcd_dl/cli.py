@@ -4,10 +4,10 @@ r'''
 Run `xkcd-dl --update-db` if running for the first time.
 Usage:
   xkcd-dl --update-db
-  xkcd-dl --download-latest
-  xkcd-dl --download=XKCDNUMBER
-  xkcd-dl --download-all
-  xkcd-dl --download-range <START> <END>
+  xkcd-dl --download-latest [--path=PATH]
+  xkcd-dl --download=XKCDNUMBER [--path=PATH]
+  xkcd-dl --download-all [--path=PATH]
+  xkcd-dl --download-range <START> <END> [--path=PATH]
   xkcd-dl --version
   xkcd-dl (-h | --help)
 Options:
@@ -29,7 +29,7 @@ from os import getcwd
 __author__ = "Tasdik Rahman (https://github.com/prodicus)"
 __version__ = '0.0.6'
 
-HOME =expanduser("~")       ## is cross platform. 'HOME' stores the path to the home directory for the current user
+HOME = expanduser("~")       ## is cross platform. 'HOME' stores the path to the home directory for the current user
 BASE_URL = 'http://xkcd.com'
 ARCHIVE_URL='http://xkcd.com/archive/'
 xkcd_dict_filename = '.xkcd_dict.json'
@@ -42,9 +42,8 @@ arguments = docopt(__doc__, version=__version__)
 #####  --download-all STARTS
 def download_all():
     '''
-    The command to download all the XKCD's and stores them in apporopriate folders.
+    The command to download all the XKCD's and stores them in appropriate folders.
     '''
-
     json_content = read_dict()
     if json_content:
         print("Downloading all xkcd's Till date!!")
@@ -323,6 +322,20 @@ url = {url}
     else: 
         print("{} does not exist! Please try with a different option".format(xkcd_number))
 
+def set_custom_path():
+    '''Changes the working directory path to a user-specified directory'''
+    path_was_set = False
+    if arguments["--path"] and os.path.isdir(arguments["--path"]):
+        # If we didn't change the directory,
+        # the user would only be able to use absolute paths
+        # That is, --path=./anything would fail
+        os.chdir(arguments["--path"])
+
+        global WORKING_DIRECTORY #Only ever changed here. Works fine as global.
+        WORKING_DIRECTORY = os.getcwd()
+        path_was_set = True
+    return path_was_set
+
 
 ##### Utility functions end
         
@@ -334,7 +347,13 @@ def main():
     '''
     if arguments['--update-db']:
         update_dict()
-    elif arguments['--download-latest']:
+
+    if arguments['--path']:
+        path_was_set = set_custom_path()
+        if not path_was_set:
+            print("The path could not be set. (The directory must exist. Was a directory name too long or null?)")
+            return
+    if arguments['--download-latest']:
         download_latest()
     elif arguments['--download']:
         download_xkcd_number()

@@ -118,6 +118,21 @@ and store them under the home directory of the user.
     ....
     ....
 
+``--path=PATH``
+---------------
+
+To use a custom directory to store your xkcd_archive, you can append
+--path=./any/path/here to the end of any download method. Absolute and relative
+paths work, but the directory must already exist.
+
+.. code:: bash
+    $ xkcd-dl --download=3 --path=comic
+    Downloading xkcd from 'http://xkcd.com/3/' and storing it under '/home/tasdik/comic/xkcd_archive/3'
+    $ xkcd-dl --download-range 54 56 --path=/home/tasdik/xkcd
+    Downloading xkcd from 'http://xkcd.com/54/' and storing it under '/home/tasdik/xkcd/xkcd_archive/54'
+    Downloading xkcd from 'http://xkcd.com/55/' and storing it under '/home/tasdik/xkcd/xkcd_archive/55'
+    Downloading xkcd from 'http://xkcd.com/56/' and storing it under '/home/tasdik/xkcd/xkcd_archive/56'
+
 Demo
 ====
 
@@ -189,10 +204,10 @@ Help menu:
 
     Usage:
       xkcd-dl --update-db
-      xkcd-dl --download-latest
-      xkcd-dl --download=XKCDNUMBER
-      xkcd-dl --downoad-range <START> <END>
-      xkcd-dl --download-all
+      xkcd-dl --download-latest [--path=PATH]
+      xkcd-dl --download=XKCDNUMBER [--path=PATH]
+      xkcd-dl --downoad-range <START> <END> [--path=PATH]
+      xkcd-dl --download-all [--path=PATH]
       xkcd-dl --version
       xkcd-dl (-h | --help)
     Options:
@@ -227,9 +242,8 @@ To-do
 -  [x] add ``xkcd-dl --download-latest``
 -  [x] add ``xkcd-dl --download=XKCDNUMBER``
 -  [x] add ``xkcd-dl --download-all``
--  [x] add
-   ``xkcd-dl download-range <START> <END>``
-   [ ] add path setting with ``[--path=/path/to/directory]`` option
+-  [x] add ``xkcd-dl download-range <START> <END>``
+-  [x] add path setting with ``[--path=/path/to/directory]`` option
 -  [ ] Remove redundant code in ``download_xkcd_number()``,
    ``download_latest()`` and ``download_all()`` (**Refactoring!!**)
 -  [ ] Adding support to open a particular xkcd at the CLI itself.

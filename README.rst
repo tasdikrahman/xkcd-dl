@@ -126,6 +126,7 @@ To use a custom directory to store your xkcd_archive, you can append
 paths work, but the directory must already exist.
 
 .. code:: bash
+
     $ xkcd-dl --download=3 --path=comic
     Downloading xkcd from 'http://xkcd.com/3/' and storing it under '/home/tasdik/comic/xkcd_archive/3'
     $ xkcd-dl --download-range 54 56 --path=/home/tasdik/xkcd

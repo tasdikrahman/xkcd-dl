@@ -155,7 +155,7 @@ alt = {altText} \n""".format(
 
 
 ##### --update-db START
-def make_keyvalue_list(xkcd_dict, xkcd_num, date, description, alt):
+def make_keyvalue_list(xkcd_dict, xkcd_num, date, description):
     """
     Creates a list consisting of the date at which the xkcd was published (and) it's description with it
     eg : ['2007-1-24', 'The Problem with Wikipedia']
@@ -168,7 +168,6 @@ def make_keyvalue_list(xkcd_dict, xkcd_num, date, description, alt):
         keyvalue_list = {}
         keyvalue_list['date-published'] = date
         keyvalue_list['description'] = description
-        keyvalue_list['alt'] = alt
         ### indexing it
         xkcd_dict[xkcd_number] = keyvalue_list
 
@@ -196,7 +195,7 @@ def update_dict():
                 href = alinks.get('href').strip("/")   ## the href stored is in form of eg: "/3/". So make it of form "3"
                 date = alinks.get('title')
                 description = alinks.contents[0]       
-                make_keyvalue_list(xkcd_dict, href, date, description, alt) 
+                make_keyvalue_list(xkcd_dict, href, date, description) 
                 
         with open(xkcd_dict_location, 'w') as f:
             json.dump(xkcd_dict, f)

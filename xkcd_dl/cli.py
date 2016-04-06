@@ -109,6 +109,8 @@ def download_latest():
         publishing_date = "{date}-{month}-{year}".format(date=date, month=mon, year=year)
 
         title = response_content['title']
+        alt = response_content['alt']
+
         stripped_title = title.replace(" ", "_").replace(":", "_").replace("/", "_").replace("*", "_").replace("$", "_").replace("@", "_")
 
         xkcd_url = "{base}/{xkcd_num}".format(base=BASE_URL, xkcd_num=xkcd_number)
@@ -125,10 +127,12 @@ def download_latest():
                 content = """title : {description}
 date-publised: {date}
 url = {url}
+alt = {altText}
                 """.format(
                     description=title, 
                     date=publishing_date, 
-                    url=xkcd_url
+                    url=xkcd_url,
+                    altText=alt
                 )
                 f.write(content)            
 

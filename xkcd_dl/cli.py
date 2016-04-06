@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-r'''
+'''
 Run `xkcd-dl --update-db` if running for the first time.
 Usage:
   xkcd-dl --update-db
@@ -127,8 +127,7 @@ def download_latest():
                 content = """title : {description}
 date-publised: {date}
 url = {url}
-alt = {altText} 
-                """.format(
+alt = {altText} \n""".format(
                     description=title, 
                     date=publishing_date, 
                     url=xkcd_url,
@@ -156,7 +155,7 @@ alt = {altText}
 
 
 ##### --update-db START
-def make_keyvalue_list(xkcd_dict, xkcd_num, date, description):
+def make_keyvalue_list(xkcd_dict, xkcd_num, date, description, alt):
     """
     Creates a list consisting of the date at which the xkcd was published (and) it's description with it
     eg : ['2007-1-24', 'The Problem with Wikipedia']
@@ -197,7 +196,7 @@ def update_dict():
                 href = alinks.get('href').strip("/")   ## the href stored is in form of eg: "/3/". So make it of form "3"
                 date = alinks.get('title')
                 description = alinks.contents[0]       
-                make_keyvalue_list(xkcd_dict, href, date, description) 
+                make_keyvalue_list(xkcd_dict, href, date, description, alt) 
                 
         with open(xkcd_dict_location, 'w') as f:
             json.dump(xkcd_dict, f)
@@ -270,7 +269,6 @@ def download_one(xkcd_dict, xkcd_num):
     if xkcd_number in xkcd_dict:
         date=xkcd_dict[xkcd_number]['date-published']
         description=xkcd_dict[xkcd_number]['description']
-        alt=xkcd_dict[xkcd_number]['alt']
 
         new_description = sanitize_description(description)
 
@@ -282,6 +280,7 @@ def download_one(xkcd_dict, xkcd_num):
             path=new_folder
             )
         )
+        alt=requests.get(to_download_single+'info.0.json').json()['alt']
         ## check if file already exists! i.e xkcd has been downloaded
         if os.path.exists(new_folder):
             print("xkcd  number '{num}' has already been downloaded!".format(num=xkcd_number))
@@ -293,8 +292,7 @@ def download_one(xkcd_dict, xkcd_num):
                 content = """title : {description}
 date-publised: {date}
 url = {url}
-alt = {altText} 
-            """.format(description=description, date=date, url=to_download_single, altText=alt)
+alt = {altText} \n""".format(description=description, date=date, url=to_download_single, altText=alt)
                 f.write(content)
 
             ######################################

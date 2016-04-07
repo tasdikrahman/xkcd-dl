@@ -112,8 +112,6 @@ def download_latest():
         title = response_content['title']
         alt = response_content['alt']
 
-        stripped_title = title.maketrans(" :/*$@","______")
-
         xkcd_url = "{base}/{xkcd_num}".format(base=BASE_URL, xkcd_num=xkcd_number)
 
         new_folder = '{current_directory}/xkcd_archive/{name}'.format(current_directory=WORKING_DIRECTORY, name=xkcd_number)
@@ -140,9 +138,6 @@ alt: {altText} \n""".format(
             img_raw_link = response_content['img']
             ## ^ has the string in the form of "http:\/\/imgs.xkcd.com\/comics\/flashlights.png"
             img_link = img_raw_link.replace("\/", "/")
-            """>>>print(img_link)
-            http://imgs.xkcd.com/comics/flashlights.png
-            """
             print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(
                                 img_url=img_link, 
                                 path=new_folder
@@ -165,12 +160,14 @@ def make_keyvalue_list(xkcd_dict, xkcd_num, date, description):
     reference : http://stackoverflow.com/a/28897347/3834059
     """
     xkcd_number = xkcd_num              ## JSON cannot store integer values. Convert it to string if you want to store it 
+    keyvalue_list = {}
+    keyvalue_list['date-published'] = date
+    ### indexing it
+    xkcd_dict[xkcd_number] = keyvalue_list
     if xkcd_number != '472':         ## Refer [1]
-        keyvalue_list = {}
-        keyvalue_list['date-published'] = date
         keyvalue_list['description'] = description
-        ### indexing it
-        xkcd_dict[xkcd_number] = keyvalue_list
+    else:
+        keyvalue_list['description'] = "House of Pancakes"
 
     '''
     [1] the description for XKCD number is "<span style="color: #0000ED">House</span>". Leaving it for this release
@@ -378,7 +375,7 @@ def main():
         download_xkcd_range()
     elif arguments['--download-all']:
         download_all()
-    elif arguments['-h'] or arguments['--help']:
+    elif (arguments['-h'] or arguments['--help']):
         print(__doc__)
     elif arguments['--version'] or arguments['-v']:
         print(__version__)

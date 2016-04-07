@@ -1,0 +1,4 @@
+title : Jack and Jill
+date-publised: 2016-3-30
+url = http://xkcd.com/1662/
+alt = Jill and Jack / began to frack. / The oil boosts their town. / But fractures make / the bedrock shake / and Jack came tumbling down. 

@@ -1,4 +1,0 @@
-title : Podium
-date-publised: 2016-3-28
-url = http://xkcd.com/1661/
-alt = BREAKING: Senator's bold pro-podium stand leads to primary challenge from prescriptivist base. 

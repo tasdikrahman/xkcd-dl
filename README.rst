@@ -246,13 +246,13 @@ To-do
 -  [x] add ``xkcd-dl --download-all``
 -  [x] add ``xkcd-dl download-range <START> <END>``
 -  [x] add path setting with ``[--path=/path/to/directory]`` option
+-  [x] add exclude list to easily recognize and ignore dynamic comics
+   i.e. comics without a default image.
 -  [ ] Remove redundant code in ``download_xkcd_number()``,
    ``download_latest()`` and ``download_all()`` (**Refactoring!!**)
 -  [ ] Adding support to open a particular xkcd at the CLI itself.
    (Thinking of using `img2txt <https://github.com/hit9/img2txt>`__ for
    that)
--  [ ] add exclude list to easily recognize and ignore dynamic comics
-   i.e. comics without a default image.
 
 
 Known Issues
@@ -266,10 +266,7 @@ Known Issues
    you don't have ``pip3`` installed.
    ``$ sudo apt-get install python3-pip`` should fix that. To check your
    version of pip
--  When there is a comic without an image (example: 1608) it fails with an 
-   "UnboundLocalError: local variable 'img_link' referenced before assignment"
-   On the todo list now.
-    
+-  Dynamic comics have to be added manually using the excludeList
 
 .. code:: bash
 

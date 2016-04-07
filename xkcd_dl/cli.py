@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-r'''
+'''
 Run `xkcd-dl --update-db` if running for the first time.
 Usage:
   xkcd-dl --update-db
@@ -109,6 +109,8 @@ def download_latest():
         publishing_date = "{date}-{month}-{year}".format(date=date, month=mon, year=year)
 
         title = response_content['title']
+        alt = response_content['alt']
+
         stripped_title = title.replace(" ", "_").replace(":", "_").replace("/", "_").replace("*", "_").replace("$", "_").replace("@", "_")
 
         xkcd_url = "{base}/{xkcd_num}".format(base=BASE_URL, xkcd_num=xkcd_number)
@@ -125,10 +127,11 @@ def download_latest():
                 content = """title : {description}
 date-publised: {date}
 url = {url}
-                """.format(
+alt = {altText} \n""".format(
                     description=title, 
                     date=publishing_date, 
-                    url=xkcd_url
+                    url=xkcd_url,
+                    altText=alt
                 )
                 f.write(content)            
 
@@ -276,6 +279,7 @@ def download_one(xkcd_dict, xkcd_num):
             path=new_folder
             )
         )
+        alt=requests.get(to_download_single+'info.0.json').json()['alt']
         ## check if file already exists! i.e xkcd has been downloaded
         if os.path.exists(new_folder):
             print("xkcd  number '{num}' has already been downloaded!".format(num=xkcd_number))
@@ -287,7 +291,7 @@ def download_one(xkcd_dict, xkcd_num):
                 content = """title : {description}
 date-publised: {date}
 url = {url}
-                """.format(description=description, date=date, url=to_download_single)
+alt = {altText} \n""".format(description=description, date=date, url=to_download_single, altText=alt)
                 f.write(content)
 
             ######################################

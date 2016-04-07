@@ -37,6 +37,7 @@ Features
    -  ``date-publised``
    -  url value
    -  a small description of that xkcd
+   -  The alt text on the comic
 
 -  written in uncomplicated ``python``.
 
@@ -144,7 +145,7 @@ Demo
 
 Each Comic is stored in it's own individual folder with a
 ``description.txt`` placed in it. It contains meta-data like -
-``img-link`` - ``title`` - ``date-published``
+``img-link`` - ``title`` - ``date-published`` - ``alt``
 
 Here's a little example for the same
 
@@ -250,6 +251,8 @@ To-do
 -  [ ] Adding support to open a particular xkcd at the CLI itself.
    (Thinking of using `img2txt <https://github.com/hit9/img2txt>`__ for
    that)
+-  [ ] add exclude list to easily recognize and ignore dynamic comics
+   i.e. comics without a default image.
 
 
 Known Issues
@@ -263,6 +266,10 @@ Known Issues
    you don't have ``pip3`` installed.
    ``$ sudo apt-get install python3-pip`` should fix that. To check your
    version of pip
+-  When there is a comic without an image (example: 1608) it fails with an 
+   "UnboundLocalError: local variable 'img_link' referenced before assignment"
+   On the todo list now.
+    
 
 .. code:: bash
 

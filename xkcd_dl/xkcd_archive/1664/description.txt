@@ -1,4 +1,0 @@
-title : Mycology
-date-publised: 2016-4-6
-url = http://xkcd.com/1664/
-alt = Conspiracy theory: There's no such thing as corn. Those fields you see are just the stalks of a fungus that's controlling our brains to make us want to spread it. 

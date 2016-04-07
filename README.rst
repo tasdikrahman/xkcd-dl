@@ -253,6 +253,7 @@ To-do
 -  [ ] Adding support to open a particular xkcd at the CLI itself.
    (Thinking of using `img2txt <https://github.com/hit9/img2txt>`__ for
    that)
+-  [ ] add exclude list to easily recognize and ignore dynamic comics
 
 
 Known Issues

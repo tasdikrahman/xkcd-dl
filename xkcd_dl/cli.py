@@ -36,7 +36,7 @@ xkcd_dict_filename = '.xkcd_dict.json'
 xkcd_dict_location = os.path.join(HOME, xkcd_dict_filename)
 SCRIPT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))       ## returns the directory of this script
 WORKING_DIRECTORY = os.getcwd()         ##returns the directory the terminal is currently in
-excludeList = ['1416','1525','1608','1416','1506','1446','1663' ]
+excludeList = ['1350','1416','1525','1608','1416','1506','1446','1663' ]
 
 arguments = docopt(__doc__, version=__version__)
 

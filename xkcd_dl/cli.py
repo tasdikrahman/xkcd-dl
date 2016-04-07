@@ -36,6 +36,7 @@ xkcd_dict_filename = '.xkcd_dict.json'
 xkcd_dict_location = os.path.join(HOME, xkcd_dict_filename)
 SCRIPT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))       ## returns the directory of this script
 WORKING_DIRECTORY = os.getcwd()         ##returns the directory the terminal is currently in
+excludeList = ['1350','1416','1525','1608','1416','1506','1446','1663' ]
 
 arguments = docopt(__doc__, version=__version__)
 
@@ -111,7 +112,8 @@ def download_latest():
         title = response_content['title']
         alt = response_content['alt']
 
-        stripped_title = title.replace(" ", "_").replace(":", "_").replace("/", "_").replace("*", "_").replace("$", "_").replace("@", "_")
+        #stripped_title = title.replace(" ", "_").replace(":", "_").replace("/", "_").replace("*", "_").replace("$", "_").replace("@", "_")
+        stripped_title = title.maketrans(" :/*$@","______")
 
         xkcd_url = "{base}/{xkcd_num}".format(base=BASE_URL, xkcd_num=xkcd_number)
 
@@ -126,8 +128,8 @@ def download_latest():
             with open('description.txt', 'w') as f:
                 content = """title : {description}
 date-publised: {date}
-url = {url}
-alt = {altText} \n""".format(
+url: {url}
+alt: {altText} \n""".format(
                     description=title, 
                     date=publishing_date, 
                     url=xkcd_url,
@@ -265,6 +267,16 @@ def download_one(xkcd_dict, xkcd_num):
     '''
     # ensure a string key
     xkcd_number = str(xkcd_num)
+    if xkcd_number in excludeList:
+        downloadImage = False
+        print("{num} is special. It does not have an image.".format(num=xkcd_number))
+        '''
+        [2] Some comics are special and either don't have an image or have a dynamic one.
+            The full list is the array excludeList and needs to be manually update upon release
+            of such comic.
+        '''
+    else:
+        downloadImage = True
     if xkcd_number in xkcd_dict:
         date=xkcd_dict[xkcd_number]['date-published']
         description=xkcd_dict[xkcd_number]['description']
@@ -290,38 +302,39 @@ def download_one(xkcd_dict, xkcd_num):
             with open('description.txt', 'w') as f:
                 content = """title : {description}
 date-publised: {date}
-url = {url}
-alt = {altText} \n""".format(description=description, date=date, url=to_download_single, altText=alt)
+url: {url}
+alt: {altText} \n""".format(description=description, date=date, url=to_download_single, altText=alt)
                 f.write(content)
 
             ######################################
             ##getting the image link from the page
             image_page = requests.get(to_download_single, stream=True)
-            if image_page.status_code == 200:
-                image_page_content = image_page.content
-                image_page_content_soup = bs4(image_page_content, 'html.parser')
+            if downloadImage:
+                if image_page.status_code == 200:
+                    image_page_content = image_page.content
+                    image_page_content_soup = bs4(image_page_content, 'html.parser')
 
-                for data in image_page_content_soup.find_all("div", {"id": "comic"}):
-                    for img_tag in data.find_all('img'):
-                        img_link = img_tag.get('src')
-                    
-                ## a sample 'img_link' is like '//imgs.xkcd.com/comics/familiar.jpg', so we need to add 
-                ### 'http:' to it
-                ## making a request for the image in question
-                complete_img_url = "http:{url}".format(url=img_link)
+                    for data in image_page_content_soup.find_all("div", {"id": "comic"}):
+                        for img_tag in data.find_all('img'):
+                            img_link = img_tag.get('src')
+                        
+                    ## a sample 'img_link' is like '//imgs.xkcd.com/comics/familiar.jpg', so we need to add 
+                    ### 'http:' to it
+                    ## making a request for the image in question
+                    complete_img_url = "http:{url}".format(url=img_link)
 
-                file_name = "{description}.jpg".format(description=new_description)
-                urllib.request.urlretrieve(complete_img_url, file_name)
-                ## now don't be fooled here by the .jpg extension here!
-                ## You would be surprised to find out that it may have a different file type. PNG for example per se.
+                    file_name = "{description}.jpg".format(description=new_description)
+                    urllib.request.urlretrieve(complete_img_url, file_name)
+                    ## now don't be fooled here by the .jpg extension here!
+                    ## You would be surprised to find out that it may have a different file type. PNG for example per se.
 
-                ## using module 'python-magic' to detect the mime type of the file downloaded 
-                magic_response = str(magic.from_file(file_name, mime=True))
-                if 'png' in magic_response:
-                    os.rename(file_name, "{description}.png".format(description=new_description))
-                elif 'jpeg' in magic_response:
-                    os.rename(file_name, "{description}.jpeg".format(description=new_description))
-                ## file storage successful
+                    ## using module 'python-magic' to detect the mime type of the file downloaded 
+                    magic_response = str(magic.from_file(file_name, mime=True))
+                    if 'png' in magic_response:
+                        os.rename(file_name, "{description}.png".format(description=new_description))
+                    elif 'jpeg' in magic_response:
+                        os.rename(file_name, "{description}.jpeg".format(description=new_description))
+                    ## file storage successful
 
     else: 
         print("{} does not exist! Please try with a different option".format(xkcd_number))

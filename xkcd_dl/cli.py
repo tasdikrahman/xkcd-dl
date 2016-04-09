@@ -18,9 +18,9 @@ Options:
 
 from docopt import docopt
 from bs4 import BeautifulSoup as bs4
-import urllib.request
 import magic
 import requests
+import shutil
 import json
 import os
 from os.path import expanduser, join
@@ -70,64 +70,26 @@ def download_xkcd_range():
                download_one(json_content, number) 
  
 def download_latest():
+    update_dict()
     url = 'https://www.xkcd.com/info.0.json'
     response = requests.get(url)
-    if response.status_code == 200:
-        response_content = response.json()
-
-        xkcd_number = response_content['num']
-        mon = response_content['month']
-        year = response_content['year']
-        date = response_content['day']
-        publishing_date = "{date}-{month}-{year}".format(date=date, month=mon, year=year)
-
-        title = response_content['title']
-        alt = response_content['alt']
-
-        xkcd_url = "{base}/{xkcd_num}".format(base=BASE_URL, xkcd_num=xkcd_number)
-
-        new_folder = '{current_directory}/xkcd_archive/{name}'.format(current_directory=WORKING_DIRECTORY, name=xkcd_number)
-
-        if os.path.exists(new_folder):
-            print("xkcd number : '{xkcd}'' has already been downloaded !".format(xkcd=xkcd_number))
-        else:
-            os.makedirs(new_folder)
-            os.chdir(new_folder)
-            with open('description.txt', 'w') as f:
-                content = """title : {description}
-date-publised: {date}
-url: {url}
-alt: {altText} \n""".format(
-                    description=title, 
-                    date=publishing_date, 
-                    url=xkcd_url,
-                    altText=alt
-                )
-                f.write(content)            
-
-            img_raw_link = response_content['img']
-            img_link = img_raw_link.replace("\/", "/")
-            print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(
-                                img_url=img_link, 
-                                path=new_folder
-                                )
-            )
-            file_name = img_link.split("/")[-1]
-            urllib.request.urlretrieve(img_link, file_name)
+    response_content = response.json()
+    xkcd_number = response_content['num']
+    download_one(read_dict(), xkcd_number)
 
 def make_keyvalue_list(xkcd_dict, xkcd_num, date, description):
     xkcd_number = xkcd_num
     keyvalue_list = {}
     keyvalue_list['date-published'] = date
     xkcd_dict[xkcd_number] = keyvalue_list
-    if xkcd_number != '472':         ## Refer [1]
-        keyvalue_list['description'] = description
-    else:
+    if xkcd_number == '472':         ## Refer [1]
         keyvalue_list['description'] = "House of Pancakes"
+    else:
+        keyvalue_list['description'] = description
 
 
     '''
-    [1] the description for XKCD number is "<span style="color: #0000ED">House</span>". Leaving it for this release
+    [1] the description for XKCD number is "<span style="color: #0000ED">House</span>". It's hard coded. But I am happy.
     '''
 
 def update_dict():
@@ -235,7 +197,13 @@ alt: {altText} \n""".format(description=description, date=date, url=to_download_
                     complete_img_url = "http:{url}".format(url=img_link)
 
                     file_name = "{description}.jpg".format(description=new_description)
-                    urllib.request.urlretrieve(complete_img_url, file_name)
+                    r = requests.get(complete_img_url, stream = True)
+                    if r.status_code == 200:
+                        with open(file_name, 'wb') as f:
+                            r.raw.decode_content = True
+                            shutil.copyfileobj(r.raw, f)
+                    else:
+                        printf("Error with connectivity. HTTP error {}".format(r.status_code))
                     magic_response = str(magic.from_file(file_name, mime=True))
                     if 'png' in magic_response:
                         os.rename(file_name, "{description}.png".format(description=new_description))

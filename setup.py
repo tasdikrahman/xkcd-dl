@@ -13,9 +13,9 @@ finally:
 
 setup(
   name = 'xkcd-dl',
-  version = '0.0.6',
+  version = '0.0.7',
   author = 'Tasdik Rahman',
-  author_email = 'tasdik95@gmail.com', 
+  author_email = 'prodicus@outlook.com', 
   description = "Download all or a particular XKCD comic uploaded till date from the Command line",
   long_description=long_description,
   url = 'https://github.com/prodicus/xkcd-dl', 
@@ -29,7 +29,7 @@ setup(
   ### adding package data to it 
   packages=find_packages(exclude=['contrib', 'docs', 'tests']),
   ###
-  download_url = 'https://github.com/prodicus/xkcd-dl/tarball/0.0.6', 
+  download_url = 'https://github.com/prodicus/xkcd-dl/tarball/0.0.7', 
   classifiers = [
       'Intended Audience :: Developers',
       'Topic :: Software Development :: Build Tools',

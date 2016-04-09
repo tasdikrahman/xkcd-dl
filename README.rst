@@ -1,7 +1,10 @@
-XKCD-Archiver-cli
-~~~~~~~~~~~~~~~~~
+.. figure:: https://raw.githubusercontent.com/prodicus/xkcd-dl/master/assets/logo.png
+   :alt: logo
+
 
 |PyPI version| |License|
+
+Download each and every `xkcd <http://xkcd.com>`__ comic uploaded! Like ever!
 
 :Author: Tasdik Rahman
 
@@ -10,16 +13,6 @@ XKCD-Archiver-cli
 
 .. sectnum::
 
-``xkcd-dl`` is inspired by an awesome package called ``youtube-dl``
-https://github.com/rg3/youtube-dl/ written by `Daniel
-Bolton <https://github.com/rg3>`__\ (Much respect!)
-
-How about you get to download all of the xkcd which have been uploaded
-till date? This does just that!
-
-Now I don't know about you, but I just love reading ``xkcd``'s! Had a boring Sunday night looming over, thought why not create something like ``youtube-dl`` but for downloading ``xkcd``'s!
-
-And hence `xkcd-dl <https://github.com/prodicus/xkcd-dl>`__
 
 Features
 =========
@@ -29,6 +22,7 @@ Features
 -  Download individual xkcd's and store them
 -  Download ranges of xkcd's and store them
 -  Download the latest issue xkcd
+-  Download the meta text inside each xkcd and store it
 -  No duplicacy in your XKCD database.
 -  Stores each xkcd in a separate file named as the ``title`` of the
    xkcd at your home directory
@@ -183,6 +177,13 @@ Option 2: installing from source
     $ pip3 install -r requirements.txt
     $ python3 setup.py install
 
+Upgrading
+---------
+
+.. code:: bash
+
+    $ pip3 install -U xkcd-dl
+
 Uninstalling
 ------------
 
@@ -236,6 +237,7 @@ Contributors
 Big shout out to
 
 -  `Ian C <https://github.com/GrappigPanda>`__ for fixing issue `#2 <https://github.com/prodicus/xkcd-dl/issues/2>`__ which stopped the download if a title of a comic had a special character in it and `BlitzKraft <https://github.com/BlitzKraft>`__ for pointing it out.
+-  `BlitzKraft <https://github.com/BlitzKraft>`__ for adding the feature to download the `alt-text` from the the xkcd **and** major clean ups!
 -  `Braden Best <https://github.com/bradenbest>`__ for pointing out the issues when installing from source apart from his valuable input.
 
 To-do
@@ -256,7 +258,7 @@ To-do
 
 
 Known Issues
-============
+------------
 
 -  There have been issues when installed from source if you are using
    ``python 2.*`` as discussed in
@@ -276,7 +278,7 @@ Known Issues
 
 
 Bugs
-====
+----
 
 Please report the bugs at the `issue
 tracker <https://github.com/prodicus/xkcd-archiver/issues>`__
@@ -285,9 +287,22 @@ tracker <https://github.com/prodicus/xkcd-archiver/issues>`__
 
 You can tweet me at `@tasdikrahman <https://twitter.com/tasdikrahman>`__ if you can't get it to work. In fact, you should tweet me anyway.
 
+Motivation
+==========
 
-License :
-=========
+``xkcd-dl`` is inspired by an awesome package called `youtube-dl <https://github.com/rg3/youtube-dl/>`__ written by `Daniel Bolton <https://github.com/rg3>`__ (Much respect!)
+
+How about you get to download all of the xkcd which have been uploaded
+till date? This does just that!
+
+Now I don't know about you, but I just love reading ``xkcd``'s! Had a boring Sunday night looming over, thought why not create something like ``youtube-dl`` but for downloading ``xkcd``'s!
+
+And hence `xkcd-dl <https://github.com/prodicus/xkcd-dl>`__
+
+Cheers to a crazy night!
+
+Legal stuff
+===========
 
 Built with ♥ by `Tasdik Rahman <http://tasdikrahman.me>`__ `(@tasdikrahman) <https://twitter.com/tasdikrahman>`__ and `others <https://github.com/prodicus/xkcd-dl/graphs/contributors>`__ released under `MIT License <http://prodicus.mit-license.org>`__
 

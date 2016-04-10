@@ -250,7 +250,7 @@ To-do
 -  [x] add path setting with ``[--path=/path/to/directory]`` option
 -  [x] add exclude list to easily recognize and ignore dynamic comics
    i.e. comics without a default image.
--  [ ] Remove redundant code in ``download_xkcd_number()``,
+-  [x] Remove redundant code in ``download_xkcd_number()``,
    ``download_latest()`` and ``download_all()`` (**Refactoring!!**)
 -  [ ] Adding support to open a particular xkcd at the CLI itself.
    (Thinking of using `img2txt <https://github.com/hit9/img2txt>`__ for

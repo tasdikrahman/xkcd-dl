@@ -1,44 +1,25 @@
 #!/usr/bin/env python3
 
-'''
-Run `xkcd-dl --update-db` if running for the first time.
-Usage:
-  xkcd-dl --update-db
-  xkcd-dl --download-latest [--path=PATH]
-  xkcd-dl --download=XKCDNUMBER [--path=PATH]
-  xkcd-dl --download-all [--path=PATH]
-  xkcd-dl --download-range <START> <END> [--path=PATH]
-  xkcd-dl --version
-  xkcd-dl (-h | --help)
-Options:
-  --update-db   Updates dictionary which stores all xkcd's till date
-  -h --help     Show this screen
-  -v --version  Show version 
-'''
-
-from docopt import docopt
+import argparse
 from bs4 import BeautifulSoup as bs4
-import urllib.request
 import magic
 import requests
+import shutil
 import json
 import os
 from os.path import expanduser, join
 from os import getcwd
 
 __author__ = "Tasdik Rahman (https://github.com/prodicus)"
-__version__ = '0.0.6'
 
-HOME = expanduser("~")       
+HOME = expanduser("~")
 BASE_URL = 'http://xkcd.com'
 ARCHIVE_URL='http://xkcd.com/archive/'
 xkcd_dict_filename = '.xkcd_dict.json'
 xkcd_dict_location = os.path.join(HOME, xkcd_dict_filename)
 SCRIPT_DIRECTORY = os.path.dirname(os.path.abspath(__file__)) 
-WORKING_DIRECTORY = os.getcwd()         
+WORKING_DIRECTORY = os.getcwd()
 excludeList = ['1350','1416','1525','1608','1416','1506','1446','1663' ]
-
-arguments = docopt(__doc__, version=__version__)
 
 def download_all():
     json_content = read_dict()
@@ -48,94 +29,52 @@ def download_all():
         for xkcd_number in all_keys:
             download_one(json_content, xkcd_number) 
 
-def download_xkcd_number():
-    json_content = read_dict()
-    if json_content:
-        download_one(json_content, arguments['--download'])
-def download_xkcd_range():
-    start = int(arguments["<START>"])
-    end = int(arguments["<END>"])
+def download_xkcd_range(*something):
+    if len(something) != 2:
+        print("Exactly two values are required for this.")
+    else:
+        start, end = something
 
-    json_content = read_dict()
-    if json_content:
-        if start > end:
-            print("Start must be smaller than End.")
-            return
+        json_content = read_dict()
+        if json_content:
+            if start > end:
+                print("Start must be smaller than End.")
+                return
 
-        if is_valid_comic(start) and is_valid_comic(end):
-            range_numbers = [x for x in range(start, end+1)]
-            if start <= 404 <= end:
-                range_numbers.remove(404) 
-            for number in range_numbers:
-               download_one(json_content, number) 
+            if is_valid_comic(start) and is_valid_comic(end):
+                range_numbers = [x for x in range(start, end+1)]
+                if start <= 404 <= end:
+                    range_numbers.remove(404) 
+                for number in range_numbers:
+                   download_one(json_content, number) 
  
 def download_latest():
+    update_dict()
     url = 'https://www.xkcd.com/info.0.json'
     response = requests.get(url)
-    if response.status_code == 200:
-        response_content = response.json()
-
-        xkcd_number = response_content['num']
-        mon = response_content['month']
-        year = response_content['year']
-        date = response_content['day']
-        publishing_date = "{date}-{month}-{year}".format(date=date, month=mon, year=year)
-
-        title = response_content['title']
-        alt = response_content['alt']
-
-        xkcd_url = "{base}/{xkcd_num}".format(base=BASE_URL, xkcd_num=xkcd_number)
-
-        new_folder = '{current_directory}/xkcd_archive/{name}'.format(current_directory=WORKING_DIRECTORY, name=xkcd_number)
-
-        if os.path.exists(new_folder):
-            print("xkcd number : '{xkcd}'' has already been downloaded !".format(xkcd=xkcd_number))
-        else:
-            os.makedirs(new_folder)
-            os.chdir(new_folder)
-            with open('description.txt', 'w') as f:
-                content = """title : {description}
-date-publised: {date}
-url: {url}
-alt: {altText} \n""".format(
-                    description=title, 
-                    date=publishing_date, 
-                    url=xkcd_url,
-                    altText=alt
-                )
-                f.write(content)            
-
-            img_raw_link = response_content['img']
-            img_link = img_raw_link.replace("\/", "/")
-            print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(
-                                img_url=img_link, 
-                                path=new_folder
-                                )
-            )
-            file_name = img_link.split("/")[-1]
-            urllib.request.urlretrieve(img_link, file_name)
+    response_content = response.json()
+    xkcd_number = response_content['num']
+    download_one(read_dict(), xkcd_number)
 
 def make_keyvalue_list(xkcd_dict, xkcd_num, date, description):
     xkcd_number = xkcd_num
     keyvalue_list = {}
     keyvalue_list['date-published'] = date
     xkcd_dict[xkcd_number] = keyvalue_list
-    if xkcd_number != '472':         ## Refer [1]
-        keyvalue_list['description'] = description
-    else:
+    if xkcd_number == '472':         ## Refer [1]
         keyvalue_list['description'] = "House of Pancakes"
-
+    else:
+        keyvalue_list['description'] = description
 
     '''
-    [1] the description for XKCD number is "<span style="color: #0000ED">House</span>". Leaving it for this release
+    [1] the description for XKCD number is "<span style="color: #0000ED">House</span>". It's hard coded. But I am happy.
     '''
 
 def update_dict():
     archive_page = requests.get(ARCHIVE_URL)
     if archive_page.status_code == 200:
         page_content = archive_page.content
-        archive_soup = bs4(page_content, 'html.parser')
-        
+        archive_soup = bs4(page_content, 'html.parser') 
         xkcd_dict = dict()
 
         for data in archive_soup.find_all("div", {"id": "middleContainer"}):
@@ -144,7 +83,7 @@ def update_dict():
                 date = alinks.get('title')
                 description = alinks.contents[0]       
                 make_keyvalue_list(xkcd_dict, href, date, description) 
-                
+
         with open(xkcd_dict_location, 'w') as f:
             json.dump(xkcd_dict, f)
             print("XKCD link database updated\nStored it in '{file}'. You can start downloading your XKCD's!\nRun 'xkcd-dl --help' for more options".format(file=xkcd_dict_location)) 
@@ -168,7 +107,6 @@ def is_valid_comic(num):
     else:
         print("There was an internet connection error.")
         return False
-
 
 def dict_exists():
     if not os.path.isfile(xkcd_dict_location):
@@ -231,11 +169,17 @@ alt: {altText} \n""".format(description=description, date=date, url=to_download_
                     for data in image_page_content_soup.find_all("div", {"id": "comic"}):
                         for img_tag in data.find_all('img'):
                             img_link = img_tag.get('src')
-                        
+
                     complete_img_url = "http:{url}".format(url=img_link)
 
                     file_name = "{description}.jpg".format(description=new_description)
-                    urllib.request.urlretrieve(complete_img_url, file_name)
+                    r = requests.get(complete_img_url, stream = True)
+                    if r.status_code == 200:
+                        with open(file_name, 'wb') as f:
+                            r.raw.decode_content = True
+                            shutil.copyfileobj(r.raw, f)
+                    else:
+                        printf("Error with connectivity. HTTP error {}".format(r.status_code))
                     magic_response = str(magic.from_file(file_name, mime=True))
                     if 'png' in magic_response:
                         os.rename(file_name, "{description}.png".format(description=new_description))
@@ -245,40 +189,45 @@ alt: {altText} \n""".format(description=description, date=date, url=to_download_
     else: 
         print("{} does not exist! Please try with a different option".format(xkcd_number))
 
-def set_custom_path():
+def set_custom_path(custom_path):
     path_was_set = False
-    if arguments["--path"] and os.path.isdir(arguments["--path"]):
-        os.chdir(arguments["--path"])
+    if custom_path and os.path.isdir(custom_path):
+        os.chdir(custom_path)
 
         global WORKING_DIRECTORY
         WORKING_DIRECTORY = os.getcwd()
         path_was_set = True
+        print("Path is set to {}".format(WORKING_DIRECTORY))
+    else:
+        print("The path does not exist.")
     return path_was_set
 
 def main():
-    if arguments['--update-db']:
+    args = parser.parse_args()
+    if args.update_db:
         update_dict()
-
-    if arguments['--path']:
-        path_was_set = set_custom_path()
-        if not path_was_set:
-            print("The path could not be set. (The directory must exist. Was a directory name too long or null?)")
-            return
-    if arguments['--download-latest']:
+    elif args.download_latest:
         download_latest()
-    elif arguments['--download']:
-        download_xkcd_number()
-    elif arguments['--download-range']:
-        download_xkcd_range()
-    elif arguments['--download-all']:
+    elif args.download:
+        download_one(read_dict(), args.download)
+    elif args.download_all:
         download_all()
-    elif (arguments['-h'] or arguments['--help']):
-        print(__doc__)
-    elif arguments['--version'] or arguments['-v']:
-        print(__version__)
-        print(__author__)
+    elif args.download_range:
+        download_xkcd_range(*args.download_range)
+    elif args.path:
+        set_custom_path(args.path)
     else:
-        print(__doc__)
+        parser.print_usage()
+
+parser = argparse.ArgumentParser(prog='xkcd-dl', description='Run `xkcd-dl --update-db` if running for the first time.')
+parser.add_argument('-u', '--update-db', action='store_true', help='Update the database')
+parser.add_argument('-l', '--download-latest', action='store_true', help='Download most recent comic') 
+group = parser.add_mutually_exclusive_group()
+group.add_argument('-d', '--download', help='Download specified comic by number', type=int, metavar='XKCD_NUM')
+group.add_argument('-a', '--download-all', action='store_true', help='Download all comics')
+parser.add_argument('-r', '--download-range', nargs='*', help='Download specified range', type=int) 
+parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.0.7')
+parser.add_argument('-P', '--path', help='set path')
 
 if __name__ == '__main__':
     main()

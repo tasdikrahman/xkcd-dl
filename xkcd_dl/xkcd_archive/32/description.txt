@@ -1,0 +1,4 @@
+title : Pillar
+date-publised: 2006-1-1
+url: http://xkcd.com/32/
+alt: A comic by my brother Doug, redrawn and rewritten by me 

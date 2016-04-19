@@ -1,18 +1,32 @@
-#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#!/usr/bin/env python
+# @Author: Tasdik Rahman
+# @Date:   2016-04-19 12:29:20
+# @Last Modified by:   Tasdik Rahman
+# @Last Modified time: 2016-04-19 12:30:51
+# @MIT License
+# @http://tasdikrahman.me
+# @https://github.com/prodicus
 
 import argparse
-from bs4 import BeautifulSoup as bs4
 from subprocess import call
 import glob
-import magic
-import requests
 import shutil
 import json
 import os
 from os.path import expanduser, join
 from os import getcwd
 
-__author__ = "Tasdik Rahman (https://github.com/prodicus)"
+import magic
+import requests
+from bs4 import BeautifulSoup as bs4
+
+from version import VERSION
+
+__author__ = "Tasdik Rahman"
+__email__ = "prodicus@outlook.com"
+__version__ = VERSION
+
 
 HOME = expanduser("~")
 BASE_URL = 'http://xkcd.com'
@@ -69,7 +83,9 @@ def make_keyvalue_list(xkcd_dict, xkcd_num, date, description):
         keyvalue_list['description'] = description
 
     '''
-    [1] the description for XKCD number is "<span style="color: #0000ED">House</span>". It's hard coded. But I am happy.
+    [1] the description for XKCD number is 
+    "<span style="color: #0000ED">House</span>". It's hard coded currently
+    But it works.
     '''
 
 def update_dict():
@@ -128,7 +144,10 @@ def download_one(xkcd_dict, xkcd_num):
     xkcd_number = str(xkcd_num)
     if xkcd_number in excludeList:
         downloadImage = False
-        print("{num} is special. It does not have an image.".format(num=xkcd_number))
+        print("{num} is special. It does not have an image.".format(
+            num=xkcd_number
+            )
+        )
         '''
         [2] Some comics are special and either don't have an image or have a dynamic one.
             The full list is the array excludeList and needs to be manually update upon release
@@ -142,7 +161,10 @@ def download_one(xkcd_dict, xkcd_num):
 
         new_description = sanitize_description(description)
 
-        new_folder = '{current_directory}/xkcd_archive/{name}'.format(current_directory=WORKING_DIRECTORY, name=xkcd_number)
+        new_folder = '{current_directory}/xkcd_archive/{name}'.format(
+            current_directory=WORKING_DIRECTORY, 
+            name=xkcd_number
+        )
 
         to_download_single = "{base}/{xkcd_num}/".format(base=BASE_URL, xkcd_num=xkcd_number)
         print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(
@@ -151,7 +173,9 @@ def download_one(xkcd_dict, xkcd_num):
             )
         )
         alt=requests.get(to_download_single+'info.0.json').json()['alt']
-        if os.path.exists(new_folder): print("xkcd  number '{num}' has already been downloaded!".format(num=xkcd_number))
+        if os.path.exists(new_folder): print("xkcd  number '{num}' has already been downloaded!".format(
+            num=xkcd_number)
+        )
         else:
             os.makedirs(new_folder)
             os.chdir(new_folder)
@@ -159,7 +183,9 @@ def download_one(xkcd_dict, xkcd_num):
                 content = """title : {description}
 date-publised: {date}
 url: {url}
-alt: {altText} \n""".format(description=description, date=date, url=to_download_single, altText=alt)
+alt: {altText} \n""".format(description=description,
+                            date=date, url=to_download_single, altText=alt
+                            )
                 f.write(content)
 
             image_page = requests.get(to_download_single, stream=True)
@@ -184,9 +210,13 @@ alt: {altText} \n""".format(description=description, date=date, url=to_download_
                         printf("Error with connectivity. HTTP error {}".format(r.status_code))
                     magic_response = str(magic.from_file(file_name, mime=True))
                     if 'png' in magic_response:
-                        os.rename(file_name, "{description}.png".format(description=new_description))
+                        os.rename(file_name, "{description}.png".format(
+                            description=new_description)
+                        )
                     elif 'jpeg' in magic_response:
-                        os.rename(file_name, "{description}.jpeg".format(description=new_description))
+                        os.rename(file_name, "{description}.jpeg".format(
+                            description=new_description)
+                        )
 
     else: 
         print("{} does not exist! Please try with a different option".format(xkcd_number))
@@ -206,7 +236,10 @@ def set_custom_path(custom_path):
 
 def show_xkcd(num):
     download_one(read_dict(), num)
-    path = '{current_directory}/xkcd_archive/{name}/'.format(current_directory=WORKING_DIRECTORY, name=num)
+    path = '{current_directory}/xkcd_archive/{name}/'.format(
+        current_directory=WORKING_DIRECTORY, 
+        name=num
+    )
     call(["cat", path + "description.txt"])
     #call(["feh", path])
     ## ''' Comment out the following block if you like to use feh
@@ -248,7 +281,7 @@ group = parser.add_mutually_exclusive_group()
 group.add_argument('-d', '--download', help='Download specified comic by number', type=int, metavar='XKCD_NUM')
 group.add_argument('-a', '--download-all', action='store_true', help='Download all comics')
 parser.add_argument('-r', '--download-range', nargs='*', help='Download specified range', type=int) 
-parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.0.7')
+parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.1.0')
 parser.add_argument('-P', '--path', help='set path')
 parser.add_argument('-s', '--show', help='Show specified comic by number', type=int, metavar='XKCD_NUM')
 

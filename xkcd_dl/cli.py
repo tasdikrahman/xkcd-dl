@@ -2,6 +2,8 @@
 
 import argparse
 from bs4 import BeautifulSoup as bs4
+from subprocess import call
+import glob
 import magic
 import requests
 import shutil
@@ -202,6 +204,24 @@ def set_custom_path(custom_path):
         print("The path does not exist.")
     return path_was_set
 
+def show_xkcd(num):
+    download_one(read_dict(), num)
+    path = '{current_directory}/xkcd_archive/{name}/'.format(current_directory=WORKING_DIRECTORY, name=num)
+    call(["cat", path + "description.txt"])
+    #call(["feh", path])
+    ## ''' Comment out the following block if you like to use feh
+    # Or set default image viewer to feh.
+    try:
+        img_path = glob.glob(path + "*.jpeg")[0]
+        call(["xdg-open", img_path])
+    except IndexError:
+        try: 
+            img_path = glob.glob(path + "*.png")[0]
+            call(["xdg-open", img_path])
+        except IndexError:
+            print("Dynamic comic. Please visit in browser.")
+    ## '''
+
 def main():
     args = parser.parse_args()
     if args.update_db:
@@ -214,6 +234,8 @@ def main():
         download_all()
     elif args.download_range:
         download_xkcd_range(*args.download_range)
+    elif args.show:
+        show_xkcd(args.show)
     elif args.path:
         set_custom_path(args.path)
     else:
@@ -228,6 +250,7 @@ group.add_argument('-a', '--download-all', action='store_true', help='Download a
 parser.add_argument('-r', '--download-range', nargs='*', help='Download specified range', type=int) 
 parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.0.7')
 parser.add_argument('-P', '--path', help='set path')
+parser.add_argument('-s', '--show', help='Show specified comic by number', type=int, metavar='XKCD_NUM')
 
 if __name__ == '__main__':
     main()

@@ -3,7 +3,7 @@
 # @Author: Tasdik Rahman
 # @Date:   2016-04-19 12:29:20
 # @Last Modified by:   Tasdik Rahman
-# @Last Modified time: 2016-04-19 13:55:46
+# @Last Modified time: 2016-04-19 14:03:33
 # @MIT License
 # @http://tasdikrahman.me
 # @https://github.com/prodicus
@@ -281,7 +281,7 @@ group = parser.add_mutually_exclusive_group()
 group.add_argument('-d', '--download', help='Download specified comic by number', type=int, metavar='XKCD_NUM')
 group.add_argument('-a', '--download-all', action='store_true', help='Download all comics')
 parser.add_argument('-r', '--download-range', nargs='*', help='Download specified range', type=int) 
-parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.1.0')
+parser.add_argument('-v', '--version', action='version', version=__version__)
 parser.add_argument('-P', '--path', help='set path')
 parser.add_argument('-s', '--show', help='Show specified comic by number', type=int, metavar='XKCD_NUM')
 

@@ -129,6 +129,28 @@ paths work, but the directory must already exist.
     Downloading xkcd from 'http://xkcd.com/55/' and storing it under '/home/tasdik/xkcd/xkcd_archive/55'
     Downloading xkcd from 'http://xkcd.com/56/' and storing it under '/home/tasdik/xkcd/xkcd_archive/56'
 
+``--show XKCD_NUM``
+-------------------
+
+Opens the specified comic. Downloads it, if not downloaded already. Prints the alt text and metadata to stdout.
+
+.. code:: bash
+        
+    $ xkcd-dl --show 32
+    Downloading xkcd from 'http://xkcd.com/32/' and storing it under '/home/bk/Documents/xkcd-dl/xkcd_dl/xkcd_archive/32'
+    title : Pillar
+    date-publised: 2006-1-1
+    url: http://xkcd.com/32/
+    alt: A comic by my brother Doug, redrawn and rewritten by me
+     
+    $ xkcd-dl -s 1000
+    Downloading xkcd from 'http://xkcd.com/1000/' and storing it under '/home/bk/Documents/xkcd-dl/xkcd_dl/xkcd_archive/1000'
+    xkcd  number '1000' has already been downloaded!
+    title : 1000 Comics
+    date-publised: 2012-1-6
+    url: http://xkcd.com/1000/
+    alt: Thank you for making me feel less alone.
+
 Demo
 ====
 
@@ -252,9 +274,8 @@ To-do
    i.e. comics without a default image.
 -  [x] Remove redundant code in ``download_xkcd_number()``,
    ``download_latest()`` and ``download_all()`` (**Refactoring!!**)
--  [ ] Adding support to open a particular xkcd at the CLI itself.
-   (Thinking of using `img2txt <https://github.com/hit9/img2txt>`__ for
-   that)
+-  [x] Adding support to open a particular xkcd at the CLI itself.
+   Implemented using `xdg-open`. Opens using your default image viewer.
 
 
 Known Issues

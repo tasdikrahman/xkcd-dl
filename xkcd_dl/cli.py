@@ -3,7 +3,7 @@
 # @Author: Tasdik Rahman
 # @Date:   2016-04-19 12:29:20
 # @Last Modified by:   Tasdik Rahman
-# @Last Modified time: 2016-04-19 12:30:51
+# @Last Modified time: 2016-04-19 13:55:46
 # @MIT License
 # @http://tasdikrahman.me
 # @https://github.com/prodicus
@@ -21,7 +21,7 @@ import magic
 import requests
 from bs4 import BeautifulSoup as bs4
 
-from version import VERSION
+from xkcd_dl.version import VERSION
 
 __author__ = "Tasdik Rahman"
 __email__ = "prodicus@outlook.com"

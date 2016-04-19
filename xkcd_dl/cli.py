@@ -3,6 +3,7 @@
 import argparse
 from bs4 import BeautifulSoup as bs4
 from subprocess import call
+import glob
 import magic
 import requests
 import shutil
@@ -207,8 +208,19 @@ def show_xkcd(num):
     download_one(read_dict(), num)
     path = '{current_directory}/xkcd_archive/{name}/'.format(current_directory=WORKING_DIRECTORY, name=num)
     call(["cat", path + "description.txt"])
-    call(["feh", path])
-    #call(["xdg-open", path])
+    #call(["feh", path])
+    ## ''' Comment out the following block if you like to use feh
+    # Or set default image viewer to feh.
+    try:
+        img_path = glob.glob(path + "*.jpeg")[0]
+        call(["xdg-open", img_path])
+    except IndexError:
+        try: 
+            img_path = glob.glob(path + "*.png")[0]
+            call(["xdg-open", img_path])
+        except IndexError:
+            print("Dynamic comic. Please visit in browser.")
+    ## '''
 
 def main():
     args = parser.parse_args()

@@ -13,23 +13,22 @@ finally:
 
 setup(
   name = 'xkcd-dl',
-  version = '0.0.7',
+  version = '0.1.0',
   author = 'Tasdik Rahman',
   author_email = 'prodicus@outlook.com', 
-  description = "Download all or a particular XKCD comic uploaded till date from the Command line",
+  description = "Download all the XKCD's uploaded, ever from the command line",
   long_description=long_description,
   url = 'https://github.com/prodicus/xkcd-dl', 
   license = 'MIT',
   install_requires = [
     "beautifulsoup4==4.4.1",
-    "docopt==0.6.2",
     "python-magic==0.4.10",
     "requests==2.8.1",
   ],
   ### adding package data to it 
   packages=find_packages(exclude=['contrib', 'docs', 'tests']),
   ###
-  download_url = 'https://github.com/prodicus/xkcd-dl/tarball/0.0.7', 
+  download_url = 'https://github.com/prodicus/xkcd-dl/tarball/0.1.0', 
   classifiers = [
       'Intended Audience :: Developers',
       'Topic :: Software Development :: Build Tools',

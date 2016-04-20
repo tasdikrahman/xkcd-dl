@@ -181,7 +181,7 @@ def download_one(xkcd_dict, xkcd_num):
             os.chdir(new_folder)
             with open('description.txt', 'w') as f:
                 content = """title : {description}
-date-publised: {date}
+date-published: {date}
 url: {url}
 alt: {altText} \n""".format(description=description,
                             date=date, url=to_download_single, altText=alt

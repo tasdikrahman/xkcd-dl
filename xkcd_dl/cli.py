@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # @Author: Tasdik Rahman
 # @Date:   2016-04-19 12:29:20
 # @Last Modified by:   Tasdik Rahman
@@ -23,18 +22,18 @@ from bs4 import BeautifulSoup as bs4
 
 from xkcd_dl.version import VERSION
 
-__author__ = "Tasdik Rahman"
-__email__ = "prodicus@outlook.com"
+__author__ = 'Tasdik Rahman'
+__email__ = 'prodicus@outlook.com'
 __version__ = VERSION
 
-
-HOME = expanduser("~")
+HOME = expanduser('~')
 BASE_URL = 'http://xkcd.com'
 ARCHIVE_URL='http://xkcd.com/archive/'
 xkcd_dict_filename = '.xkcd_dict.json'
 xkcd_dict_location = os.path.join(HOME, xkcd_dict_filename)
 SCRIPT_DIRECTORY = os.path.dirname(os.path.abspath(__file__)) 
 WORKING_DIRECTORY = os.getcwd()
+IMAGE_HANDLER = 'xdg-open'
 excludeList = ['1350','1416','1525','1608','1416','1506','1446','1663' ]
 
 def download_all():
@@ -47,14 +46,14 @@ def download_all():
 
 def download_xkcd_range(*something):
     if len(something) != 2:
-        print("Exactly two values are required for this.")
+        print('Exactly two values are required for this.')
     else:
         start, end = something
 
         json_content = read_dict()
         if json_content:
             if start > end:
-                print("Start must be smaller than End.")
+                print('Start must be smaller than End.')
                 return
 
             if is_valid_comic(start) and is_valid_comic(end):
@@ -95,7 +94,7 @@ def update_dict():
         archive_soup = bs4(page_content, 'html.parser') 
         xkcd_dict = dict()
 
-        for data in archive_soup.find_all("div", {"id": "middleContainer"}):
+        for data in archive_soup.find_all('div', {'id': 'middleContainer'}):
             for alinks in data.find_all('a'):
                 href = alinks.get('href').strip("/")
                 date = alinks.get('title')
@@ -119,16 +118,16 @@ def is_valid_comic(num):
         latest_number = response_content["num"]
 
         if not 0 < num <= latest_number:
-            print("XKCD is numbered from 0 to {}".format(latest_number))
+            print('XKCD is numbered from 0 to {}'.format(latest_number))
             return False
         return True
     else:
-        print("There was an internet connection error.")
+        print('There was an internet connection error.')
         return False
 
 def dict_exists():
     if not os.path.isfile(xkcd_dict_location):
-        print("XKCD list not created!Run \nxkcd-dl --update-db")
+        print('XKCD list not created!Run \nxkcd-dl --update-db')
         return False
     return True
 
@@ -144,7 +143,7 @@ def download_one(xkcd_dict, xkcd_num):
     xkcd_number = str(xkcd_num)
     if xkcd_number in excludeList:
         downloadImage = False
-        print("{num} is special. It does not have an image.".format(
+        print('{num} is special. It does not have an image.'.format(
             num=xkcd_number
             )
         )
@@ -181,7 +180,7 @@ def download_one(xkcd_dict, xkcd_num):
             os.chdir(new_folder)
             with open('description.txt', 'w') as f:
                 content = """title : {description}
-date-publised: {date}
+date-published: {date}
 url: {url}
 alt: {altText} \n""".format(description=description,
                             date=date, url=to_download_single, altText=alt
@@ -241,22 +240,19 @@ def show_xkcd(num):
         name=num
     )
     call(["cat", path + "description.txt"])
-    #call(["feh", path])
-    ## ''' Comment out the following block if you like to use feh
-    # Or set default image viewer to feh.
     try:
         img_path = glob.glob(path + "*.jpeg")[0]
-        call(["xdg-open", img_path])
+        call([IMAGE_HANDLER, img_path])
     except IndexError:
         try: 
             img_path = glob.glob(path + "*.png")[0]
-            call(["xdg-open", img_path])
+            call([IMAGE_HANDLER, img_path])
         except IndexError:
-            print("Dynamic comic. Please visit in browser.")
-    ## '''
+            print('Dynamic comic. Please visit in browser.')
 
 def main():
     args = parser.parse_args()
+    print(args)
     if args.update_db:
         update_dict()
     elif args.download_latest:

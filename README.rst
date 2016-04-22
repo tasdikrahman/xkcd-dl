@@ -35,6 +35,26 @@ Features
 
 -  written in uncomplicated ``python``.
 
+Demo
+====
+
+.. figure:: https://raw.githubusercontent.com/prodicus/xkcd-dl/master/assets/usage.gif
+   :alt: Usage
+
+   Usage
+
+Each Comic is stored in it's own individual folder with a
+``description.txt`` placed in it. It contains meta-data like -
+``img-link`` - ``title`` - ``date-published`` - ``alt``
+
+Here's a little example for the same
+
+.. figure:: https://raw.githubusercontent.com/prodicus/xkcd-dl/master/assets/directory_struc.jpg
+   :alt: xkcd\_archive Structure
+
+   xkcd\_archive Structure
+
+
 Usage
 =====
 
@@ -47,6 +67,34 @@ When running for the first time, do a ``xkcd-dl --update-db``
     Stored it in 'xkcd_dict.json'. You can start downloading your XKCD's!
     Run 'xkcd-dl --help' for more options
     $
+
+``--help``
+----------
+
+.. code:: bash
+
+    $ xkcd-dl --help
+    usage: xkcd-dl [-h] [-u] [-l] [-d XKCD_NUM | -a]
+                   [-r [DOWNLOAD_RANGE [DOWNLOAD_RANGE ...]]] [-v] [-P PATH]
+                   [-s XKCD_NUM]
+
+    Run `xkcd-dl --update-db` if running for the first time.
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -u, --update-db       Update the database
+      -l, --download-latest
+                            Download most recent comic
+      -d XKCD_NUM, --download XKCD_NUM
+                            Download specified comic by number
+      -a, --download-all    Download all comics
+      -r [DOWNLOAD_RANGE [DOWNLOAD_RANGE ...]], --download-range [DOWNLOAD_RANGE [DOWNLOAD_RANGE ...]]
+                            Download specified range
+      -v, --version         show program's version number and exit
+      -P PATH, --path PATH  set path
+      -s XKCD_NUM, --show XKCD_NUM
+                            Show specified comic by number
+
 
 ``--download-latest``
 ---------------------
@@ -151,26 +199,6 @@ Opens the specified comic. Downloads it, if not downloaded already. Prints the a
     url: http://xkcd.com/1000/
     alt: Thank you for making me feel less alone.
 
-Demo
-====
-
-.. figure:: https://raw.githubusercontent.com/prodicus/xkcd-dl/master/assets/usage.gif
-   :alt: Usage
-
-   Usage
-
-Each Comic is stored in it's own individual folder with a
-``description.txt`` placed in it. It contains meta-data like -
-``img-link`` - ``title`` - ``date-published`` - ``alt``
-
-Here's a little example for the same
-
-.. figure:: https://raw.githubusercontent.com/prodicus/xkcd-dl/master/assets/directory_struc.jpg
-   :alt: xkcd\_archive Structure
-
-   xkcd\_archive Structure
-
-
 
 Installation
 ============
@@ -217,29 +245,6 @@ For ``Arch`` distributions
 Here is the ``AUR`` link for you
 
 -  `Arch package <https://aur4.archlinux.org/packages/xkcd-dl-git/>`__
-
-
-Help menu:
-==========
-
-.. code:: bash
-
-    $ xkcd-dl --help
-    Run `xkcd-dl --update-db` if running for the first time.
-
-    Usage:
-      xkcd-dl --update-db
-      xkcd-dl --download-latest [--path=PATH]
-      xkcd-dl --download=XKCDNUMBER [--path=PATH]
-      xkcd-dl --downoad-range <START> <END> [--path=PATH]
-      xkcd-dl --download-all [--path=PATH]
-      xkcd-dl --version
-      xkcd-dl (-h | --help)
-    Options:
-      --update-db   Updates dictionary which stores all xkcd"s till date
-      -h --help     Show this screen
-      -v --version  Show version 
-    $
 
 Contributing
 ============

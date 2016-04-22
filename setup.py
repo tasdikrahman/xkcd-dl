@@ -1,9 +1,22 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python
+# @Author: Tasdik Rahman
+# @Date:   2016-04-19 12:34:46
+# @Last Modified by:   Tasdik Rahman
+# @Last Modified time: 2016-04-19 13:58:00
+# @MIT License
+# @http://tasdikrahman.me
+# @https://github.com/prodicus
+
+import os
+
 try:
-  import os
   from setuptools import setup, find_packages
 except ImportError:
   from distutils.core import setup
+
+from xkcd_dl.version import VERSION
+__version__ = VERSION
 
 try:
     readme = open("README.rst")
@@ -13,7 +26,7 @@ finally:
 
 setup(
   name = 'xkcd-dl',
-  version = '0.1.0',
+  version = __version__,
   author = 'Tasdik Rahman',
   author_email = 'prodicus@outlook.com', 
   description = "Download all the XKCD's uploaded, ever from the command line",
@@ -28,7 +41,7 @@ setup(
   ### adding package data to it 
   packages=find_packages(exclude=['contrib', 'docs', 'tests']),
   ###
-  download_url = 'https://github.com/prodicus/xkcd-dl/tarball/0.1.0', 
+  download_url = 'https://github.com/prodicus/xkcd-dl/tarball/'+__version__, 
   classifiers = [
       'Intended Audience :: Developers',
       'Topic :: Software Development :: Build Tools',

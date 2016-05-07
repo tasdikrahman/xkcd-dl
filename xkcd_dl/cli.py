@@ -255,7 +255,6 @@ def show_xkcd(num):
 
 def main():
     args = parser.parse_args()
-    print(args)
     if args.update_db:
         update_dict()
     elif args.download_latest:

@@ -4,7 +4,7 @@ Now we geeks look some [xkcd](https://xkcd.com/) and go on from checking the sit
 
 How about you get to download all of the xkcd which have been uploaded till date? This does just that!
 
-##Features
+##Feautures
 
 - Can download all the xkcd's uploaded till date(1603 as I am writing this!).
 - Download individual xkcd's and store them

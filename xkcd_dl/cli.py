@@ -127,7 +127,7 @@ def is_valid_comic(num):
 
 def dict_exists():
     if not os.path.isfile(xkcd_dict_location):
-        print('XKCD list not created!Run \nxkcd-dl --update-db')
+        print('XKCD list not created! Run the following: \nxkcd-dl --update-db')
         return False
     return True
 
@@ -140,6 +140,9 @@ def read_dict():
         return None
 
 def download_one(xkcd_dict, xkcd_num):
+    if not xkcd_dict:
+        return None
+
     xkcd_number = str(xkcd_num)
     if xkcd_number in excludeList:
         downloadImage = False
@@ -149,8 +152,8 @@ def download_one(xkcd_dict, xkcd_num):
         )
         '''
         [2] Some comics are special and either don't have an image or have a dynamic one.
-            The full list is the array excludeList and needs to be manually update upon release
-            of such comic.
+            The full list is the array excludeList and needs to be manually updated upon the release
+            of such a comic.
         '''
     else:
         downloadImage = True
@@ -252,7 +255,6 @@ def show_xkcd(num):
 
 def main():
     args = parser.parse_args()
-    print(args)
     if args.update_db:
         update_dict()
     elif args.download_latest:

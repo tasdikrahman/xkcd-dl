@@ -36,13 +36,16 @@ IMAGE_HANDLER = 'xdg-open'
 excludeList = ['1350', '1416', '1525', '1608', '1416', '1506', '1446', '1663']
 
 
+def _download_all_xkcd_comic(json_content, comic_numbers):
+    [download_one(json_content, comic_number) for comic_number in comic_numbers]
+
+
 def download_all():
     json_content = read_dict()
     if json_content:
         print("Downloading all xkcd's Till date!!")
         all_keys = json_content.keys()
-        for xkcd_number in all_keys:
-            download_one(json_content, xkcd_number)
+        _download_all_xkcd_comic(json_content, all_keys)
 
 
 def download_xkcd_range(*something):
@@ -61,8 +64,7 @@ def download_xkcd_range(*something):
                 range_numbers = [x for x in range(start, end + 1)]
                 if start <= 404 <= end:
                     range_numbers.remove(404)
-                for number in range_numbers:
-                    download_one(json_content, number)
+                _download_all_xkcd_comic(json_content, range_numbers)
 
 
 def download_latest():
@@ -106,10 +108,9 @@ def update_dict():
 
         with open(xkcd_dict_location, 'w') as f:
             json.dump(xkcd_dict, f)
-            print(
-                "XKCD link database updated\nStored it in '{file}'. "
-                "You can start downloading your XKCD's!\nRun 'xkcd-dl --help' for more options".format(
-                    file=xkcd_dict_location))
+            print("XKCD link database updated\nStored it in '{file}'. "
+                  "You can start downloading your XKCD's!\nRun 'xkcd-dl --help' for more options".
+                  format(file=xkcd_dict_location))
     else:
         print('Something bad happened!')
 
@@ -157,10 +158,7 @@ def download_one(xkcd_dict, xkcd_num):
     xkcd_number = str(xkcd_num)
     if xkcd_number in excludeList:
         download_image = False
-        print('{num} is special. It does not have an image.'.format(
-            num=xkcd_number
-        )
-        )
+        print('{num} is special. It does not have an image.'.format(num=xkcd_number))
         '''
         [2] Some comics are special and either don't have an image or have a dynamic one.
             The full list is the array excludeList and needs to be manually updated upon the release
@@ -171,35 +169,21 @@ def download_one(xkcd_dict, xkcd_num):
     if xkcd_number in xkcd_dict:
         date = xkcd_dict[xkcd_number]['date-published']
         description = xkcd_dict[xkcd_number]['description']
-
         new_description = sanitize_description(description)
-
-        new_folder = '{current_directory}/xkcd_archive/{name}'.format(
-            current_directory=WORKING_DIRECTORY,
-            name=xkcd_number
-        )
-
+        new_folder = '{current_directory}/xkcd_archive/{name}'.format(current_directory=WORKING_DIRECTORY,
+                                                                      name=xkcd_number)
         to_download_single = "{base}/{xkcd_num}/".format(base=BASE_URL, xkcd_num=xkcd_number)
-        print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(
-            img_url=to_download_single,
-            path=new_folder
-        )
-        )
+        print("Downloading xkcd from '{img_url}' and storing it under '{path}'"
+              .format(img_url=to_download_single, path=new_folder))
         alt = requests.get(to_download_single + 'info.0.json').json()['alt']
         if os.path.exists(new_folder):
-            print("xkcd  number '{num}' has already been downloaded!".format(
-                num=xkcd_number)
-            )
+            print("xkcd  number '{num}' has already been downloaded!".format(num=xkcd_number))
         else:
             os.makedirs(new_folder)
             os.chdir(new_folder)
             with open('description.txt', 'w') as f:
-                content = """title : {description}
-date-published: {date}
-url: {url}
-alt: {altText} \n""".format(description=description,
-                            date=date, url=to_download_single, altText=alt
-                            )
+                content = """title : {description} date-published: {date} url: {url} alt: {altText} \n""". \
+                    format(description=description, date=date, url=to_download_single, altText=alt)
                 f.write(content)
 
             image_page = requests.get(to_download_single, stream=True)
@@ -209,8 +193,7 @@ alt: {altText} \n""".format(description=description,
                     image_page_content_soup = bs4(image_page_content, 'html.parser')
 
                     for data in image_page_content_soup.find_all("div", {"id": "comic"}):
-                        for img_tag in data.find_all('img'):
-                            img_link = img_tag.get('src')
+                        img_link = [img_tag.get('src') for img_tag in data.find_all('img')][0]
 
                     complete_img_url = "http:{url}".format(url=img_link)
 
@@ -224,13 +207,9 @@ alt: {altText} \n""".format(description=description,
                         print("Error with connectivity. HTTP error {}".format(r.status_code))
                     magic_response = str(magic.from_file(file_name, mime=True))
                     if 'png' in magic_response:
-                        os.rename(file_name, "{description}.png".format(
-                            description=new_description)
-                                  )
+                        os.rename(file_name, "{description}.png".format(description=new_description))
                     elif 'jpeg' in magic_response:
-                        os.rename(file_name, "{description}.jpeg".format(
-                            description=new_description)
-                                  )
+                        os.rename(file_name, "{description}.jpeg".format(description=new_description))
 
     else:
         print("{} does not exist! Please try with a different option".format(xkcd_number))
@@ -252,10 +231,7 @@ def set_custom_path(custom_path):
 
 def show_xkcd(num):
     download_one(read_dict(), num)
-    path = '{current_directory}/xkcd_archive/{name}/'.format(
-        current_directory=WORKING_DIRECTORY,
-        name=num
-    )
+    path = '{current_directory}/xkcd_archive/{name}/'.format(current_directory=WORKING_DIRECTORY, name=num)
     call(["cat", path + "description.txt"])
     try:
         img_path = glob.glob(path + "*.jpeg")[0]

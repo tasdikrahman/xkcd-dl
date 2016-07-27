@@ -40,6 +40,15 @@ excludeList = ['1350', '1416', '1525', '1608', '1416', '1506', '1446', '1663']
 arguments = docopt(__doc__, version=__version__)
 
 
+def _download_all_xkcd_comic(json_content, comic_numbers):
+    """
+    :param json_content: Data from xkcd_dict.json
+    :param comic_numbers: A list of xkcd comic numbers
+    :return: Downloads one by one all xkcd comics with comic_numbers param
+    """
+    [download_one(json_content, comic_number) for comic_number in comic_numbers]
+
+
 #####  --download-all STARTS
 def download_all():
     """
@@ -49,10 +58,9 @@ def download_all():
     if json_content:
         print("Downloading all xkcd's Till date!!")
         all_keys = json_content.keys()
-        for xkcd_number in all_keys:
-            download_one(json_content, xkcd_number)
+        _download_all_xkcd_comic(json_content, all_keys)
 
-            #####  --download-all ENDS
+#####  --download-all ENDS
 
 
 #####  --download=XKCDNUMBER
@@ -87,10 +95,9 @@ def download_xkcd_range():
             # 404 does not exist, so remove it from the range
             if start <= 404 <= end:
                 range_numbers.remove(404)
-            for number in range_numbers:
-                download_one(json_content, number)
+            _download_all_xkcd_comic(json_content, range_numbers)
 
-                #####  --download-range <START> <END> ends
+#####  --download-range <START> <END> ends
 
 
 #####  --download-latest STARTS
@@ -385,7 +392,7 @@ def main():
         download_xkcd_range()
     elif arguments['--download-all']:
         download_all()
-    elif (arguments['-h'] or arguments['--help']):
+    elif arguments['-h'] or arguments['--help']:
         print(__doc__)
     elif arguments['--version'] or arguments['-v']:
         print(__version__)

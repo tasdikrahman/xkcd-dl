@@ -231,7 +231,10 @@ def set_custom_path(custom_path):
 
 def show_xkcd(num):
     download_one(read_dict(), num)
-    path = '{current_directory}/xkcd_archive/{name}/'.format(current_directory=WORKING_DIRECTORY, name=num)
+    path = '{current_directory}/xkcd_archive/{name}/'.format(
+        current_directory=WORKING_DIRECTORY,
+        name=num
+    )
     call(["cat", path + "description.txt"])
     try:
         img_path = glob.glob(path + "*.jpeg")[0]

@@ -8,6 +8,12 @@ Download each and every `xkcd <http://xkcd.com>`__ comic uploaded! Like ever!
 
 :Author: Tasdik Rahman
 
+If you have found my little bits of software of any use to you, you can help me pay my internet bills :)
+
+|Paypal badge|
+
+Some of my projects are also on `Gratipay <https://gratipay.com/~prodicus/>`__
+
 .. contents::
     :backlinks: none
 
@@ -339,3 +345,5 @@ You can find a copy of the License at http://prodicus.mit-license.org/
    :target: https://badge.fury.io/py/xkcd-dl
 .. |License| image:: https://img.shields.io/pypi/l/xkcd-dl.svg
    :target: https://img.shields.io/pypi/l/xkcd-dl.svg
+.. |Paypal badge| image:: https://tuxtricks.files.wordpress.com/2016/12/donate.png
+   :target: https://www.paypal.me/tasdikrahman

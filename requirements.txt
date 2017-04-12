@@ -1,4 +1,4 @@
 beautifulsoup4==4.5.3
 python-magic==0.4.13
-requests==2.8.1
+requests==2.13.0
 wheel==0.24.0

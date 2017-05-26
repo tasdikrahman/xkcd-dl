@@ -219,6 +219,10 @@ alt: {altText} \n""".format(description=description,
                         os.rename(file_name, "{description}.jpeg".format(
                             description=new_description)
                         )
+                    elif 'gif' in magic_response:
+                        os.rename(file_name, "{description}.gif".format(
+                            description=new_description)
+                        )
 
     else: 
         print("{} does not exist! Please try with a different option".format(xkcd_number))

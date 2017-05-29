@@ -7,4 +7,4 @@
 # @http://tasdikrahman.me
 # @https://github.com/prodicus
 
-VERSION = "0.1.1"
+VERSION = "0.1.2"

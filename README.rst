@@ -319,6 +319,13 @@ tracker <https://github.com/prodicus/xkcd-archiver/issues>`__
 
 You can tweet me at `@tasdikrahman <https://twitter.com/tasdikrahman>`__ if you can't get it to work. In fact, you should tweet me anyway.
 
+Changelog
+=========
+
+- ``0.1.2``:
+   	bug: fixed relative import error in setup.py
+	added support for gif files when renaming downloaded image (#38)
+
 Motivation
 ==========
 

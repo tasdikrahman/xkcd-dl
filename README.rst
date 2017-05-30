@@ -313,7 +313,7 @@ Bugs
 ----
 
 Please report the bugs at the `issue
-tracker <https://github.com/prodicus/xkcd-archiver/issues>`__
+tracker <https://github.com/prodicus/xkcd-dl/issues>`__
 
 **OR**
 

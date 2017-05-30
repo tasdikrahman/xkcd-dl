@@ -13,6 +13,7 @@ import glob
 import shutil
 import json
 import os
+import sys
 from os.path import expanduser, join
 from os import getcwd
 
@@ -33,7 +34,7 @@ xkcd_dict_filename = '.xkcd_dict.json'
 xkcd_dict_location = os.path.join(HOME, xkcd_dict_filename)
 SCRIPT_DIRECTORY = os.path.dirname(os.path.abspath(__file__)) 
 WORKING_DIRECTORY = os.getcwd()
-IMAGE_HANDLER = 'xdg-open'
+IMAGE_HANDLER = 'open' if sys.platform == 'darwin' else 'xdg-open'
 excludeList = ['1350','1416','1525','1608','1416','1506','1446','1663' ]
 
 def download_all():

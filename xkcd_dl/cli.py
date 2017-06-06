@@ -210,7 +210,7 @@ alt: {altText} \n""".format(description=description,
                             r.raw.decode_content = True
                             shutil.copyfileobj(r.raw, f)
                     else:
-                        printf("Error with connectivity. HTTP error {}".format(r.status_code))
+                        print("Error with connectivity. HTTP error {}".format(r.status_code))
                     magic_response = str(magic.from_file(file_name, mime=True))
                     if 'png' in magic_response:
                         os.rename(file_name, "{description}.png".format(

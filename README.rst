@@ -2,7 +2,7 @@
    :alt: logo
 
 
-|PyPI version| |License|
+|PyPI version| |License| |Travis|
 
 Download each and every `xkcd <http://xkcd.com>`__ comic uploaded! Like ever!
 
@@ -356,3 +356,5 @@ You can find a copy of the License at http://prodicus.mit-license.org/
    :target: https://www.paypal.me/tasdikrahman
 .. |Instamojo| image:: https://www.instamojo.com/blog/wp-content/uploads/2017/01/instamojo-91.png
    :target: https://www.instamojo.com/@tasdikrahman
+.. |Travis| image:: https://travis-ci.org/prodicus/xkcd-dl.svg?branch=master
+   :target: https://travis-ci.org/prodicus/xkcd-dl

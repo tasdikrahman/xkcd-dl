@@ -10,7 +10,7 @@ Download each and every `xkcd <http://xkcd.com>`__ comic uploaded! Like ever!
 
 If you have found my little bits of software of any use to you, you can help me pay my internet bills :)
 
-|Paypal badge|
+|Paypal badge| |Instamojo|
 
 Some of my projects are also on `Gratipay <https://gratipay.com/~prodicus/>`__
 
@@ -313,11 +313,18 @@ Bugs
 ----
 
 Please report the bugs at the `issue
-tracker <https://github.com/prodicus/xkcd-archiver/issues>`__
+tracker <https://github.com/prodicus/xkcd-dl/issues>`__
 
 **OR**
 
 You can tweet me at `@tasdikrahman <https://twitter.com/tasdikrahman>`__ if you can't get it to work. In fact, you should tweet me anyway.
+
+Changelog
+=========
+
+- ``0.1.2``:
+   	bug: fixed relative import error in setup.py
+	added support for gif files when renaming downloaded image (#38)
 
 Motivation
 ==========
@@ -347,3 +354,5 @@ You can find a copy of the License at http://prodicus.mit-license.org/
    :target: https://img.shields.io/pypi/l/xkcd-dl.svg
 .. |Paypal badge| image:: https://tuxtricks.files.wordpress.com/2016/12/donate.png
    :target: https://www.paypal.me/tasdikrahman
+.. |Instamojo| image:: https://www.instamojo.com/blog/wp-content/uploads/2017/01/instamojo-91.png
+   :target: https://www.instamojo.com/@tasdikrahman

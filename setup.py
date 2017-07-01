@@ -6,7 +6,7 @@
 # @Last Modified time: 2016-04-19 13:58:00
 # @MIT License
 # @http://tasdikrahman.me
-# @https://github.com/prodicus
+# @https://github.com/tasdikrahman
 
 import os
 
@@ -31,7 +31,7 @@ setup(
   author_email = 'prodicus@outlook.com', 
   description = "Download all the XKCD's uploaded, ever from the command line",
   long_description=long_description,
-  url = 'https://github.com/prodicus/xkcd-dl', 
+  url = 'https://github.com/tasdikrahman/xkcd-dl', 
   license = 'MIT',
   install_requires = [
     "beautifulsoup4==4.4.1",
@@ -41,7 +41,7 @@ setup(
   ### adding package data to it 
   packages=find_packages(exclude=['contrib', 'docs', 'tests']),
   ###
-  download_url = 'https://github.com/prodicus/xkcd-dl/tarball/'+__version__, 
+  download_url = 'https://github.com/tasdikrahman/xkcd-dl/tarball/'+__version__, 
   classifiers = [
       'Intended Audience :: Developers',
       'Topic :: Software Development :: Build Tools',

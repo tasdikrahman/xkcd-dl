@@ -5,7 +5,7 @@
 # @Last Modified time: 2016-04-05 16:32:19
 # @GPLv3 License
 # @http://tasdikrahman.me
-# @https://github.com/prodicus/plino
+# @https://github.com/tasdikrahman/plino
 
 # virtualenv executables
 PIP := $(BIN)/pip

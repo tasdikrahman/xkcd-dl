@@ -5,6 +5,6 @@
 # @Last Modified time: 2016-04-19 13:58:19
 # @GPLv3 License
 # @http://tasdikrahman.me
-# @https://github.com/prodicus
+# @https://github.com/tasdikrahman
 
 VERSION = "0.1.2"

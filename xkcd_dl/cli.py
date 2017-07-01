@@ -5,7 +5,7 @@
 # @Last Modified time: 2016-04-19 14:03:33
 # @MIT License
 # @http://tasdikrahman.me
-# @https://github.com/prodicus
+# @https://github.com/tasdikrahman
 
 import argparse
 from subprocess import call

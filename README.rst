@@ -1,4 +1,4 @@
-.. figure:: https://raw.githubusercontent.com/prodicus/xkcd-dl/master/assets/logo.png
+.. figure:: https://raw.githubusercontent.com/tasdikrahman/xkcd-dl/master/assets/logo.png
    :alt: logo
 
 
@@ -12,7 +12,7 @@ If you have found my little bits of software of any use to you, you can help me 
 
 |Paypal badge| |Instamojo|
 
-Some of my projects are also on `Gratipay <https://gratipay.com/~prodicus/>`__
+Some of my projects are also on `Gratipay <https://gratipay.com/~tasdikrahman/>`__
 
 .. contents::
     :backlinks: none
@@ -44,7 +44,7 @@ Features
 Demo
 ====
 
-.. figure:: https://raw.githubusercontent.com/prodicus/xkcd-dl/master/assets/usage.gif
+.. figure:: https://raw.githubusercontent.com/tasdikrahman/xkcd-dl/master/assets/usage.gif
    :alt: Usage
 
    Usage
@@ -55,7 +55,7 @@ Each Comic is stored in it's own individual folder with a
 
 Here's a little example for the same
 
-.. figure:: https://raw.githubusercontent.com/prodicus/xkcd-dl/master/assets/directory_struc.jpg
+.. figure:: https://raw.githubusercontent.com/tasdikrahman/xkcd-dl/master/assets/directory_struc.jpg
    :alt: xkcd\_archive Structure
 
    xkcd\_archive Structure
@@ -228,7 +228,7 @@ Option 2: installing from source
 
 .. code:: bash
 
-    $ git clone https://github.com/prodicus/xkcd-dl.git
+    $ git clone https://github.com/tasdikrahman/xkcd-dl.git
     $ cd xkcd-dl/
     $ pip3 install -r requirements.txt
     $ python3 setup.py install
@@ -269,7 +269,7 @@ Contributors
 
 Big shout out to
 
--  `Ian C <https://github.com/GrappigPanda>`__ for fixing issue `#2 <https://github.com/prodicus/xkcd-dl/issues/2>`__ which stopped the download if a title of a comic had a special character in it and `BlitzKraft <https://github.com/BlitzKraft>`__ for pointing it out.
+-  `Ian C <https://github.com/GrappigPanda>`__ for fixing issue `#2 <https://github.com/tasdikrahman/xkcd-dl/issues/2>`__ which stopped the download if a title of a comic had a special character in it and `BlitzKraft <https://github.com/BlitzKraft>`__ for pointing it out.
 -  `BlitzKraft <https://github.com/BlitzKraft>`__ for adding the feature to download the `alt-text` from the the xkcd **and** major clean ups!
 -  `Braden Best <https://github.com/bradenbest>`__ for pointing out the issues when installing from source apart from his valuable input.
 
@@ -294,7 +294,7 @@ Known Issues
 
 -  There have been issues when installed from source if you are using
    ``python 2.*`` as discussed in
-   `#5 <https://github.com/prodicus/xkcd-dl/issues/5#issuecomment-159868497>`__.
+   `#5 <https://github.com/tasdikrahman/xkcd-dl/issues/5#issuecomment-159868497>`__.
    So using ``python3.*`` is suggested.
 -  If you get ``command not found`` when installing, it may mean that
    you don't have ``pip3`` installed.
@@ -313,7 +313,7 @@ Bugs
 ----
 
 Please report the bugs at the `issue
-tracker <https://github.com/prodicus/xkcd-dl/issues>`__
+tracker <https://github.com/tasdikrahman/xkcd-dl/issues>`__
 
 **OR**
 
@@ -336,14 +336,14 @@ till date? This does just that!
 
 Now I don't know about you, but I just love reading ``xkcd``'s! Had a boring Sunday night looming over, thought why not create something like ``youtube-dl`` but for downloading ``xkcd``'s!
 
-And hence `xkcd-dl <https://github.com/prodicus/xkcd-dl>`__
+And hence `xkcd-dl <https://github.com/tasdikrahman/xkcd-dl>`__
 
 Cheers to a crazy night!
 
 Legal stuff
 ===========
 
-Built with ♥ by `Tasdik Rahman <http://tasdikrahman.me>`__ `(@tasdikrahman) <https://twitter.com/tasdikrahman>`__ and `others <https://github.com/prodicus/xkcd-dl/graphs/contributors>`__ released under `MIT License <http://prodicus.mit-license.org>`__
+Built with ♥ by `Tasdik Rahman <http://tasdikrahman.me>`__ `(@tasdikrahman) <https://twitter.com/tasdikrahman>`__ and `others <https://github.com/tasdikrahman/xkcd-dl/graphs/contributors>`__ released under `MIT License <http://prodicus.mit-license.org>`__
 
 You can find a copy of the License at http://prodicus.mit-license.org/
 

@@ -8,12 +8,6 @@ Download each and every `xkcd <http://xkcd.com>`__ comic uploaded! Like ever!
 
 :Author: Tasdik Rahman
 
-If you have found my little bits of software of any use to you, you can help me pay my internet bills :)
-
-|Paypal badge| |Instamojo|
-
-Some of my projects are also on `Gratipay <https://gratipay.com/~tasdikrahman/>`__
-
 .. contents::
     :backlinks: none
 
@@ -347,12 +341,29 @@ Built with ♥ by `Tasdik Rahman <http://tasdikrahman.me>`__ `(@tasdikrahman) <h
 
 You can find a copy of the License at http://prodicus.mit-license.org/
 
+Donation
+========
+
+If you have found my little bits of software of any use to you, you can help me pay my internet bills :)
+
+|Paypal badge|
+
+|Instamojo|
+
+|gratipay|
+
+|patreon|
+
 
 .. |PyPI version| image:: https://badge.fury.io/py/xkcd-dl.svg
    :target: https://badge.fury.io/py/xkcd-dl
 .. |License| image:: https://img.shields.io/pypi/l/xkcd-dl.svg
    :target: https://img.shields.io/pypi/l/xkcd-dl.svg
-.. |Paypal badge| image:: https://tuxtricks.files.wordpress.com/2016/12/donate.png
-   :target: https://www.paypal.me/tasdikrahman
-.. |Instamojo| image:: https://www.instamojo.com/blog/wp-content/uploads/2017/01/instamojo-91.png
+.. |Paypal badge| image:: https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg
+   :target: https://www.paypal.me/tasdik
+.. |gratipay| image:: https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png
+   :target: https://gratipay.com/tasdikrahman/
+.. |Instamojo| image:: https://www.soldermall.com/images/pic-online-payment.jpg
    :target: https://www.instamojo.com/@tasdikrahman
+.. |patreon| image:: http://i.imgur.com/ICWPFOs.png
+   :target: https://www.patreon.com/tasdikrahman/

@@ -2,7 +2,7 @@
    :alt: logo
 
 
-|PyPI version| |License|
+|PyPI version| |License| |Travis|
 
 Download each and every `xkcd <http://xkcd.com>`__ comic uploaded! Like ever!
 
@@ -183,7 +183,7 @@ paths work, but the directory must already exist.
 Opens the specified comic. Downloads it, if not downloaded already. Prints the alt text and metadata to stdout.
 
 .. code:: bash
-        
+
     $ xkcd-dl --show 32
     Downloading xkcd from 'http://xkcd.com/32/' and storing it under '/home/bk/Documents/xkcd-dl/xkcd_dl/xkcd_archive/32'
     title : Pillar
@@ -281,6 +281,7 @@ To-do
    ``download_latest()`` and ``download_all()`` (**Refactoring!!**)
 -  [x] Adding support to open a particular xkcd at the CLI itself.
    Implemented using `xdg-open`. Opens using your default image viewer.
+-  [x] Add tests
 
 
 Known Issues
@@ -300,7 +301,7 @@ Known Issues
 
     $ pip3 --version
     pip 1.5.6 from /usr/lib/python3/dist-packages (python 3.4)
-    $ 
+    $
 
 
 Bugs
@@ -317,8 +318,8 @@ Changelog
 =========
 
 - ``0.1.2``:
-   	bug: fixed relative import error in setup.py
-	added support for gif files when renaming downloaded image (#38)
+    bug: fixed relative import error in setup.py
+    added support for gif files when renaming downloaded image (#38)
 
 Motivation
 ==========
@@ -365,5 +366,7 @@ If you have found my little bits of software of any use to you, you can help me 
    :target: https://gratipay.com/tasdikrahman/
 .. |Instamojo| image:: https://www.soldermall.com/images/pic-online-payment.jpg
    :target: https://www.instamojo.com/@tasdikrahman
+.. |Travis| image:: https://travis-ci.org/tasdikrahman/xkcd-dl.svg?branch=master
+   :target: https://travis-ci.org/tasdikrahman/xkcd-dl
 .. |patreon| image:: http://i.imgur.com/ICWPFOs.png
    :target: https://www.patreon.com/tasdikrahman/

@@ -368,5 +368,7 @@ If you have found my little bits of software of any use to you, you can help me 
    :target: https://www.instamojo.com/@tasdikrahman
 .. |Travis| image:: https://travis-ci.org/tasdikrahman/xkcd-dl.svg?branch=master
    :target: https://travis-ci.org/tasdikrahman/xkcd-dl
+.. |Travis| image:: https://travis-ci.org/tasdikrahman/xkcd-dl.svg?branch=master
+   :target: https://travis-ci.org/tasdikrahman/xkcd-dl
 .. |patreon| image:: http://i.imgur.com/ICWPFOs.png
    :target: https://www.patreon.com/tasdikrahman/

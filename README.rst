@@ -2,7 +2,7 @@
    :alt: logo
 
 
-|PyPI version| |License|
+|PyPI version| |License| |Travis|
 
 Download each and every `xkcd <http://xkcd.com>`__ comic uploaded! Like ever!
 
@@ -365,5 +365,7 @@ If you have found my little bits of software of any use to you, you can help me 
    :target: https://gratipay.com/tasdikrahman/
 .. |Instamojo| image:: https://www.soldermall.com/images/pic-online-payment.jpg
    :target: https://www.instamojo.com/@tasdikrahman
+.. |Travis| image:: https://travis-ci.org/prodicus/xkcd-dl.svg?branch=master
+   :target: https://travis-ci.org/prodicus/xkcd-dl
 .. |patreon| image:: http://i.imgur.com/ICWPFOs.png
    :target: https://www.patreon.com/tasdikrahman/

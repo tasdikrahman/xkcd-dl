@@ -13,7 +13,6 @@ from mock import MagicMock
 import shutil
 
 
-
 def get_fake_xkcd_json_dict():
     from tests.inputs import XKCD_ARCHIVE_JSON
     return json.loads(XKCD_ARCHIVE_JSON)
@@ -44,7 +43,7 @@ class Unittests(unittest.TestCase):
         mock_api_call.return_value.content = res
 
         update_dict()
-        
+
         with open(tmp_file.name) as json_file:
             data = json.load(json_file)
         assert len(data) == 1849
@@ -59,22 +58,26 @@ class Unittests(unittest.TestCase):
     @mock.patch('xkcd_dl.cli.is_valid_comic', return_value=True)
     @mock.patch('xkcd_dl.cli.read_dict', side_effect=get_fake_xkcd_json_dict)
     @mock.patch('xkcd_dl.cli.download_one')
-    def test_download_xkcd_range_normal(self, download_one_stub, fake_dict, is_valid_comic_stub):
+    def test_download_xkcd_range_normal(self, download_one_stub, fake_dict,
+                                        is_valid_comic_stub):
         download_xkcd_range(233, 236)
         assert download_one_stub.call_count == 4
 
     @mock.patch('xkcd_dl.cli.is_valid_comic', return_value=True)
     @mock.patch('xkcd_dl.cli.read_dict', side_effect=get_fake_xkcd_json_dict)
     @mock.patch('xkcd_dl.cli.download_one')
-    def test_download_xkcd_range_with_404(self, download_one_stub, fake_dict, is_valid_comic_stub):
+    def test_download_xkcd_range_with_404(self, download_one_stub, fake_dict,
+                                          is_valid_comic_stub):
         download_xkcd_range(400, 405)
         assert download_one_stub.call_count == 5
 
     @mock.patch('xkcd_dl.cli.read_dict', side_effect=get_fake_xkcd_json_dict)
     @mock.patch('xkcd_dl.cli.download_one')
-    def test_download_xkcd_range_wrong_range(self, download_one_stub, fake_dict):
+    def test_download_xkcd_range_wrong_range(self, download_one_stub,
+                                             fake_dict):
         download_xkcd_range(405, 400)
-        assert sys.stdout.getvalue().strip() == "Start must be smaller than End."
+        assert sys.stdout.getvalue().strip(
+        ) == "Start must be smaller than End."
 
     @mock.patch('xkcd_dl.cli.requests.get')
     def test_valid_comic(self, mock_api_call):
@@ -114,7 +117,9 @@ class Unittests(unittest.TestCase):
         mock_image_content_call.raw = MagicMock(spec=HTTPResponse)
         mock_image_content_call.status_code = 200
 
-        mock_call.side_effect = [mock_info_call, mock_image_call, mock_image_content_call]
+        mock_call.side_effect = [
+            mock_info_call, mock_image_call, mock_image_content_call
+        ]
         xkcd_dl.cli.WORKING_DIRECTORY = tempfile.mkdtemp()
         download_one(get_fake_xkcd_json_dict(), 1550)
         xkcd_download_folder = xkcd_dl.cli.WORKING_DIRECTORY + "/xkcd_archive/1550/"
@@ -148,22 +153,27 @@ class Unittests(unittest.TestCase):
         mock_image_content_call.raw = MagicMock(spec=HTTPResponse)
         mock_image_content_call.status_code = 200
 
-        mock_call.side_effect = [mock_info_call, mock_image_call, mock_image_content_call, mock_info_call,
-                                 mock_image_call, mock_image_content_call]
+        mock_call.side_effect = [
+            mock_info_call, mock_image_call, mock_image_content_call,
+            mock_info_call, mock_image_call, mock_image_content_call
+        ]
         xkcd_dl.cli.WORKING_DIRECTORY = tempfile.mkdtemp()
         download_one(get_fake_xkcd_json_dict(), 1550)
         download_one(get_fake_xkcd_json_dict(), 1550)
 
-        assert sys.stdout.getvalue().split('\n')[-2] == "xkcd  number '1550' has already been downloaded!"
+        assert sys.stdout.getvalue().split('\n')[
+            -2] == "xkcd  number '1550' has already been downloaded!"
 
         shutil.rmtree(xkcd_dl.cli.WORKING_DIRECTORY, ignore_errors=True)
 
     @mock.patch('xkcd_dl.cli.requests.get')
     def test_download_one_invalid(self, mock_api_call):
         download_one(get_fake_xkcd_json_dict(), 11)
-        assert sys.stdout.getvalue().strip() == "11 does not exist! Please try with a different option"
+        assert sys.stdout.getvalue().strip(
+        ) == "11 does not exist! Please try with a different option"
 
     @mock.patch('xkcd_dl.cli.requests.get')
     def test_download_exclusion_list(self, mock_api_call):
         download_one(get_fake_xkcd_json_dict(), 1525)
-        assert "1525 is special. It does not have an image." in sys.stdout.getvalue()
+        assert "1525 is special. It does not have an image." in sys.stdout.getvalue(
+        )

@@ -11,9 +11,9 @@
 import os
 
 try:
-  from setuptools import setup, find_packages
+    from setuptools import setup, find_packages
 except ImportError:
-  from distutils.core import setup
+    from distutils.core import setup
 
 from xkcd_dl.version import VERSION
 __version__ = VERSION
@@ -25,38 +25,36 @@ finally:
     readme.close()
 
 setup(
-  name = 'xkcd-dl',
-  version = __version__,
-  author = 'Tasdik Rahman',
-  author_email = 'prodicus@outlook.com', 
-  description = "Download all the XKCD's uploaded, ever from the command line",
-  long_description=long_description,
-  url = 'https://github.com/tasdikrahman/xkcd-dl', 
-  license = 'MIT',
-  install_requires = [
-    "beautifulsoup4==4.4.1",
-    "python-magic==0.4.10",
-    "requests==2.8.1",
-  ],
-  ### adding package data to it 
-  packages=find_packages(exclude=['contrib', 'docs', 'tests']),
-  ###
-  download_url = 'https://github.com/tasdikrahman/xkcd-dl/tarball/'+__version__, 
-  classifiers = [
-      'Intended Audience :: Developers',
-      'Topic :: Software Development :: Build Tools',
-      'Environment :: Console',
-      'Intended Audience :: Developers',
-      'License :: OSI Approved :: MIT License',
-      'Natural Language :: English',
-      'Programming Language :: Python',
-      'Programming Language :: Python :: 3',
-      'Programming Language :: Python :: 3.4',
-  ],
-  keywords = ['xkcd', 'cli', 'commandline','download', 'api', 'comic'], 
-  entry_points = {
-        'console_scripts': [
-            'xkcd-dl = xkcd_dl.cli:main'
-      ],
-    }
-)
+    name='xkcd-dl',
+    version=__version__,
+    author='Tasdik Rahman',
+    author_email='prodicus@outlook.com',
+    description="Download all the XKCD's uploaded, ever from the command line",
+    long_description=long_description,
+    url='https://github.com/tasdikrahman/xkcd-dl',
+    license='MIT',
+    install_requires=[
+        "beautifulsoup4==4.4.1",
+        "python-magic==0.4.10",
+        "requests==2.8.1",
+    ],
+    ### adding package data to it
+    packages=find_packages(exclude=['contrib', 'docs', 'tests']),
+    ###
+    download_url='https://github.com/tasdikrahman/xkcd-dl/tarball/' +
+    __version__,
+    classifiers=[
+        'Intended Audience :: Developers',
+        'Topic :: Software Development :: Build Tools',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+    ],
+    keywords=['xkcd', 'cli', 'commandline', 'download', 'api', 'comic'],
+    entry_points={
+        'console_scripts': ['xkcd-dl = xkcd_dl.cli:main'],
+    })

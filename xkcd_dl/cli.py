@@ -32,7 +32,7 @@ BASE_URL = 'http://xkcd.com'
 ARCHIVE_URL='http://xkcd.com/archive/'
 xkcd_dict_filename = '.xkcd_dict.json'
 xkcd_dict_location = os.path.join(HOME, xkcd_dict_filename)
-SCRIPT_DIRECTORY = os.path.dirname(os.path.abspath(__file__)) 
+SCRIPT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 WORKING_DIRECTORY = os.getcwd()
 IMAGE_HANDLER = 'open' if sys.platform == 'darwin' else 'xdg-open'
 excludeList = ['1350','1416','1525','1608','1416','1506','1446','1663' ]
@@ -43,7 +43,7 @@ def download_all():
         print("Downloading all xkcd's Till date!!")
         all_keys = json_content.keys()
         for xkcd_number in all_keys:
-            download_one(json_content, xkcd_number) 
+            download_one(json_content, xkcd_number)
 
 def download_xkcd_range(*something):
     if len(something) != 2:
@@ -60,10 +60,10 @@ def download_xkcd_range(*something):
             if is_valid_comic(start) and is_valid_comic(end):
                 range_numbers = [x for x in range(start, end+1)]
                 if start <= 404 <= end:
-                    range_numbers.remove(404) 
+                    range_numbers.remove(404)
                 for number in range_numbers:
-                   download_one(json_content, number) 
- 
+                   download_one(json_content, number)
+
 def download_latest():
     update_dict()
     url = 'https://www.xkcd.com/info.0.json'
@@ -83,7 +83,7 @@ def make_keyvalue_list(xkcd_dict, xkcd_num, date, description):
         keyvalue_list['description'] = description
 
     '''
-    [1] the description for XKCD number is 
+    [1] the description for XKCD number is
     "<span style="color: #0000ED">House</span>". It's hard coded currently
     But it works.
     '''
@@ -92,19 +92,19 @@ def update_dict():
     archive_page = requests.get(ARCHIVE_URL)
     if archive_page.status_code == 200:
         page_content = archive_page.content
-        archive_soup = bs4(page_content, 'html.parser') 
+        archive_soup = bs4(page_content, 'html.parser')
         xkcd_dict = dict()
 
         for data in archive_soup.find_all('div', {'id': 'middleContainer'}):
             for alinks in data.find_all('a'):
                 href = alinks.get('href').strip("/")
                 date = alinks.get('title')
-                description = alinks.contents[0]       
-                make_keyvalue_list(xkcd_dict, href, date, description) 
+                description = alinks.contents[0]
+                make_keyvalue_list(xkcd_dict, href, date, description)
 
         with open(xkcd_dict_location, 'w') as f:
             json.dump(xkcd_dict, f)
-            print("XKCD link database updated\nStored it in '{file}'. You can start downloading your XKCD's!\nRun 'xkcd-dl --help' for more options".format(file=xkcd_dict_location)) 
+            print("XKCD link database updated\nStored it in '{file}'. You can start downloading your XKCD's!\nRun 'xkcd-dl --help' for more options".format(file=xkcd_dict_location))
     else:
         print('Something bad happened!')
 
@@ -165,13 +165,13 @@ def download_one(xkcd_dict, xkcd_num):
         new_description = sanitize_description(description)
 
         new_folder = '{current_directory}/xkcd_archive/{name}'.format(
-            current_directory=WORKING_DIRECTORY, 
+            current_directory=WORKING_DIRECTORY,
             name=xkcd_number
         )
 
         to_download_single = "{base}/{xkcd_num}/".format(base=BASE_URL, xkcd_num=xkcd_number)
         print("Downloading xkcd from '{img_url}' and storing it under '{path}'".format(
-            img_url=to_download_single, 
+            img_url=to_download_single,
             path=new_folder
             )
         )
@@ -197,35 +197,42 @@ alt: {altText} \n""".format(description=description,
                     image_page_content = image_page.content
                     image_page_content_soup = bs4(image_page_content, 'html.parser')
 
+                    img_links = []
                     for data in image_page_content_soup.find_all("div", {"id": "comic"}):
                         for img_tag in data.find_all('img'):
-                            img_link = img_tag.get('src')
+                            img_links.append(img_tag.get('src'))
 
-                    complete_img_url = "http:{url}".format(url=img_link)
+                    for img_link in img_links:
+                        complete_img_url = "http:{url}".format(url=img_link)
 
-                    file_name = "{description}.jpg".format(description=new_description)
-                    r = requests.get(complete_img_url, stream = True)
-                    if r.status_code == 200:
-                        with open(file_name, 'wb') as f:
-                            r.raw.decode_content = True
-                            shutil.copyfileobj(r.raw, f)
-                    else:
-                        print("Error with connectivity. HTTP error {}".format(r.status_code))
-                    magic_response = str(magic.from_file(file_name, mime=True))
-                    if 'png' in magic_response:
-                        os.rename(file_name, "{description}.png".format(
-                            description=new_description)
-                        )
-                    elif 'jpeg' in magic_response:
-                        os.rename(file_name, "{description}.jpeg".format(
-                            description=new_description)
-                        )
-                    elif 'gif' in magic_response:
-                        os.rename(file_name, "{description}.gif".format(
-                            description=new_description)
-                        )
+                        if "http://imgs.xkcd.com/" not in complete_img_url:
+                            complete_img_url = complete_img_url.replace("http:/", "http://xkcd.com/")
+                            file_name = complete_img_url.split("/")[-1]
+                        else:
+                            file_name = "{description}.jpg".format(description=new_description)
 
-    else: 
+                        r = requests.get(complete_img_url, stream = True)
+                        if r.status_code == 200:
+                            with open(file_name, 'wb') as f:
+                                r.raw.decode_content = True
+                                shutil.copyfileobj(r.raw, f)
+                        else:
+                            print("Error with connectivity. HTTP error {}".format(r.status_code))
+                        magic_response = str(magic.from_file(file_name, mime=True))
+                        if 'png' in magic_response:
+                            os.rename(file_name, "{description}.png".format(
+                                description=file_name.split(".")[0])
+                            )
+                        elif 'jpeg' in magic_response:
+                            os.rename(file_name, "{description}.jpeg".format(
+                                description=file_name.split(".")[0])
+                            )
+                        elif 'gif' in magic_response:
+                            os.rename(file_name, "{description}.gif".format(
+                                description=file_name.split(".")[0])
+                            )
+
+    else:
         print("{} does not exist! Please try with a different option".format(xkcd_number))
 
 def set_custom_path(custom_path):
@@ -244,7 +251,7 @@ def set_custom_path(custom_path):
 def show_xkcd(num):
     download_one(read_dict(), num)
     path = '{current_directory}/xkcd_archive/{name}/'.format(
-        current_directory=WORKING_DIRECTORY, 
+        current_directory=WORKING_DIRECTORY,
         name=num
     )
     call(["cat", path + "description.txt"])
@@ -252,7 +259,7 @@ def show_xkcd(num):
         img_path = glob.glob(path + "*.jpeg")[0]
         call([IMAGE_HANDLER, img_path])
     except IndexError:
-        try: 
+        try:
             img_path = glob.glob(path + "*.png")[0]
             call([IMAGE_HANDLER, img_path])
         except IndexError:
@@ -279,11 +286,11 @@ def main():
 
 parser = argparse.ArgumentParser(prog='xkcd-dl', description='Run `xkcd-dl --update-db` if running for the first time.')
 parser.add_argument('-u', '--update-db', action='store_true', help='Update the database')
-parser.add_argument('-l', '--download-latest', action='store_true', help='Download most recent comic') 
+parser.add_argument('-l', '--download-latest', action='store_true', help='Download most recent comic')
 group = parser.add_mutually_exclusive_group()
 group.add_argument('-d', '--download', help='Download specified comic by number', type=int, metavar='XKCD_NUM')
 group.add_argument('-a', '--download-all', action='store_true', help='Download all comics')
-parser.add_argument('-r', '--download-range', nargs='*', help='Download specified range', type=int) 
+parser.add_argument('-r', '--download-range', nargs='*', help='Download specified range', type=int)
 parser.add_argument('-v', '--version', action='version', version=__version__)
 parser.add_argument('-P', '--path', help='set path')
 parser.add_argument('-s', '--show', help='Show specified comic by number', type=int, metavar='XKCD_NUM')

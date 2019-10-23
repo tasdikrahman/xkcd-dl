@@ -36,7 +36,7 @@ setup(
   install_requires = [
     "beautifulsoup4==4.4.1",
     "python-magic==0.4.10",
-    "requests==2.8.1",
+    "requests==2.20.0",
   ],
   ### adding package data to it 
   packages=find_packages(exclude=['contrib', 'docs', 'tests']),

@@ -23,6 +23,9 @@ from bs4 import BeautifulSoup as bs4
 
 from xkcd_dl.version import VERSION
 
+from multiprocessing.pool import ThreadPool
+from functools import partial
+
 __author__ = 'Tasdik Rahman'
 __email__ = 'prodicus@outlook.com'
 __version__ = VERSION
@@ -37,13 +40,19 @@ WORKING_DIRECTORY = os.getcwd()
 IMAGE_HANDLER = 'open' if sys.platform == 'darwin' else 'xdg-open'
 excludeList = ['1350','1416','1525','1608','1416','1506','1446','1663' ]
 
-def download_all():
+def download_all(thread):
     json_content = read_dict()
     if json_content:
         print("Downloading all xkcd's Till date!!")
-        all_keys = json_content.keys()
-        for xkcd_number in all_keys:
-            download_one(json_content, xkcd_number) 
+        all_keys = list(json_content.keys())
+        if thread:
+            results = ThreadPool(thread).imap(partial(download_one, json_content), all_keys)
+            for r in results:
+                if r:
+                    print(r)
+        else:
+            for xkcd_number in all_keys:
+                download_one(json_content, xkcd_number) 
 
 def download_xkcd_range(*something):
     if len(something) != 2:
@@ -142,7 +151,7 @@ def read_dict():
 
 def download_one(xkcd_dict, xkcd_num):
     if not xkcd_dict:
-        return None
+        return 
 
     xkcd_number = str(xkcd_num)
     if xkcd_number in excludeList:
@@ -181,8 +190,8 @@ def download_one(xkcd_dict, xkcd_num):
         )
         else:
             os.makedirs(new_folder)
-            os.chdir(new_folder)
-            with open('description.txt', 'w') as f:
+            # os.chdir(new_folder)
+            with open("{}/description.txt".format(new_folder), 'w') as f:
                 content = """title : {description}
 date-published: {date}
 url: {url}
@@ -203,7 +212,7 @@ alt: {altText} \n""".format(description=description,
 
                     complete_img_url = "http:{url}".format(url=img_link)
 
-                    file_name = "{description}.jpg".format(description=new_description)
+                    file_name = "{base}/{description}.jpg".format(description=new_description, base=new_folder)
                     r = requests.get(complete_img_url, stream = True)
                     if r.status_code == 200:
                         with open(file_name, 'wb') as f:
@@ -213,15 +222,18 @@ alt: {altText} \n""".format(description=description,
                         print("Error with connectivity. HTTP error {}".format(r.status_code))
                     magic_response = str(magic.from_file(file_name, mime=True))
                     if 'png' in magic_response:
-                        os.rename(file_name, "{description}.png".format(
+                        os.rename(file_name, "{base}/{description}.png".format(
+                            base=new_folder,
                             description=new_description)
                         )
                     elif 'jpeg' in magic_response:
-                        os.rename(file_name, "{description}.jpeg".format(
+                        os.rename(file_name, "{base}/{description}.jpeg".format(
+                            base=new_folder,
                             description=new_description)
                         )
                     elif 'gif' in magic_response:
-                        os.rename(file_name, "{description}.gif".format(
+                        os.rename(file_name, "{base}/{description}.gif".format(
+                            base=new_folder,
                             description=new_description)
                         )
 
@@ -267,7 +279,7 @@ def main():
     elif args.download:
         download_one(read_dict(), args.download)
     elif args.download_all:
-        download_all()
+        download_all(args.thread)
     elif args.download_range:
         download_xkcd_range(*args.download_range)
     elif args.show:
@@ -287,6 +299,7 @@ parser.add_argument('-r', '--download-range', nargs='*', help='Download specifie
 parser.add_argument('-v', '--version', action='version', version=__version__)
 parser.add_argument('-P', '--path', help='set path')
 parser.add_argument('-s', '--show', help='Show specified comic by number', type=int, metavar='XKCD_NUM')
+parser.add_argument('-n', '--thread', help='Change thread count', type=int)
 
 if __name__ == '__main__':
     main()
